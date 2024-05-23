@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
 // import 'package:flutter_application_1/screens/home_screen.dart';
 import 'package:flutter_application_1/screens/signUp.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 
 import '../navBar/navBar.dart';
 
@@ -14,6 +16,24 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool passwordVisible = false;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  void login() async {
+    final String email = emailController.text;
+    final String password = passwordController.text;
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => GoogleNavBar()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 55,
                       child: TextField(
+                        controller: emailController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)),
@@ -80,6 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 55,
                       child: TextField(
+                        controller: passwordController,
                         obscureText: passwordVisible,
                         decoration: InputDecoration(
                           fillColor: Colors.transparent,
@@ -116,13 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: MediaQuery.of(context).size.width * 0.9,
                 decoration: const BoxDecoration(),
                 child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => GoogleNavBar()));
-                      // Add your button action here
-                    },
+                    onPressed: login,
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius:

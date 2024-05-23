@@ -38,6 +38,8 @@ dependencies:
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.3
   get: ^4.6.6
+  firebase_core: ^2.31.1
+  firebase_auth: ^4.19.6
 
 dev_dependencies:
   flutter_test:

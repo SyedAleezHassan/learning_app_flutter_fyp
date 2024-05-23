@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:learning_app_fyp/screens/login.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -12,6 +13,30 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   bool passwordVisible = false;
   bool value = false;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  void register() async {
+    final String email = emailController.text;
+    final String password = passwordController.text;
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +73,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         height: 55,
                         child: TextField(
+                          controller: emailController,
+                          // validator: (text) {
+                          //   if (text == null || text.isEmpty)
+                          //     return "email is empty";
+                          // },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8)),
@@ -78,6 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         height: 55,
                         child: TextField(
+                          controller: passwordController,
                           obscureText: passwordVisible,
                           decoration: InputDecoration(
                             fillColor: Colors.transparent,
@@ -114,9 +145,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: MediaQuery.of(context).size.width * 0.9,
                   decoration: const BoxDecoration(),
                   child: ElevatedButton(
-                      onPressed: () {
-                        // Add your button action here
-                      },
+                      onPressed: register,
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius:
