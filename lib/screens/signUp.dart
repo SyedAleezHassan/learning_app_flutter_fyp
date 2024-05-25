@@ -16,7 +16,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  
+
   void register() async {
     final String email = emailController.text;
     final String password = passwordController.text;
@@ -69,7 +69,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.all(18),
+                    margin: const EdgeInsets.only(
+                        bottom: 10, top: 18, left: 18, right: 18),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -81,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 8,
                         ),
                         SizedBox(
-                          height: 55,
+                          // height: 55,
                           child: TextFormField(
                             controller: emailController,
                             validator: (text) {
@@ -89,14 +90,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 return "Fill this field";
                               if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
                                   .hasMatch(text)) {
-                                return 'Please enter a valid email address';
+                                // return 'Please enter a valid email address';
                               }
                               return null;
                             },
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8)),
-
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
                               // hintText: 'Enter a search term',
                             ),
                           ),
@@ -109,7 +111,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.all(18),
+                    margin: const EdgeInsets.only(
+                        top: 10, bottom: 18, left: 18, right: 18),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -120,8 +123,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(
                           height: 8,
                         ),
-                        SizedBox(
-                          height: 55,
+                        Container(
+                          // height: 55,
+
                           child: TextFormField(
                             controller: passwordController,
                             validator: (text) {
@@ -157,6 +161,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               alignLabelWithHint: false,
                               filled: true,
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
                             ),
                             keyboardType: TextInputType.visiblePassword,
                             textInputAction: TextInputAction.done,
@@ -165,26 +171,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ],
                     ),
                   ),
-                  Container(
-                    height: 55,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    decoration: const BoxDecoration(),
-                    child: ElevatedButton(
-                        onPressed: register,
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                10.0), // Rectangular border
-                          ),
-                          backgroundColor: const Color.fromRGBO(128, 0, 128, 5),
-                        ),
-                        child: const Text(
-                          'Sign up',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w700),
-                        )),
-                  ),
                 ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 55,
+                width: MediaQuery.of(context).size.width * 0.9,
+                decoration: const BoxDecoration(),
+                child: ElevatedButton(
+                    onPressed: register,
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(10.0), // Rectangular border
+                      ),
+                      backgroundColor: const Color.fromRGBO(128, 0, 128, 5),
+                    ),
+                    child: const Text(
+                      'Sign up',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w700),
+                    )),
               ),
               const SizedBox(
                 height: 10,

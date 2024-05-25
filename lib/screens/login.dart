@@ -67,7 +67,9 @@ class _LoginScreenState extends State<LoginScreen> {
             Column(
               children: [
                 Container(
-                  margin: const EdgeInsets.all(18),
+                  // margin: const EdgeInsets.all(18),
+                  margin: const EdgeInsets.only(
+                      bottom: 10, top: 18, left: 18, right: 18),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -79,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 8,
                       ),
                       SizedBox(
-                        height: 55,
+                        // height: 55,
                         child: TextFormField(
                           controller: emailController,
                           validator: (value) {
@@ -93,6 +95,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             return null;
                           },
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8)),
 
@@ -108,7 +112,9 @@ class _LoginScreenState extends State<LoginScreen> {
             Column(
               children: [
                 Container(
-                  margin: const EdgeInsets.all(18),
+                  // margin: const EdgeInsets.all(18),
+                  margin: const EdgeInsets.only(
+                      top: 10, bottom: 18, left: 18, right: 18),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -120,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 8,
                       ),
                       SizedBox(
-                        height: 55,
+                        // height: 55,
                         child: TextFormField(
                           controller: passwordController,
                           obscureText: passwordVisible,
@@ -133,6 +139,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           },
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
                             fillColor: Colors.transparent,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(9)),
