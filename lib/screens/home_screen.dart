@@ -40,12 +40,33 @@ class _HomePageState extends State<HomePage> {
     Icon(Icons.play_circle_fill, color: Colors.white, size: 30),
     Icon(Icons.emoji_events, color: Colors.white, size: 30),
   ];
- 
-  List imgList = [
-    'Flutter',
-    'React Native',
-    'Python',
-    'C#',
+
+  // List imgList = [
+  //   'Flutter',
+  //   'React Native',
+  //   'Python',
+  //   'C#',
+  // ];
+
+  List<Map> imagList = [
+    {
+      "imgLink": "assets/images/Flutter.png",
+      "name": "Flutter",
+      "video": "55 videos",
+      "price": "50\$"
+    },
+    {
+      "imgLink": "assets/images/java.png",
+      "name": "java",
+      "video": "55 videos",
+      "price": "50\$"
+    },
+    {
+      "imgLink": "assets/images/Python.png",
+      "name": "Python",
+      "video": "55 videos",
+      "price": "50\$"
+    },
   ];
 
   @override
@@ -178,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 10),
                 GridView.builder(
-                  itemCount: imgList.length,
+                  itemCount: imagList.length,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -195,8 +216,9 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  CourseScreen(imgList[index]),
+                              builder: (context) => CourseScreen(
+                                  imagList[index]["name"],
+                                  imagList[index]["price"]),
                             ));
                       },
                       child: Container(
@@ -211,14 +233,15 @@ class _HomePageState extends State<HomePage> {
                             Padding(
                               padding: EdgeInsets.all(10),
                               child: Image.asset(
-                                "assets/images/${imgList[index]}.png",
+                                // "assets/images/${imgList[index]}.png",
+                                imagList[index]["imgLink"],
                                 width: 100,
                                 height: 90,
                               ),
                             ),
                             SizedBox(height: 10),
                             Text(
-                              imgList[index],
+                              imagList[index]["name"],
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,

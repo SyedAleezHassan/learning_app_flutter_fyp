@@ -1,13 +1,13 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/courses.dart';
 import 'package:flutter_application_1/widgets/description_section.dart';
 import 'package:flutter_application_1/widgets/videos_section.dart';
 
 class CourseScreen extends StatefulWidget {
   String img;
-  // String buy;
-  
-  CourseScreen(this.img);
+  String buy;
+  CourseScreen(this.img, this.buy);
 
   @override
   State<CourseScreen> createState() => _CourseScreenState();
@@ -99,13 +99,43 @@ class _CourseScreenState extends State<CourseScreen> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: Text(widget.img),
+                        content: Container(
+                          height: 100,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Do you want to buy this course?"),
+                              Text("Price : ${widget.buy}")
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                   child: Text(
-                    "Buy ",
+                    "Buy ${widget.buy}",
                     style: TextStyle(
                       fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black.withOpacity(0.5),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green[600],
                     ),
                   ),
                 ),
@@ -180,3 +210,30 @@ class _CourseScreenState extends State<CourseScreen> {
     );
   }
 }
+
+// void _showConfirmationDialog(
+//   BuildContext context,
+//   // String category, String price
+// ) {
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return AlertDialog(
+//         title: Text('Confirmation'),
+//         content: Text('Do you want to view items in the  category?'),
+//         actions: <Widget>[
+//           TextButton(
+//             onPressed: () {
+//               Navigator.of(context).pop(); // Close the dialog
+//             },
+//             child: Text('Cancel'),
+//           ),
+//           TextButton(
+//             onPressed: () {},
+//             child: Text('OK'),
+//           ),
+//         ],
+//       );
+//     },
+//   );
+// }

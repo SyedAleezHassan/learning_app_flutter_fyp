@@ -109,7 +109,7 @@ class _CoursesState extends State<Courses> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              CourseScreen(imagList[index]["name"]),
+                              CourseScreen(imagList[index]["name"],imagList[index]["price"]),
                         ));
                   },
                   child: Container(
