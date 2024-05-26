@@ -29,13 +29,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => LoginScreen()));
     } on FirebaseAuthException catch (e) {
-      // if (e.code == 'weak-password') {
-      //   print('The password provided is too weak.');
-      // } else if (e.code == 'email-already-in-use') {
-      //   print('The account already exists for that email.');
-      // }
+      
       if (_formKey.currentState!.validate()) {
-        // Perform registration logic here
         print("Registration successful");
       } else {
         print("Validation failed");
@@ -142,11 +137,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               fillColor: Colors.transparent,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(9)),
-                              //@@@@@@yevphle tha@@@@@@@@
-                              // hintText: "Password",
-                              // labelText: "Password",
-                              // helperText: "Password must contain special character",
-                              // helperStyle: TextStyle(color: Colors.green),
+                             
                               suffixIcon: IconButton(
                                 icon: Icon(passwordVisible
                                     ? Icons.visibility

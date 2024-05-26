@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
-// import 'package:flutter_application_1/screens/home_screen.dart';
 import 'package:flutter_application_1/screens/signUp.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 
 import '../navBar/navBar.dart';
 
@@ -144,10 +142,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             fillColor: Colors.transparent,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(9)),
-                            // hintText: "Password",
-                            // labelText: "Password",
-                            // helperText: "Password must contain special character",
-                            // helperStyle: TextStyle(color: Colors.green),
                             suffixIcon: IconButton(
                               icon: Icon(passwordVisible
                                   ? Icons.visibility
