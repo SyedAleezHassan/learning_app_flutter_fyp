@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widgets/description_section.dart';
 import 'package:flutter_application_1/widgets/videos_section.dart';
 
-class CourseScreen extends StatefulWidget{
+class CourseScreen extends StatefulWidget {
   String img;
+  // String buy;
+  
   CourseScreen(this.img);
+
   @override
   State<CourseScreen> createState() => _CourseScreenState();
 }
 
 class _CourseScreenState extends State<CourseScreen> {
-
   bool isvideoSection = true;
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -48,26 +50,24 @@ class _CourseScreenState extends State<CourseScreen> {
               width: MediaQuery.of(context).size.width,
               height: 200,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Color(0xFFF5F3FF),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/${widget.img}.png"),
-                )
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  color: Color(0xFFF5F3FF),
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/${widget.img}.png"),
+                  )),
               child: Center(
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.play_arrow_rounded,
-                    color: Color(0xFF674AEF),
-                    size: 45,
-                  ),
-                )
-              ),
+                  child: Container(
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.play_arrow_rounded,
+                  color: Color(0xFF674AEF),
+                  size: 45,
+                ),
+              )),
             ),
             SizedBox(height: 15),
             Text(
@@ -87,13 +87,29 @@ class _CourseScreenState extends State<CourseScreen> {
               ),
             ),
             SizedBox(height: 5),
-            Text(
-              "55 Videos",
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: Colors.black.withOpacity(0.5),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "55 Videos",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Buy ",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black.withOpacity(0.5),
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 20),
             Container(
@@ -107,54 +123,48 @@ class _CourseScreenState extends State<CourseScreen> {
                 children: [
                   Material(
                     color: isvideoSection
-                        ? Color(0xFF674AEF) 
+                        ? Color(0xFF674AEF)
                         : Color(0xFF674AEF).withOpacity(0.6),
                     borderRadius: BorderRadius.circular(10),
                     child: InkWell(
                       onTap: () {
-
                         setState(() {
                           isvideoSection = true;
                         });
-
                       },
                       child: Container(
-                        padding: 
+                        padding:
                             EdgeInsets.symmetric(vertical: 15, horizontal: 35),
                         child: Text(
                           "videos",
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500
-                          ),
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
                   ),
                   Material(
-                    color: isvideoSection 
+                    color: isvideoSection
                         ? Color(0xFF674AEF).withOpacity(0.6)
                         : Color(0xFF674AEF),
                     borderRadius: BorderRadius.circular(10),
                     child: InkWell(
                       onTap: () {
-
                         setState(() {
-                          isvideoSection = false; 
+                          isvideoSection = false;
                         });
-
                       },
                       child: Container(
-                        padding: 
+                        padding:
                             EdgeInsets.symmetric(vertical: 15, horizontal: 35),
                         child: Text(
                           "Description",
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500
-                          ),
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
