@@ -108,8 +108,9 @@ class _CoursesState extends State<Courses> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              CourseScreen(imagList[index]["name"],imagList[index]["price"]),
+                          builder: (context) => CourseScreen(
+                              imagList[index]["name"],
+                              imagList[index]["price"]),
                         ));
                   },
                   child: Container(
