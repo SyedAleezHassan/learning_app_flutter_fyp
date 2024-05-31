@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/color/color.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'course_screen.dart';
 
@@ -8,7 +9,7 @@ class Courses extends StatefulWidget {
   const Courses({super.key});
 
   @override
-  State<Courses> createState() => _CoursesState();
+  State<Courses> createState() => CoursesState();
 }
 
 final TextEditingController _searchController = TextEditingController();
@@ -38,10 +39,15 @@ List<Map> imagList = [
     "name": "Python",
     "video": "55 videos",
     "price": "50\$"
-  },
+  },{
+         "imgLink": "assets/images/React Native.png",
+    "name": "React Native",
+    "video": "55 videos",
+    "price": "50\$"
+        }
 ];
 
-class _CoursesState extends State<Courses> {
+class CoursesState extends State<Courses> {
   List<Map> _filteredItems = [];
   @override
   void initState() {
@@ -61,6 +67,22 @@ class _CoursesState extends State<Courses> {
       }
     });
   }
+
+//   addcourses() {
+//     // Call the user's CollectionReference to add a new user
+// //  CollectionReference courses =
+//     FirebaseFirestore.instance
+//         .collection('courses')
+//         .add({
+//          "imgLink": "assets/images/React Native.png",
+//     "name": "React Native",
+//     "video": "55 videos",
+//     "price": "50\$"
+//         })
+//         .then((value) => print("User Added"))
+//         .catchError((error) => print("Failed to add user: $error"));
+//     // return courses
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +127,8 @@ class _CoursesState extends State<Courses> {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
+                    // addcourses();
+
                     Navigator.push(
                         context,
                         MaterialPageRoute(
