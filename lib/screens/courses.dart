@@ -50,25 +50,28 @@ final TextEditingController _searchController = TextEditingController();
 // ];
 
 class CoursesState extends State<Courses> {
-  // List<Map> _filteredItems = [];
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _filteredItems = imagList;
-  // }
+  // String capitalize(String s) => s[0].toUpperCase() + s.substring(1).toLowerCase();
+  TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+ String _formatSearchQuery(String query) {
+    if (query.isEmpty) return query;
+    return query[0].toUpperCase() + query.substring(1).toLowerCase();
+  }
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      setState(() {
+        _searchQuery = _formatSearchQuery(_searchController.text.trim());
+      });
+    });
+  }
 
-  // void _filterItems(String query) {
-  //   setState(() {
-  //     if (query.isEmpty) {
-  //       _filteredItems = imagList;
-  //     } else {
-  //       _filteredItems = imagList
-  //           .where((item) =>
-  //               item["name"].toLowerCase().contains(query.toLowerCase()))
-  //           .toList();
-  //     }
-  //   });
-  // }
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   // Future fetchItems() async {
   //   // Simulating network delay
@@ -77,7 +80,7 @@ class CoursesState extends State<Courses> {
   //   // Return your data here
   //   return _filteredItems; // Replace _filteredItems with the actual data fetching logic
   // }
-
+//bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 //   addcourses() {
 //     // Call the user's CollectionReference to add a new user
 // //  CollectionReference courses =
@@ -93,11 +96,12 @@ class CoursesState extends State<Courses> {
 //         .catchError((error) => print("Failed to add user: $error"));
 //     // return courses
 //   }
-
+//bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
   @override
   Widget build(BuildContext context) {
     CollectionReference courses =
         FirebaseFirestore.instance.collection('courses');
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor.primaryColor,
@@ -123,13 +127,120 @@ class CoursesState extends State<Courses> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                onChanged: null
+                onChanged: (text) {
+                setState(() {
+                  _searchQuery = _formatSearchQuery(text.trim());
+                });
+              },
                 // _filterItems,
                 ),
+            // StreamBuilder(
+            //   stream: courses.snapshots(),
+            //   builder: (context, snapshot) {
+            //     if (snapshot.hasData) {
+            //       return GridView.builder(
+            //         itemCount: snapshot.data!.docs.length,
+            //         shrinkWrap: true,
+            //         physics: NeverScrollableScrollPhysics(),
+            //         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //           crossAxisCount: 2,
+            //           childAspectRatio:
+            //               (MediaQuery.of(context).size.height - 50 - 25) /
+            //                   (4 * 240),
+            //           mainAxisSpacing: 10,
+            //           crossAxisSpacing: 10,
+            //         ),
+            //         itemBuilder: (context, index) {
+            //           DocumentSnapshot abc = snapshot.data!.docs[index];
+
+            //           print(abc.id);
+            //           return InkWell(
+            //             onTap: () {
+            //               // addcourses();
+
+            //               Navigator.push(
+            //                   context,
+            //                   MaterialPageRoute(
+            //                     builder: (context) => CourseScreen(
+            //                         abc["name"], abc["price"]),
+            //                   ));
+            //             },
+            //             child: Container(
+            //               padding: EdgeInsets.symmetric(
+            //                   vertical: 20, horizontal: 10),
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(20),
+            //                 color: Color(0xFFF5F3FF),
+            //               ),
+            //               child: Column(
+            //                 children: [
+            //                   Padding(
+            //                     padding: EdgeInsets.all(10),
+            //                     child: Image.asset(
+            //                       // "assets/images/${abc[index]}.png",
+            //                       abc["imgLink"],
+            //                       width: 100,
+            //                       height: 90,
+            //                      ),
+            //                   ),
+            //                   SizedBox(height: 10),
+            //                   Text(
+            //                      abc["name"],
+
+            //                     style: TextStyle(
+            //                       fontSize: 22,
+            //                       fontWeight: FontWeight.w600,
+            //                       color: Colors.black.withOpacity(0.6),
+            //                     ),
+            //                   ),
+            //                   SizedBox(height: 10),
+            //                   Text(
+            //                     abc["video"],
+            //                     // 'aa',
+            //                     style: TextStyle(
+            //                       fontSize: 15,
+            //                       fontWeight: FontWeight.w500,
+            //                       color: Colors.black.withOpacity(0.5),
+            //                     ),
+            //                   ),
+            //                   Text(
+            //                     "Buy ${abc["price"]}",
+            //                     style: TextStyle(
+            //                       fontSize: 15,
+            //                       fontWeight: FontWeight.bold,
+            //                       color: Colors.green[600],
+            //                     ),
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           );
+            //         },
+            //       );
+            //     } else {
+            //       return Center(
+            //         child: CircularProgressIndicator(),
+            //       );
+            //     }
+            //   },
+            // ),
+
+//naya kaam with  searchMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             StreamBuilder(
-              stream: courses.snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
+              stream: (_searchQuery.isEmpty)
+                  ? courses.snapshots()
+                  : courses
+                      .where('name', isGreaterThanOrEqualTo: _searchQuery)
+                      .where('name', isLessThanOrEqualTo: '$_searchQuery\uf8ff')
+                      .snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  return Center(child: Text('No items found'));
+                } else {
                   return GridView.builder(
                     itemCount: snapshot.data!.docs.length,
                     shrinkWrap: true,
@@ -144,17 +255,16 @@ class CoursesState extends State<Courses> {
                     ),
                     itemBuilder: (context, index) {
                       DocumentSnapshot abc = snapshot.data!.docs[index];
-                      print(abc.id);
+
                       return InkWell(
                         onTap: () {
-                          // addcourses();
-
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CourseScreen(
-                                    abc["name"], abc["price"]),
-                              ));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CourseScreen(abc["name"], abc["price"]),
+                            ),
+                          );
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -168,16 +278,14 @@ class CoursesState extends State<Courses> {
                               Padding(
                                 padding: EdgeInsets.all(10),
                                 child: Image.asset(
-                                  // "assets/images/${abc[index]}.png",
                                   abc["imgLink"],
                                   width: 100,
                                   height: 90,
-                                 ),
+                                ),
                               ),
                               SizedBox(height: 10),
                               Text(
-                                 abc["name"],
-                                
+                                abc["name"],
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.w600,
@@ -187,7 +295,6 @@ class CoursesState extends State<Courses> {
                               SizedBox(height: 10),
                               Text(
                                 abc["video"],
-                                // 'aa',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
@@ -208,10 +315,6 @@ class CoursesState extends State<Courses> {
                       );
                     },
                   );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
                 }
               },
             ),
@@ -222,7 +325,7 @@ class CoursesState extends State<Courses> {
   }
 }
 
-
+//2222222222222666666666667777777777777777777
 
 
    // if (snapshot.hasError) {
