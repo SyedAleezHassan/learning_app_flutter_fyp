@@ -1,20 +1,57 @@
 // import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/courses.dart';
 import 'package:flutter_application_1/widgets/description_section.dart';
 import 'package:flutter_application_1/widgets/videos_section.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CourseScreen extends StatefulWidget {
-  String img;
+  String name;
   String buy;
-  CourseScreen(this.img, this.buy);
+  String image;
+  String video;
+  CourseScreen(this.name, this.buy, this.image, this.video);
 
   @override
   State<CourseScreen> createState() => _CourseScreenState();
 }
 
 class _CourseScreenState extends State<CourseScreen> {
-  bool isvideoSection = true;
+  bool isvideoSection = false;
+  bool isbought = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  User? get currentUser => _auth.currentUser;
+   
+  _saveData(String name, String buy, String image, String video) async {
+   
+    Future<void> courses = FirebaseFirestore.instance
+        .collection('wishlist').doc(currentUser!.uid).collection('records').add({"imgLink": image, "name": name, "video": video, "price": buy})
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+   
+   
+    // if (currentUser != null) {
+    //   await _firestore.collection('wishList').doc(currentUser!.uid).add({
+    //     "imgLink": image, "name": name, "video": video, "price": buy
+        
+    //   }).then((value) => print("User Added")).catchError((error) => print("Failed to add user: $error"));
+    // }
+  }
+
+//   addcourses(String name, String buy, String image, String video) {
+//     // Call the user's CollectionReference to add a new user
+// //  CollectionReference courses =
+//     FirebaseFirestore.instance
+//         .collection('boughtCourses')
+//         .add({"imgLink": image, "name": name, "video": video, "price": buy})
+//         .then((value) => print("User Added"))
+//         .catchError((error) => print("Failed to add user: $error"));
+//     print(currentUser);
+//     // return courses
+//   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +61,7 @@ class _CourseScreenState extends State<CourseScreen> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          widget.img,
+          widget.name,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             letterSpacing: 1,
@@ -53,7 +90,7 @@ class _CourseScreenState extends State<CourseScreen> {
                   borderRadius: BorderRadius.circular(20),
                   color: Color(0xFFF5F3FF),
                   image: DecorationImage(
-                    image: AssetImage("assets/images/${widget.img}.png"),
+                    image: AssetImage("assets/images/${widget.name}.png"),
                   )),
               child: Center(
                   child: Container(
@@ -71,7 +108,7 @@ class _CourseScreenState extends State<CourseScreen> {
             ),
             SizedBox(height: 15),
             Text(
-              "${widget.img} Complete Course",
+              "${widget.name} Complete Course",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
@@ -103,7 +140,7 @@ class _CourseScreenState extends State<CourseScreen> {
                     showDialog<String>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                        title: Text(widget.img),
+                        title: Text(widget.name),
                         content: Container(
                           height: 100,
                           child: Column(
@@ -122,6 +159,11 @@ class _CourseScreenState extends State<CourseScreen> {
                           ),
                           TextButton(
                             onPressed: () {
+                              setState(() {
+                                isbought = true;
+                              });
+                              _saveData(widget.name, widget.buy, widget.image,
+                                  widget.video);
                               Navigator.pop(context);
                             },
                             child: const Text('OK'),
@@ -159,7 +201,7 @@ class _CourseScreenState extends State<CourseScreen> {
                     child: InkWell(
                       onTap: () {
                         setState(() {
-                          isvideoSection = true;
+                          isvideoSection = isbought;
                         });
                       },
                       child: Container(

@@ -53,10 +53,11 @@ class CoursesState extends State<Courses> {
   // String capitalize(String s) => s[0].toUpperCase() + s.substring(1).toLowerCase();
   TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
- String _formatSearchQuery(String query) {
+  String _formatSearchQuery(String query) {
     if (query.isEmpty) return query;
     return query[0].toUpperCase() + query.substring(1).toLowerCase();
   }
+
   @override
   void initState() {
     super.initState();
@@ -119,21 +120,21 @@ class CoursesState extends State<Courses> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  labelText: 'Search',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+              controller: _searchController,
+              decoration: InputDecoration(
+                labelText: 'Search',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-                onChanged: (text) {
+              ),
+              onChanged: (text) {
                 setState(() {
                   _searchQuery = _formatSearchQuery(text.trim());
                 });
               },
-                // _filterItems,
-                ),
+              // _filterItems,
+            ),
             // StreamBuilder(
             //   stream: courses.snapshots(),
             //   builder: (context, snapshot) {
@@ -262,7 +263,7 @@ class CoursesState extends State<Courses> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  CourseScreen(abc["name"], abc["price"]),
+                                  CourseScreen(abc["name"], abc["price"],abc["imgLink"],abc['video']),
                             ),
                           );
                         },
@@ -277,10 +278,10 @@ class CoursesState extends State<Courses> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.all(10),
-                                child: Image.asset(
+                                child: Image.network(
                                   abc["imgLink"],
                                   width: 100,
-                                  height: 90,
+                                  height: 80,
                                 ),
                               ),
                               SizedBox(height: 10),

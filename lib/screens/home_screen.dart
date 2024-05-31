@@ -218,7 +218,10 @@ class _HomePageState extends State<HomePage> {
                             MaterialPageRoute(
                               builder: (context) => CourseScreen(
                                   imagList[index]["name"],
-                                  imagList[index]["price"]),
+                                  imagList[index]["price"],
+                                  imagList[index]["imgLink"],
+                                  imagList[index]["video"],
+                                  ),
                             ));
                       },
                       child: Container(
