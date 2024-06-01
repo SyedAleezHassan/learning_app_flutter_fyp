@@ -16,7 +16,7 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 User? get currentUser => _auth.currentUser;
 
 class _MyCoursesState extends State<MyCourses> {
-  List<Map<String, dynamic>> userRecords = [];
+  // List<Map<String, dynamic>> userRecords = [];
 
   Stream<QuerySnapshot> _getUserRecordsStream() {
     if (currentUser != null) {
@@ -57,32 +57,32 @@ class _MyCoursesState extends State<MyCourses> {
           color: Colors.white,
         ),
       ),
-      body:  Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: _getUserRecordsStream(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return Center(child: Text('No records found'));
-                  } else {
-                    final userRecords = snapshot.data!.docs;
-                    return ListView.builder(
-                      itemCount: userRecords.length,
-                      itemBuilder: (context, index) {
-                        var record = userRecords[index].data() as Map<String, dynamic>;
-                        return ListTile(
-                          title: Text(record['name']),
-                          subtitle: Text(record['video']),
-                        );
-                      },
-                    );
-                  }
+      body:  Flexible(
+        child: StreamBuilder<QuerySnapshot>(
+          stream: _getUserRecordsStream(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+              return Center(child: Text('No records found'));
+            } else {
+              final userRecords = snapshot.data!.docs;
+              return ListView.builder(
+                itemCount: userRecords.length,
+                itemBuilder: (context, index) {
+                  var record = userRecords[index].data() as Map<String, dynamic>;
+                  return ListTile(
+                    title: Text(record['name']),
+                    subtitle: Text(record['video']),
+                  );
                 },
-              ),
-            ),
+              );
+            }
+          },
+        ),
+      ),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () async {
       //     await getData();

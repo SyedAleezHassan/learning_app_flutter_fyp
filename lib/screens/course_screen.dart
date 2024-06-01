@@ -1,7 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/courses.dart';
+// import 'package:flutter_application_1/screens/courses.dart';
 import 'package:flutter_application_1/widgets/description_section.dart';
 import 'package:flutter_application_1/widgets/videos_section.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,23 +23,64 @@ class _CourseScreenState extends State<CourseScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   User? get currentUser => _auth.currentUser;
-   
+
   _saveData(String name, String buy, String image, String video) async {
-   
     Future<void> courses = FirebaseFirestore.instance
-        .collection('wishlist').doc(currentUser!.uid).collection('records').add({"imgLink": image, "name": name, "video": video, "price": buy})
+        .collection('wishlist')
+        .doc(currentUser!.uid)
+        .collection('records')
+        .add({"imgLink": image, "name": name, "video": video, "price": buy})
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
-   
-   
-    // if (currentUser != null) {
-    //   await _firestore.collection('wishList').doc(currentUser!.uid).add({
-    //     "imgLink": image, "name": name, "video": video, "price": buy
-        
-    //   }).then((value) => print("User Added")).catchError((error) => print("Failed to add user: $error"));
-    // }
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getUserRecordsList();
+  }
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<List<Map<String, dynamic>>> _getUserRecordsList() async {
+    if (currentUser != null) {
+      try {
+        final snapshot = await _firestore
+            .collection('wishlist')
+            .doc(currentUser!.uid)
+            .collection('records')
+            .get();
+
+        final List<Map<String, dynamic>> recordsList = snapshot.docs
+            .map((doc) => doc.data() as Map<String, dynamic>)
+            .toList();
+        print(recordsList);
+        return recordsList;
+      } catch (e) {
+        print('Error fetching user records: $e');
+        throw e; // Rethrow the error for handling elsewhere if needed
+      }
+    } else {
+      print("No user");
+      return []; // Return an empty list if no user
+    }
+  }
+
+  Future<bool> isNameInList(String nameToCheck) async {
+    final List<Map<String, dynamic>> recordsList = await _getUserRecordsList();
+
+    for (final record in recordsList) {
+      final String name = record['name'];
+      if (name == nameToCheck) {
+        print("true");
+        print(name);
+        return true; // Name found in the list
+      }
+    }
+    print("falee");
+    return false; // Name not found in the list
+  }
 //   addcourses(String name, String buy, String image, String video) {
 //     // Call the user's CollectionReference to add a new user
 // //  CollectionReference courses =
@@ -158,14 +199,29 @@ class _CourseScreenState extends State<CourseScreen> {
                             child: const Text('Cancel'),
                           ),
                           TextButton(
-                            onPressed: () {
+                            // onPressed: () async {
+                            //   await isNameInList(widget.name);
+                            //   if (isNameInList(widget.name) == true) {
+                            //     print("already added");
+                            //   } else {
+                            //     return _saveData(widget.name, widget.buy,
+                            //         widget.image, widget.video);
+                            //   }
+                               onPressed: () async {
+        bool nameExists = await isNameInList(widget.name);
+        if (nameExists) {
+          print("already added");
+        } else {
+          await _saveData(widget.name, widget.buy,
+                                   widget.image, widget.video);
+        }
+     
+
+                              Navigator.pop(context);
                               setState(() {
                                 isbought = true;
                               });
-                              _saveData(widget.name, widget.buy, widget.image,
-                                  widget.video);
-                              Navigator.pop(context);
-                            },
+                            }, 
                             child: const Text('OK'),
                           ),
                         ],

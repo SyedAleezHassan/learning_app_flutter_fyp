@@ -1,4 +1,6 @@
 // import 'package:flutter/cupertino.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/color/color.dart';
@@ -15,40 +17,6 @@ class Courses extends StatefulWidget {
 
 final TextEditingController _searchController = TextEditingController();
 
-// List imagList = [
-//   'Flutter',
-//   'Python',
-//   'C#',
-//   'java',
-// ];
-
-// List<Map> imagList = [
-//   {
-//     "imgLink": "assets/images/Flutter.png",
-//     "name": "Flutter",
-//     "video": "55 videos",
-//     "price": "50\$"
-//   },
-//   {
-//     "imgLink": "assets/images/java.png",
-//     "name": "java",
-//     "video": "55 videos",
-//     "price": "50\$"
-//   },
-//   {
-//     "imgLink": "assets/images/Python.png",
-//     "name": "Python",
-//     "video": "55 videos",
-//     "price": "50\$"
-//   },
-//   {
-//     "imgLink": "assets/images/React Native.png",
-//     "name": "React Native",
-//     "video": "55 videos",
-//     "price": "50\$"
-//   }
-// ];
-
 class CoursesState extends State<Courses> {
   // String capitalize(String s) => s[0].toUpperCase() + s.substring(1).toLowerCase();
   TextEditingController _searchController = TextEditingController();
@@ -58,6 +26,7 @@ class CoursesState extends State<Courses> {
     return query[0].toUpperCase() + query.substring(1).toLowerCase();
   }
 
+  bool _isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -135,96 +104,6 @@ class CoursesState extends State<Courses> {
               },
               // _filterItems,
             ),
-            // StreamBuilder(
-            //   stream: courses.snapshots(),
-            //   builder: (context, snapshot) {
-            //     if (snapshot.hasData) {
-            //       return GridView.builder(
-            //         itemCount: snapshot.data!.docs.length,
-            //         shrinkWrap: true,
-            //         physics: NeverScrollableScrollPhysics(),
-            //         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //           crossAxisCount: 2,
-            //           childAspectRatio:
-            //               (MediaQuery.of(context).size.height - 50 - 25) /
-            //                   (4 * 240),
-            //           mainAxisSpacing: 10,
-            //           crossAxisSpacing: 10,
-            //         ),
-            //         itemBuilder: (context, index) {
-            //           DocumentSnapshot abc = snapshot.data!.docs[index];
-
-            //           print(abc.id);
-            //           return InkWell(
-            //             onTap: () {
-            //               // addcourses();
-
-            //               Navigator.push(
-            //                   context,
-            //                   MaterialPageRoute(
-            //                     builder: (context) => CourseScreen(
-            //                         abc["name"], abc["price"]),
-            //                   ));
-            //             },
-            //             child: Container(
-            //               padding: EdgeInsets.symmetric(
-            //                   vertical: 20, horizontal: 10),
-            //               decoration: BoxDecoration(
-            //                 borderRadius: BorderRadius.circular(20),
-            //                 color: Color(0xFFF5F3FF),
-            //               ),
-            //               child: Column(
-            //                 children: [
-            //                   Padding(
-            //                     padding: EdgeInsets.all(10),
-            //                     child: Image.asset(
-            //                       // "assets/images/${abc[index]}.png",
-            //                       abc["imgLink"],
-            //                       width: 100,
-            //                       height: 90,
-            //                      ),
-            //                   ),
-            //                   SizedBox(height: 10),
-            //                   Text(
-            //                      abc["name"],
-
-            //                     style: TextStyle(
-            //                       fontSize: 22,
-            //                       fontWeight: FontWeight.w600,
-            //                       color: Colors.black.withOpacity(0.6),
-            //                     ),
-            //                   ),
-            //                   SizedBox(height: 10),
-            //                   Text(
-            //                     abc["video"],
-            //                     // 'aa',
-            //                     style: TextStyle(
-            //                       fontSize: 15,
-            //                       fontWeight: FontWeight.w500,
-            //                       color: Colors.black.withOpacity(0.5),
-            //                     ),
-            //                   ),
-            //                   Text(
-            //                     "Buy ${abc["price"]}",
-            //                     style: TextStyle(
-            //                       fontSize: 15,
-            //                       fontWeight: FontWeight.bold,
-            //                       color: Colors.green[600],
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           );
-            //         },
-            //       );
-            //     } else {
-            //       return Center(
-            //         child: CircularProgressIndicator(),
-            //       );
-            //     }
-            //   },
-            // ),
 
 //naya kaam with  searchMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             StreamBuilder(
@@ -262,8 +141,8 @@ class CoursesState extends State<Courses> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  CourseScreen(abc["name"], abc["price"],abc["imgLink"],abc['video']),
+                              builder: (context) => CourseScreen(abc["name"],
+                                  abc["price"], abc["imgLink"], abc['video']),
                             ),
                           );
                         },
@@ -277,13 +156,32 @@ class CoursesState extends State<Courses> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image.network(
-                                  abc["imgLink"],
-                                  width: 100,
-                                  height: 80,
-                                ),
-                              ),
+                                  padding: EdgeInsets.all(10),
+                                  child: Image.network(
+                                    abc["imgLink"],
+                                    width: 100,
+                                    height: 80,
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child; // Return the child widget when loading is complete
+                                      } else {
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null, // Show the progress based on bytes loaded
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  )),
                               SizedBox(height: 10),
                               Text(
                                 abc["name"],
