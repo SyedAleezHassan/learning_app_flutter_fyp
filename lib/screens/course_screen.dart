@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widgets/description_section.dart';
 import 'package:flutter_application_1/widgets/videos_section.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CourseScreen extends StatefulWidget {
   String name;
@@ -177,56 +178,80 @@ class _CourseScreenState extends State<CourseScreen> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {
-                    showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: Text(widget.name),
-                        content: Container(
-                          height: 100,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Do you want to buy this course?"),
-                              Text("Price : ${widget.buy}")
-                            ],
+                  onPressed: () async {
+                    bool nameExists = await isNameInList(widget.name);
+                    if (nameExists) {
+                      // print("already added");
+                      Fluttertoast.showToast(
+                        msg: "Course already added",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.black,
+                        textColor: Colors.white,
+                        fontSize: 16.0,
+                      );
+                    } else {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: Text(widget.name),
+                          content: Container(
+                            height: 100,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Do you want to buy this course?"),
+                                Text("Price : ${widget.buy}")
+                              ],
+                            ),
                           ),
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'Cancel'),
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            // onPressed: () async {
-                            //   await isNameInList(widget.name);
-                            //   if (isNameInList(widget.name) == true) {
-                            //     print("already added");
-                            //   } else {
-                            //     return _saveData(widget.name, widget.buy,
-                            //         widget.image, widget.video);
-                            //   }
-                               onPressed: () async {
-        bool nameExists = await isNameInList(widget.name);
-        if (nameExists) {
-          print("already added");
-        } else {
-          await _saveData(widget.name, widget.buy,
-                                   widget.image, widget.video);
-        }
-     
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              // onPressed: () async {
+                              //   await isNameInList(widget.name);
+                              //   if (isNameInList(widget.name) == true) {
+                              //     print("already added");
+                              //   } else {
+                              //     return _saveData(widget.name, widget.buy,
+                              //         widget.image, widget.video);
+                              //   }
+                              onPressed: () async {
+                                bool nameExists =
+                                    await isNameInList(widget.name);
+                                if (nameExists) {
+                                  print("already added");
+                                  // Fluttertoast.showToast(
+                                  //   msg: "Course already added",
+                                  //   toastLength: Toast.LENGTH_SHORT,
+                                  //   gravity: ToastGravity.BOTTOM,
+                                  //   timeInSecForIosWeb: 1,
+                                  //   backgroundColor: Colors.black,
+                                  //   textColor: Colors.white,
+                                  //   fontSize: 16.0,
+                                  // );
+                                  //yhnnn
+                                } else {
+                                  await _saveData(widget.name, widget.buy,
+                                      widget.image, widget.video);
+                                }
 
-                              Navigator.pop(context);
-                              setState(() {
-                                isbought = true;
-                              });
-                            }, 
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),
-                    );
+                                Navigator.pop(context);
+                                setState(() {
+                                  isbought = true;
+                                });
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
                   },
                   child: Text(
                     "Buy ${widget.buy}",
@@ -255,10 +280,20 @@ class _CourseScreenState extends State<CourseScreen> {
                         : Color(0xFF674AEF).withOpacity(0.6),
                     borderRadius: BorderRadius.circular(10),
                     child: InkWell(
-                      onTap: () {
-                        setState(() {
+                      onTap: () async {
+                        await isNameInList(widget.name);
+                        print(isNameInList(widget.name));
+                        bool nameExist = await isNameInList(widget.name);
+
+                        if (nameExist) {
+                          print('agya');
+                          setState(() {
+                            isbought = true;
+                            isvideoSection = isbought;
+                          });
+                        } else {
                           isvideoSection = isbought;
-                        });
+                        }
                       },
                       child: Container(
                         padding:

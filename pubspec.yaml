@@ -43,6 +43,8 @@ dependencies:
   cloud_firestore: ^4.17.5
   firebase_storage: ^11.7.7
   cached_network_image: ^3.3.1
+  fluttertoast: ^8.0.8 
+  video_player: ^2.9.1
 
 dev_dependencies:
   flutter_test:
