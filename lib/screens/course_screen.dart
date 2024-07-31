@@ -1,7 +1,5 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_application_1/screens/courses.dart';
 import 'package:flutter_application_1/widgets/description_section.dart';
 import 'package:flutter_application_1/widgets/videos_section.dart';
 import 'package:firebase_auth/firebase_auth.dart';

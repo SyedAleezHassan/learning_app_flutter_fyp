@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
+import 'package:flutter_application_1/screens/course_screen.dart';
 
 class MyCourses extends StatefulWidget {
   const MyCourses({super.key});
@@ -29,7 +30,6 @@ class _MyCoursesState extends State<MyCourses> {
       print("No user");
       return Stream<QuerySnapshot>.empty();
     }
-   
   }
 
 //   @override
@@ -57,7 +57,7 @@ class _MyCoursesState extends State<MyCourses> {
           color: Colors.white,
         ),
       ),
-      body:  Flexible(
+      body: Flexible(
         child: StreamBuilder<QuerySnapshot>(
           stream: _getUserRecordsStream(),
           builder: (context, snapshot) {
@@ -72,11 +72,53 @@ class _MyCoursesState extends State<MyCourses> {
               return ListView.builder(
                 itemCount: userRecords.length,
                 itemBuilder: (context, index) {
-                  var record = userRecords[index].data() as Map<String, dynamic>;
-                  return ListTile(
-                    title: Text(record['name']),
-                    subtitle: Text(record['video']),
+                  var record =
+                      userRecords[index].data() as Map<String, dynamic>;
+                  return
+                      // ListTile(
+                      //   title: Text(record['name']),
+                      //   subtitle: Text(record['video']),
+                      // );  xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                      ListTile(
+                    contentPadding: EdgeInsets.all(16.0),
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(record['imageUrl'] ??
+                          'https://via.placeholder.com/150'),
+                    ),
+                    title: Text(
+                      record['name'] ?? 'Unknown Name',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    subtitle: Text(
+                      record['video'] ?? 'No Video Available',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.grey[700],
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.grey[600],
+                      size: 18.0,
+                    ),
+                    onTap: () {
+                      DocumentSnapshot abc = snapshot.data!.docs[index];
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CourseScreen(abc["name"],
+                              abc["price"], abc["imgLink"], abc['video']),
+                        ),
+                      );
+                    },
                   );
+                  //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 },
               );
             }
