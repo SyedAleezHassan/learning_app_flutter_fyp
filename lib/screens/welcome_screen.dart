@@ -1,10 +1,27 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
+import 'package:flutter_application_1/navBar/navBar.dart';
+import 'package:flutter_application_1/screens/login.dart';
 import 'package:flutter_application_1/screens/signUp.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'courses.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
+  @override
+  State<WelcomeScreen> createState() => WelcomeScreenState();
+}
+
+class WelcomeScreenState extends State<WelcomeScreen> {
+  static const String KEYLOGIN = "login";
+  @override
+  void initState() {
+    super.initState();
+    whereToGo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -92,8 +109,7 @@ class WelcomeScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                             SignUpScreen(),
+                            builder: (context) => SignUpScreen(),
                           ),
                         );
                       },
@@ -117,5 +133,28 @@ class WelcomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void whereToGo() async {
+    var sharedPref = await SharedPreferences.getInstance();
+    var isLoggedIn = sharedPref.getBool(KEYLOGIN);
+   // Timer(const Duration(seconds: 3), () {
+      if (isLoggedIn != null) {
+        if (isLoggedIn) {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => GoogleNavBar()));
+        } else {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => WelcomeScreen()));
+        }
+      } else {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => WelcomeScreen()));
+      }
+
+      // Navigator.of(context).pushReplacement(
+      //     MaterialPageRoute(builder: (context) => LoginScreen()));
+   // }
+   // );
   }
 }

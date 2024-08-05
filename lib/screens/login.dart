@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_application_1/screens/signUp.dart';
+import 'package:flutter_application_1/screens/welcome_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../navBar/navBar.dart';
 
@@ -21,7 +23,11 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() async {
     final String email = emailController.text;
     final String password = passwordController.text;
-
+    var sharedPref = await SharedPreferences.getInstance();
+    sharedPref.setBool(WelcomeScreenState.KEYLOGIN, true);
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => GoogleNavBar()),
+    );
     try {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);

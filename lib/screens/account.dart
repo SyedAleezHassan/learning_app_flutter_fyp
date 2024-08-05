@@ -70,8 +70,9 @@ class _MyaccountState extends State<Myaccount> {
             ElevatedButton(
               onPressed: () {
                 // Perform action
-                             Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => SignUpScreen()));// Closes the dialog
+                             Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (context) => SignUpScreen()),
+                   (Route<dynamic> route) => false,);// Closes the dialog
               },
               child: Text('Yes'),
             ),
@@ -125,6 +126,8 @@ class _MyaccountState extends State<Myaccount> {
           ],
         ),
       ),
+      
     );
   }
+  
 }
