@@ -46,6 +46,8 @@ dependencies:
   fluttertoast: ^8.0.8 
   video_player: ^2.9.1
   shared_preferences: ^2.2.3
+  http: ^0.13.3
+  provider: ^6.0.3
 
 dev_dependencies:
   flutter_test:

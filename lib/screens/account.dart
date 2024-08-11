@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
+import 'package:flutter_application_1/screens/chatbot.dart';
 import 'package:flutter_application_1/screens/signUp.dart';
 
 class Myaccount extends StatefulWidget {
@@ -54,33 +55,35 @@ class _MyaccountState extends State<Myaccount> {
               // await _auth.signOut();
               // Navigator.of(context).pushReplacementNamed('/login');
 
-               showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Are you sure?'),
-          content: Text('Do you really want to logout'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Closes the dialog
-              },
-              child: Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Perform action
-                             Navigator.pushAndRemoveUntil(context,
-                  MaterialPageRoute(builder: (context) => SignUpScreen()),
-                   (Route<dynamic> route) => false,);// Closes the dialog
-              },
-              child: Text('Yes'),
-            ),
-          ],
-        );
-      },
-    );
-  
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Are you sure?'),
+                    content: Text('Do you really want to logout'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Closes the dialog
+                        },
+                        child: Text('Cancel'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Perform action
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignUpScreen()),
+                            (Route<dynamic> route) => false,
+                          ); // Closes the dialog
+                        },
+                        child: Text('Yes'),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
           )
         ],
@@ -117,17 +120,98 @@ class _MyaccountState extends State<Myaccount> {
             ),
             SizedBox(height: 16),
             Divider(),
+            // ListTile(
+            //   leading: Icon(Icons.email),
+            //   title: Text('Email'),
+            //   subtitle: Text(_user?.email ?? 'No Email'),
+            // ),
+            //newwwwwwwwwwwwwwwwwwww
             ListTile(
-              leading: Icon(Icons.email),
-              title: Text('Email'),
-              subtitle: Text(_user?.email ?? 'No Email'),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              leading: Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: Colors.blueAccent.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Icon(
+                  Icons.email,
+                  color: Colors.blueAccent,
+                  size: 30.0,
+                ),
+              ),
+              title: Text(
+                'Email',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              subtitle: Text(
+                _user?.email ?? 'No Email',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color:
+                      _user?.email != null ? Colors.black54 : Colors.redAccent,
+                ),
+              ),
+              tileColor: Colors.grey.withOpacity(0.05),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             ),
-            // Add more fields as needed
+
+            Divider(),
+            ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              leading: Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: Colors.blueAccent.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Icon(
+                  Icons.person_3_outlined,
+                  color: Colors.blueAccent,
+                  size: 30.0,
+                ),
+              ),
+              title: Text(
+                'Mr. AI Programmer',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              subtitle: Text(
+                'Ask me to code for you',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color:
+                      _user?.email != null ? Colors.black54 : Colors.redAccent,
+                ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.grey,
+                size: 16.0,
+              ),
+              tileColor: Colors.grey.withOpacity(0.05),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ChatBotApp()));
+              },
+            ),
           ],
         ),
       ),
-      
     );
   }
-  
 }
