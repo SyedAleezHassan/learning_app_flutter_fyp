@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_application_1/screens/chatbot.dart';
+import 'package:flutter_application_1/screens/chatbot/chatbot_screen.dart';
 import 'package:flutter_application_1/screens/signUp.dart';
 
 class Myaccount extends StatefulWidget {
@@ -206,7 +207,7 @@ class _MyaccountState extends State<Myaccount> {
               ),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ChatBotApp()));
+                    MaterialPageRoute(builder: (context) => chatbotAi()));
               },
             ),
           ],

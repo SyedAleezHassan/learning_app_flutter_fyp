@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/account.dart';
 import 'package:flutter_application_1/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'firebase_options.dart';
+import 'screens/chatbot/chatbotApi.dart';
 
 // void main() => runApp(Myapp());
 void main() async {
@@ -10,6 +12,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Gemini.init(
+    apiKey: GEMINI_API_KEY,
+  );
+  
   runApp(Myapp());
 }
 

@@ -1,2 +1,1 @@
-const OPENAI_API_KEY = "";
-//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
+const String GEMINI_API_KEY = "AIzaSyD_AYMSEb-D1IG4zxUCfIyqg10HjN1Cg9I";
