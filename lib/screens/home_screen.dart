@@ -2,7 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
+import 'package:flutter_application_1/home_page_icons/category.dart';
+import 'package:flutter_application_1/home_page_icons/leaderBoard.dart';
 import 'package:flutter_application_1/screens/course_screen.dart';
+
+import '../home_page_icons/classes.dart';
+import '../home_page_icons/freeCourse.dart';
+import '../home_page_icons/liveCourse.dart';
 // import 'package:flutter_application_1/screens/login.dart';
 // import 'package:flutter_application_1/screens/welcome_screen.dart';
 // import 'package:get/get.dart';
@@ -154,16 +160,48 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        Container(
-                          height: 60,
-                          width: 60,
-                          decoration: BoxDecoration(
-                            color: catColors[index],
-                            shape: BoxShape.circle,
+                        InkWell(
+                          child: Container(
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(
+                              color: catColors[index],
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: catIcons[index],
+                            ),
                           ),
-                          child: Center(
-                            child: catIcons[index],
-                          ),
+                          onTap: () {
+                            if (index == 0) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => categoryPage()));
+                            }
+                            if (index == 1) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (contex) => classes()));
+                            }
+                            if (index==2) {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>freeCourse()));
+                              
+                            }
+                              if (index==3) {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>freeCourse()));
+                              
+                            }
+                              if (index==4) {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>liveCourse()));
+                              
+                            }
+                               if (index==5) {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>leaderBoard()));
+                              
+                            }
+                          },
                         ),
                         SizedBox(height: 10),
                         Text(
@@ -217,11 +255,11 @@ class _HomePageState extends State<HomePage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => CourseScreen(
-                                  imagList[index]["name"],
-                                  imagList[index]["price"],
-                                  imagList[index]["imgLink"],
-                                  imagList[index]["video"],
-                                  ),
+                                imagList[index]["name"],
+                                imagList[index]["price"],
+                                imagList[index]["imgLink"],
+                                imagList[index]["video"],
+                              ),
                             ));
                       },
                       child: Container(
