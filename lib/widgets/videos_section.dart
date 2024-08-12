@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/widgets/videoPlayer/flutter_intro_vid.dart';
 
-class VideoSection extends StatelessWidget{
-
-
+class VideoSection extends StatelessWidget {
   List videoList = [
-    'Introduction to Flutter',
-    'Installing Flutter on Windows',
+    'Introduction',
+    'Installing on Windows, Mac & Linux',
     'Setup Emulator on Windows',
     'Creating Our First App',
   ];
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: videoList.length,
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemBuilder: (context, index){
+      itemBuilder: (context, index) {
         return ListTile(
           leading: Container(
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
-              color: index == 0 
-                ? Color(0xFF674AEF) 
-                : Color(0xFF674AEF).withOpacity(0.6),
+              color: index == 0
+                  ? Color(0xFF674AEF)
+                  : Color(0xFF674AEF).withOpacity(0.6),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -34,6 +33,12 @@ class VideoSection extends StatelessWidget{
           ),
           title: Text(videoList[index]),
           subtitle: Text("20 min 50 sec"),
+          onTap: () {
+            // yahan kro video dalny wala kam syed aleez hassan sahab jee
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => flutterIntro()));
+            //yahan khatam horha hai syed aleez hassan saahab
+          },
         );
       },
     );
