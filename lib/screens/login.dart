@@ -23,14 +23,14 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() async {
     final String email = emailController.text;
     final String password = passwordController.text;
-    var sharedPref = await SharedPreferences.getInstance();
-    sharedPref.setBool(WelcomeScreenState.KEYLOGIN, true);
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => GoogleNavBar()),
-    );
+
+    // Navigator.of(context).pushReplacement(
+    //   MaterialPageRoute(builder: (context) => GoogleNavBar()),
+    // );
     try {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      print(credential);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => GoogleNavBar()));
     } on FirebaseAuthException catch (e) {
@@ -175,7 +175,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: MediaQuery.of(context).size.width * 0.9,
                   decoration: const BoxDecoration(),
                   child: ElevatedButton(
-                      onPressed: login,
+                      onPressed: () async {
+                        var sharedPref = await SharedPreferences.getInstance();
+                        sharedPref.setBool(WelcomeScreenState.KEYLOGIN, true);
+                        login();
+          //                Navigator.pushReplacement(
+          // context, MaterialPageRoute(builder: (context) => GoogleNavBar()));
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius:

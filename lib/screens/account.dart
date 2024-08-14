@@ -2,9 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
-import 'package:flutter_application_1/screens/chatbot.dart';
+import 'package:flutter_application_1/navBar/navBar.dart';
+// import 'package:flutter_application_1/screens/chatbot.dart';
 import 'package:flutter_application_1/screens/chatbot/chatbot_screen.dart';
+import 'package:flutter_application_1/screens/login.dart';
 import 'package:flutter_application_1/screens/signUp.dart';
+import 'package:flutter_application_1/screens/welcome_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Myaccount extends StatefulWidget {
   @override
@@ -70,14 +74,22 @@ class _MyaccountState extends State<Myaccount> {
                         child: Text('Cancel'),
                       ),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          var sharedpref =
+                              await SharedPreferences.getInstance();
+
+                          sharedpref.setBool(
+                              WelcomeScreenState.KEYLOGIN, false);
+                          // ignore: use_build_context_synchronously
                           // Perform action
+                          
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SignUpScreen()),
+                                builder: (context) => LoginScreen()),
                             (Route<dynamic> route) => false,
                           ); // Closes the dialog
+                          
                         },
                         child: Text('Yes'),
                       ),
@@ -210,6 +222,52 @@ class _MyaccountState extends State<Myaccount> {
                     MaterialPageRoute(builder: (context) => chatbotAi()));
               },
             ),
+            // Divider(),
+            // ListTile(
+            //   contentPadding:
+            //       EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            //   leading: Container(
+            //     padding: EdgeInsets.all(8.0),
+            //     decoration: BoxDecoration(
+            //       color: Colors.blueAccent.withOpacity(0.1),
+            //       borderRadius: BorderRadius.circular(8.0),
+            //     ),
+            //     child: Icon(
+            //       Icons.person_3_outlined,
+            //       color: Colors.blueAccent,
+            //       size: 30.0,
+            //     ),
+            //   ),
+            //   title: Text(
+            //     'Mr. AI Programmer',
+            //     style: TextStyle(
+            //       fontSize: 18.0,
+            //       fontWeight: FontWeight.bold,
+            //       color: Colors.black87,
+            //     ),
+            //   ),
+            //   subtitle: Text(
+            //     'Ask me to code for you',
+            //     style: TextStyle(
+            //       fontSize: 16.0,
+            //       color:
+            //           _user?.email != null ? Colors.black54 : Colors.redAccent,
+            //     ),
+            //   ),
+            //   trailing: Icon(
+            //     Icons.arrow_forward_ios,
+            //     color: Colors.grey,
+            //     size: 16.0,
+            //   ),
+            //   tileColor: Colors.grey.withOpacity(0.05),
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(10.0),
+            //   ),
+            //   onTap: () {
+            //     Navigator.push(context,
+            //         MaterialPageRoute(builder: (context) => chatbotAi()));
+            //   },
+            // ),
           ],
         ),
       ),

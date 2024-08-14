@@ -19,7 +19,6 @@ class WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
-    whereToGo();
   }
 
   @override
@@ -106,12 +105,14 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                     borderRadius: BorderRadius.circular(10),
                     child: InkWell(
                       onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignUpScreen(),
-                          ),
-                        );
+                            whereToGo();
+
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => SignUpScreen(),
+                        //   ),
+                        // );
                       },
                       child: Container(
                         padding:
@@ -123,6 +124,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1,
                             )),
+                            
                       ),
                     ),
                   )
@@ -138,23 +140,23 @@ class WelcomeScreenState extends State<WelcomeScreen> {
   void whereToGo() async {
     var sharedPref = await SharedPreferences.getInstance();
     var isLoggedIn = sharedPref.getBool(KEYLOGIN);
-   // Timer(const Duration(seconds: 3), () {
+  //  Timer(const Duration(seconds: 3), () {
       if (isLoggedIn != null) {
         if (isLoggedIn) {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => GoogleNavBar()));
         } else {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => WelcomeScreen()));
+              MaterialPageRoute(builder: (context) => LoginScreen()));
         }
       } else {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => WelcomeScreen()));
+            MaterialPageRoute(builder: (context) => LoginScreen()));
       }
 
       // Navigator.of(context).pushReplacement(
-      //     MaterialPageRoute(builder: (context) => LoginScreen()));
-   // }
-   // );
+      //     MaterialPageRoute(builder: (context) => WelcomeScreen()));
+  // }
+   //);
   }
 }

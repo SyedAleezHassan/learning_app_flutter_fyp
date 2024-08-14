@@ -12,31 +12,39 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   bool passwordVisible = false;
+  bool confirmPasswordVisible = false;
   bool value = false;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   void register() async {
     final String email = emailController.text;
     final String password = passwordController.text;
-    try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
-    } on FirebaseAuthException catch (e) {
-      
-      if (_formKey.currentState!.validate()) {
-        print("Registration successful");
-      } else {
-        print("Validation failed");
+    final String confirmPass = confirmPasswordController.text;
+    if (confirmPass == password) {
+      try {
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      } on FirebaseAuthException catch (e) {
+        if (_formKey.currentState!.validate()) {
+          print("Registration successful");
+        } else {
+          print("Validation failed");
+        }
+      } catch (e) {
+        print(e);
       }
-    } catch (e) {
-      print(e);
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => LoginScreen()));
     }
   }
 
@@ -85,7 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 return "Fill this field";
                               if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
                                   .hasMatch(text)) {
-                                // return 'Please enter a valid email address';
+                                return 'Please enter a valid email address';
                               }
                               return null;
                             },
@@ -137,7 +145,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               fillColor: Colors.transparent,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(9)),
-                             
                               suffixIcon: IconButton(
                                 icon: Icon(passwordVisible
                                     ? Icons.visibility
@@ -159,6 +166,55 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             textInputAction: TextInputAction.done,
                           ),
                         ),
+                        const Text(
+                          "Your Password",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          // height: 55,
+
+                          child: TextFormField(
+                            controller: confirmPasswordController,
+                            validator: (text) {
+                              if (text == null || text.isEmpty) {
+                                return 'Please confirm your password';
+                              }
+                              if (text != passwordController.text) {
+                                return 'Passwords do not match';
+                              }
+                              return null;
+                            },
+                            obscureText: confirmPasswordVisible,
+                            decoration: InputDecoration(
+                              fillColor: Colors.transparent,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(9),
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(confirmPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                onPressed: () {
+                                  setState(
+                                    () {
+                                      confirmPasswordVisible =
+                                          !confirmPasswordVisible;
+                                    },
+                                  );
+                                },
+                              ),
+                              alignLabelWithHint: false,
+                              filled: true,
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                            ),
+                            keyboardType: TextInputType.visiblePassword,
+                            textInputAction: TextInputAction.done,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -172,7 +228,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 width: MediaQuery.of(context).size.width * 0.9,
                 decoration: const BoxDecoration(),
                 child: ElevatedButton(
-                    onPressed: register,
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        // If all fields are valid, do something
+                        // For example, submit the form data
+                        register();
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius:
