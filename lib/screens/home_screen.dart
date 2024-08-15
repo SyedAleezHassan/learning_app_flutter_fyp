@@ -6,6 +6,7 @@ import 'package:flutter_application_1/home_page_icons/category.dart';
 import 'package:flutter_application_1/home_page_icons/leaderBoard.dart';
 import 'package:flutter_application_1/screens/course_screen.dart';
 
+import '../home_page_icons/books.dart';
 import '../home_page_icons/classes.dart';
 import '../home_page_icons/freeCourse.dart';
 import '../home_page_icons/liveCourse.dart';
@@ -197,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => freeCourse()));
+                                      builder: (context) => PdfListScreen()));
                             }
                             if (index == 4) {
                               Navigator.push(
