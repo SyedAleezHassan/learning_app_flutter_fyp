@@ -6,6 +6,9 @@ import 'package:flutter_application_1/navBar/navBar.dart';
 // import 'package:flutter_application_1/screens/chatbot.dart';
 import 'package:flutter_application_1/screens/chatbot/chatbot_screen.dart';
 import 'package:flutter_application_1/screens/login.dart';
+import 'package:flutter_application_1/screens/settings/change_pass.dart';
+import 'package:flutter_application_1/screens/settings/del_account.dart';
+import 'package:flutter_application_1/screens/settings/privacy_policy.dart';
 import 'package:flutter_application_1/screens/signUp.dart';
 import 'package:flutter_application_1/screens/welcome_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,56 +54,292 @@ class _MyaccountState extends State<Myaccount> {
         ),
         backgroundColor: appColor.primaryColor,
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.logout,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // await _auth.signOut();
-              // Navigator.of(context).pushReplacementNamed('/login');
+          // IconButton(
+          //   icon: Icon(Icons.logout, color: Colors.white),
+          //   onPressed: () {
+          //     showDialog(
+          //       context: context,
+          //       builder: (BuildContext context) {
+          //         return AlertDialog(
+          //           title: Text('Are you sure?'),
+          //           content: Text('Do you really want to logout?'),
+          //           actions: [
+          //             TextButton(
+          //               onPressed: () {
+          //                 Navigator.of(context).pop(); // Closes the dialog
+          //               },
+          //               child: Text('Cancel'),
+          //             ),
+          //             ElevatedButton(
+          //               onPressed: () async {
+          //                 var sharedpref =
+          //                     await SharedPreferences.getInstance();
+          //                 sharedpref.setBool(
+          //                     WelcomeScreenState.KEYLOGIN, false);
 
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text('Are you sure?'),
-                    content: Text('Do you really want to logout'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(); // Closes the dialog
-                        },
-                        child: Text('Cancel'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          var sharedpref =
-                              await SharedPreferences.getInstance();
-
-                          sharedpref.setBool(
-                              WelcomeScreenState.KEYLOGIN, false);
-                          // ignore: use_build_context_synchronously
-                          // Perform action
-                          
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()),
-                            (Route<dynamic> route) => false,
-                          ); // Closes the dialog
-                          
-                        },
-                        child: Text('Yes'),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-          )
+          //                 Navigator.pushAndRemoveUntil(
+          //                   context,
+          //                   MaterialPageRoute(
+          //                       builder: (context) => LoginScreen()),
+          //                   (Route<dynamic> route) => false,
+          //                 ); // Closes the dialog
+          //               },
+          //               child: Text('Yes'),
+          //             ),
+          //           ],
+          //         );
+          //       },
+          //     );
+          //   },
+          // ),
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: appColor.primaryColor,
+              ),
+              child: Text(
+                'Settings',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.privacy_tip),
+              title: Text('Privacy and Policy'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PrivacyPolicyPage()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.lock_reset),
+              title: Text('Reset Password'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChangePasswordScreen()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.article),
+              title: Text('License'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LicensePage()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text('Sign Out'),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Are you sure?'),
+                      content: Text('Do you really want to logout?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Closes the dialog
+                          },
+                          child: Text('Cancel'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            var sharedpref =
+                                await SharedPreferences.getInstance();
+                            sharedpref.setBool(
+                                WelcomeScreenState.KEYLOGIN, false);
+
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()),
+                              (Route<dynamic> route) => false,
+                            ); // Closes the dialog
+                          },
+                          child: Text('Yes'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.delete),
+              title: Text('Delete Account'),
+              onTap: () {
+                            DeleteAccountHandler.deleteAccount(context);
+
+              },
+            ),
+          ],
+        ),
+      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     'Profile',
+      //     style: TextStyle(fontSize: 25, color: Colors.white),
+      //   ),
+      //   backgroundColor: appColor.primaryColor,
+      //   actions: [
+      //     PopupMenuButton<int>(
+      //       icon: Icon(Icons.settings, color: Colors.white),
+      //       onSelected: (int result) {
+      //         if (result == 0) {
+      //           // Handle first setting option
+      //         } else if (result == 1) {
+      //           // Handle second setting option
+      //         }
+      //       },
+      //       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
+      //         PopupMenuItem<int>(
+      //           value: 0,
+      //           child: ListTile(
+      //             leading: Icon(Icons.person),
+      //             title: Text('Privacy and Policy'),
+      //           ),
+      //         ),
+      //         PopupMenuItem<int>(
+      //           value: 1,
+      //           child: ListTile(
+      //             leading: Icon(Icons.notifications),
+      //             title: Text('Reset Password'),
+      //           ),
+      //         ),
+      //         PopupMenuItem<int>(
+      //           value: 0,
+      //           child: ListTile(
+      //             leading: Icon(Icons.person),
+      //             title: Text('Liscence'),
+      //           ),
+      //         ),
+      //         PopupMenuItem<int>(
+      //           value: 0,
+      //           child: ListTile(
+      //             leading: Icon(Icons.person),
+      //             title: Text('Sign Out'),
+      //           ),
+      //         ),
+      //         PopupMenuItem<int>(
+      //           value: 0,
+      //           child: ListTile(
+      //             leading: Icon(Icons.person),
+      //             title: Text('Delete Account'),
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //     IconButton(
+      //       icon: Icon(Icons.logout, color: Colors.white),
+      //       onPressed: () {
+      //         showDialog(
+      //           context: context,
+      //           builder: (BuildContext context) {
+      //             return AlertDialog(
+      //               title: Text('Are you sure?'),
+      //               content: Text('Do you really want to logout?'),
+      //               actions: [
+      //                 TextButton(
+      //                   onPressed: () {
+      //                     Navigator.of(context).pop(); // Closes the dialog
+      //                   },
+      //                   child: Text('Cancel'),
+      //                 ),
+      //                 ElevatedButton(
+      //                   onPressed: () async {
+      //                     var sharedpref =
+      //                         await SharedPreferences.getInstance();
+      //                     sharedpref.setBool(
+      //                         WelcomeScreenState.KEYLOGIN, false);
+
+      //                     Navigator.pushAndRemoveUntil(
+      //                       context,
+      //                       MaterialPageRoute(
+      //                           builder: (context) => LoginScreen()),
+      //                       (Route<dynamic> route) => false,
+      //                     ); // Closes the dialog
+      //                   },
+      //                   child: Text('Yes'),
+      //                 ),
+      //               ],
+      //             );
+      //           },
+      //         );
+      //       },
+      //     ),
+      //   ],
+      // ),
+
+      // appBar: AppBar(
+      //   title: Text(
+      //     'Profile',
+      //     style: TextStyle(fontSize: 25, color: Colors.white),
+      //   ),
+      //   backgroundColor: appColor.primaryColor,
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(
+      //         Icons.logout,
+      //         color: Colors.white,
+      //       ),
+      //       onPressed: () {
+      //         // await _auth.signOut();
+      //         // Navigator.of(context).pushReplacementNamed('/login');
+
+      //         showDialog(
+      //           context: context,
+      //           builder: (BuildContext context) {
+      //             return AlertDialog(
+      //               title: Text('Are you sure?'),
+      //               content: Text('Do you really want to logout'),
+      //               actions: [
+      //                 TextButton(
+      //                   onPressed: () {
+      //                     Navigator.of(context).pop(); // Closes the dialog
+      //                   },
+      //                   child: Text('Cancel'),
+      //                 ),
+      //                 ElevatedButton(
+      //                   onPressed: () async {
+      //                     var sharedpref =
+      //                         await SharedPreferences.getInstance();
+
+      //                     sharedpref.setBool(
+      //                         WelcomeScreenState.KEYLOGIN, false);
+      //                     // ignore: use_build_context_synchronously
+      //                     // Perform action
+
+      //                     Navigator.pushAndRemoveUntil(
+      //                       context,
+      //                       MaterialPageRoute(
+      //                           builder: (context) => LoginScreen()),
+      //                       (Route<dynamic> route) => false,
+      //                     ); // Closes the dialog
+
+      //                   },
+      //                   child: Text('Yes'),
+      //                 ),
+      //               ],
+      //             );
+      //           },
+      //         );
+      //       },
+      //     )
+      //   ],
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
