@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:flutter_application_1/color/color.dart';
 
 class categoryPage extends StatelessWidget {
   final List<Map<String, dynamic>> categories = [
     {
       'title': 'Programming Languages',
-      'description': 'Learn popular programming languages like Python, Java, and C++.',
+      'description':
+          'Learn popular programming languages like Python, Java, and C++.',
       'icon': Icons.code,
       'color': Colors.blueAccent,
     },
     {
       'title': 'Graphics Designing',
-      'description': 'Master the art of graphics designing with tools like Photoshop and Illustrator.',
+      'description':
+          'Master the art of graphics designing with tools like Photoshop and Illustrator.',
       'icon': Icons.design_services,
       'color': Colors.greenAccent,
     },
     {
       'title': 'Databases Learning',
-      'description': 'Understand the fundamentals of databases like SQL, MongoDB, and more.',
+      'description':
+          'Understand the fundamentals of databases like SQL, MongoDB, and more.',
       'icon': Icons.storage,
       'color': Colors.purpleAccent,
     },
     {
       'title': 'Hosting',
-      'description': 'Get to know about web hosting, cloud services, and domain management.',
+      'description':
+          'Get to know about web hosting, cloud services, and domain management.',
       'icon': Icons.cloud,
       'color': Colors.orangeAccent,
     },
@@ -34,8 +37,14 @@ class categoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Learning Categories',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-        backgroundColor: Colors.deepPurple,
+        title: Text(
+          "Learning Categories",
+          style: TextStyle(fontSize: 25, color: Colors.white),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set the back arrow color to white
+        ),
+        backgroundColor: appColor.primaryColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -49,7 +58,8 @@ class categoryPage extends StatelessWidget {
                 ),
                 elevation: 5,
                 child: Container(
-                  width: double.infinity, // Makes the card fill the screen width
+                  width:
+                      double.infinity, // Makes the card fill the screen width
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

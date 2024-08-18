@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:flutter_application_1/color/color.dart';
 
 class freeCourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Courses'),
-        backgroundColor: Colors.deepPurple,
+        title: Text(
+          "Free Courses",
+          style: TextStyle(fontSize: 25, color: Colors.white),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set the back arrow color to white
+        ),
+        backgroundColor: appColor.primaryColor,
       ),
       body: Center(
         child: Padding(

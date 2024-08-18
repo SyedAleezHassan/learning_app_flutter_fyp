@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_application_1/home_page_icons/category.dart';
 import 'package:flutter_application_1/home_page_icons/leaderBoard.dart';
+import 'package:flutter_application_1/navBar/navBar.dart';
 import 'package:flutter_application_1/screens/course_screen.dart';
+import 'package:flutter_application_1/screens/courses.dart';
 
 import '../home_page_icons/books.dart';
 import '../home_page_icons/classes.dart';
@@ -236,13 +238,21 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Text(
-                      "See All",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF674AEF),
+                    InkWell(
+                      child: Text(
+                        "See All",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: appColor.primaryColor,
+                        ),
                       ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GoogleNavBar()));
+                      },
                     ),
                   ],
                 ),

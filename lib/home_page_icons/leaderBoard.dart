@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:flutter_application_1/color/color.dart';
 
 class leaderBoard extends StatelessWidget {
   // Dummy leaderboard data
@@ -15,8 +14,14 @@ class leaderBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Leaderboard'),
-        backgroundColor: Colors.blueAccent,
+        title: Text(
+          "Leader Board",
+          style: TextStyle(fontSize: 25, color: Colors.white),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set the back arrow color to white
+        ),
+        backgroundColor: appColor.primaryColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

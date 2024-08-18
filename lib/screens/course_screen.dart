@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_application_1/widgets/description_section.dart';
 import 'package:flutter_application_1/widgets/videos_section.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -110,11 +111,8 @@ class _CourseScreenState extends State<CourseScreen> {
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 10),
-            child: Icon(
-              Icons.notifications,
-              size: 28,
-              color: Color(0xFF674AEF),
-            ),
+            child: Icon(Icons.notifications,
+                size: 28, color: appColor.primaryColor),
           )
         ],
       ),
@@ -141,7 +139,7 @@ class _CourseScreenState extends State<CourseScreen> {
                 ),
                 child: Icon(
                   Icons.play_arrow_rounded,
-                  color: Color(0xFF674AEF),
+                  color: appColor.primaryColor,
                   size: 45,
                 ),
               )),
@@ -190,53 +188,113 @@ class _CourseScreenState extends State<CourseScreen> {
                         fontSize: 16.0,
                       );
                     } else {
+                      // showDialog<String>(
+                      //   context: context,
+                      //   builder: (BuildContext context) => AlertDialog(
+                      //     title: Text(widget.name),
+                      //     content: Container(
+                      //       height: 100,
+                      //       child: Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         mainAxisAlignment: MainAxisAlignment.center,
+                      //         children: [
+                      //           Text("Do you want to buy this course?"),
+                      //           Text("Price : ${widget.buy}")
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     actions: <Widget>[
+                      //       TextButton(
+                      //         onPressed: () => Navigator.pop(context, 'Cancel'),
+                      //         child: const Text('Cancel'),
+                      //       ),
+                      //       TextButton(
+
+                      //         onPressed: () async {
+                      //           bool nameExists =
+                      //               await isNameInList(widget.name);
+                      //           if (nameExists) {
+                      //             print("already added");
+
+                      //             //yhnnn
+                      //           } else {
+                      //             await _saveData(widget.name, widget.buy,
+                      //                 widget.image, widget.video);
+                      //           }
+
+                      //           Navigator.pop(context);
+                      //           setState(() {
+                      //             isbought = true;
+                      //           });
+                      //         },
+                      //         child: const Text('OK'),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // );
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                          title: Text(widget.name),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          title: Text(
+                            widget.name,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: appColor.primaryColor,
+                            ),
+                          ),
                           content: Container(
                             height: 100,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Do you want to buy this course?"),
-                                Text("Price : ${widget.buy}")
+                                Text(
+                                  "Do you want to buy this course?",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Price: ${widget.buy}",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                           actions: <Widget>[
                             TextButton(
                               onPressed: () => Navigator.pop(context, 'Cancel'),
-                              child: const Text('Cancel'),
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              style: TextButton.styleFrom(
+                                backgroundColor: appColor.primaryColor,
+                              ),
                             ),
                             TextButton(
-                              // onPressed: () async {
-                              //   await isNameInList(widget.name);
-                              //   if (isNameInList(widget.name) == true) {
-                              //     print("already added");
-                              //   } else {
-                              //     return _saveData(widget.name, widget.buy,
-                              //         widget.image, widget.video);
-                              //   }
                               onPressed: () async {
                                 bool nameExists =
                                     await isNameInList(widget.name);
                                 if (nameExists) {
                                   print("already added");
-                                  // Fluttertoast.showToast(
-                                  //   msg: "Course already added",
-                                  //   toastLength: Toast.LENGTH_SHORT,
-                                  //   gravity: ToastGravity.BOTTOM,
-                                  //   timeInSecForIosWeb: 1,
-                                  //   backgroundColor: Colors.black,
-                                  //   textColor: Colors.white,
-                                  //   fontSize: 16.0,
-                                  // );
-                                  //yhnnn
                                 } else {
-                                  await _saveData(widget.name, widget.buy,
-                                      widget.image, widget.video);
+                                  await _saveData(
+                                    widget.name,
+                                    widget.buy,
+                                    widget.image,
+                                    widget.video,
+                                  );
                                 }
 
                                 Navigator.pop(context);
@@ -244,11 +302,18 @@ class _CourseScreenState extends State<CourseScreen> {
                                   isbought = true;
                                 });
                               },
-                              child: const Text('OK'),
+                              child: const Text(
+                                'OK',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              style: TextButton.styleFrom(
+                                backgroundColor: appColor.primaryColor,
+                              ),
                             ),
                           ],
                         ),
                       );
+                      //=============================================
                     }
                   },
                   child: Text(
@@ -274,8 +339,10 @@ class _CourseScreenState extends State<CourseScreen> {
                 children: [
                   Material(
                     color: isvideoSection
-                        ? Color(0xFF674AEF)
-                        : Color(0xFF674AEF).withOpacity(0.6),
+                        ? appColor.primaryColor
+                        // Color(0xFF674AEF)
+                        : appColor.primaryColor.withOpacity(0.6),
+                    // Color(0xFF674AEF).withOpacity(0.6),
                     borderRadius: BorderRadius.circular(10),
                     child: InkWell(
                       onTap: () async {
@@ -308,8 +375,11 @@ class _CourseScreenState extends State<CourseScreen> {
                   ),
                   Material(
                     color: isvideoSection
-                        ? Color(0xFF674AEF).withOpacity(0.6)
-                        : Color(0xFF674AEF),
+                        ? appColor.primaryColor.withOpacity(0.6)
+                        // Color(0xFF674AEF)
+                        : appColor.primaryColor,
+                    // ? Color(0xFF674AEF).withOpacity(0.6)
+                    // : Color(0xFF674AEF),
                     borderRadius: BorderRadius.circular(10),
                     child: InkWell(
                       onTap: () {

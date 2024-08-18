@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_application_1/widgets/videoPlayer/flutter_intro_vid.dart';
 
 class VideoSection extends StatelessWidget {
@@ -21,8 +22,8 @@ class VideoSection extends StatelessWidget {
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
               color: index == 0
-                  ? Color(0xFF674AEF)
-                  : Color(0xFF674AEF).withOpacity(0.6),
+                  ? appColor.primaryColor
+                  : appColor.primaryColor.withOpacity(0.6),
               shape: BoxShape.circle,
             ),
             child: Icon(

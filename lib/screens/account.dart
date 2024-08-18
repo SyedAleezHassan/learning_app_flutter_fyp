@@ -93,6 +93,7 @@ class _MyaccountState extends State<Myaccount> {
           //   },
           // ),
         ],
+       
       ),
       drawer: Drawer(
         child: ListView(
@@ -101,6 +102,7 @@ class _MyaccountState extends State<Myaccount> {
             DrawerHeader(
               decoration: BoxDecoration(
                 color: appColor.primaryColor,
+                
               ),
               child: Text(
                 'Settings',
@@ -181,8 +183,7 @@ class _MyaccountState extends State<Myaccount> {
               leading: Icon(Icons.delete),
               title: Text('Delete Account'),
               onTap: () {
-                            DeleteAccountHandler.deleteAccount(context);
-
+                DeleteAccountHandler.deleteAccount(context);
               },
             ),
           ],

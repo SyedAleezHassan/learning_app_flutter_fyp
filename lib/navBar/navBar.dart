@@ -18,7 +18,7 @@ class _GoogleNavBarState extends State<GoogleNavBar> {
   int currentIndex = 0;
   List screens = [
     HomePage(),
-    const Courses(),
+    Courses(),
     MyCourses(),
     Myaccount(),
   ];

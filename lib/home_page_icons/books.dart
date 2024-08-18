@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 import 'showPdf.dart';
@@ -119,7 +120,14 @@ class _PdfListScreenState extends State<PdfListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PDF List'),
+        title: Text(
+          "Books Store",
+          style: TextStyle(fontSize: 25, color: Colors.white),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set the back arrow color to white
+        ),
+        backgroundColor: appColor.primaryColor,
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: _getPdfs(),
@@ -142,23 +150,50 @@ class _PdfListScreenState extends State<PdfListScreen> {
                       checkList();
 
                       return ListTile(
-                        title: Text(matchingEntries[index]["name"]),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        leading: Icon(Icons.picture_as_pdf,
+                            color: Colors.redAccent, size: 30),
+                        title: Text(
+                          matchingEntries[index]["name"] ?? '',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        trailing:
+                            Icon(Icons.arrow_forward_ios, color: Colors.grey),
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => PDFViewerPage(
-                                  filepath: matchingEntries[index]["Url"]),
-                              //  PdfViewer(filepath : pdfUrls[index]),
+                                filepath: matchingEntries[index]["Url"] ?? '',
+                              ),
                             ),
                           );
                         },
                       );
+                      // ListTile(
+                      //   title: Text(matchingEntries[index]["name"]),
+                      //   onTap: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => PDFViewerPage(
+                      //             filepath: matchingEntries[index]["Url"]),
+                      //         //  PdfViewer(filepath : pdfUrls[index]),
+                      //       ),
+                      //     );
+                      //   },
+                      // );
                     },
                   )
                 : Center(
-                  child:isload? CircularProgressIndicator():Text("No data"),
-                );
+                    child:
+                        isload ? CircularProgressIndicator() : Text("No data"),
+                  );
           }
         },
       ),
