@@ -404,7 +404,7 @@ class _CourseScreenState extends State<CourseScreen> {
               ),
             ),
             SizedBox(height: 10),
-            isvideoSection ? VideoSection() : DescriptionSection(),
+            isvideoSection ? VideoSection(courseName:widget.name) : DescriptionSection(),
           ],
         ),
       ),
