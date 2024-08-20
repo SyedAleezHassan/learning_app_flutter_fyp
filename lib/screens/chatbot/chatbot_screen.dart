@@ -21,17 +21,17 @@ class _chatbotAiState extends State<chatbotAi> {
   ChatUser currentUser = ChatUser(id: "0", firstName: "User");
   ChatUser geminiUser = ChatUser(
     id: "1",
-    firstName: "Gemini",
-    profileImage:
-        "https://seeklogo.com/images/G/google-gemini-logo-A5787B2669-seeklogo.com.png",
-  );
+    firstName: "Mr. AI",
+    profileImage: 'https://yt3.googleusercontent.com/swv9wQxWDXdKL4ZBEV8mvlDSySyxQeANhC4AjrtZ2PAidPhj7H5AI27GqFy5GOAPneEAMYIO=s900-c-k-c0x00ffffff-no-rj'
+        //"https://seeklogo.com/images/G/google-gemini-logo-A5787B2669-seeklogo.com.png",
+  );//https://yt3.googleusercontent.com/swv9wQxWDXdKL4ZBEV8mvlDSySyxQeANhC4AjrtZ2PAidPhj7H5AI27GqFy5GOAPneEAMYIO=s900-c-k-c0x00ffffff-no-rj
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          "Gemini Chat",
+          "Mr AI",
         ),
       ),
       body: _buildUI(),

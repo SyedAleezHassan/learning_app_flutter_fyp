@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_application_1/navBar/navBar.dart';
+import 'package:flutter_application_1/screens/Quizes/certificate.dart';
+import 'package:flutter_application_1/screens/Quizes/course_certification.dart';
 // import 'package:flutter_application_1/screens/chatbot.dart';
 import 'package:flutter_application_1/screens/chatbot/chatbot_screen.dart';
 import 'package:flutter_application_1/screens/login.dart';
@@ -23,6 +25,8 @@ class _MyaccountState extends State<Myaccount> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   User? _user;
   String _userName = '';
+  //  late final String? email;
+  // late final String courseName;
 
   @override
   void initState() {
@@ -53,47 +57,10 @@ class _MyaccountState extends State<Myaccount> {
           style: TextStyle(fontSize: 25, color: Colors.white),
         ),
         backgroundColor: appColor.primaryColor,
-        actions: [
-          // IconButton(
-          //   icon: Icon(Icons.logout, color: Colors.white),
-          //   onPressed: () {
-          //     showDialog(
-          //       context: context,
-          //       builder: (BuildContext context) {
-          //         return AlertDialog(
-          //           title: Text('Are you sure?'),
-          //           content: Text('Do you really want to logout?'),
-          //           actions: [
-          //             TextButton(
-          //               onPressed: () {
-          //                 Navigator.of(context).pop(); // Closes the dialog
-          //               },
-          //               child: Text('Cancel'),
-          //             ),
-          //             ElevatedButton(
-          //               onPressed: () async {
-          //                 var sharedpref =
-          //                     await SharedPreferences.getInstance();
-          //                 sharedpref.setBool(
-          //                     WelcomeScreenState.KEYLOGIN, false);
-
-          //                 Navigator.pushAndRemoveUntil(
-          //                   context,
-          //                   MaterialPageRoute(
-          //                       builder: (context) => LoginScreen()),
-          //                   (Route<dynamic> route) => false,
-          //                 ); // Closes the dialog
-          //               },
-          //               child: Text('Yes'),
-          //             ),
-          //           ],
-          //         );
-          //       },
-          //     );
-          //   },
-          // ),
-        ],
-       
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set the color of the menu icon to white
+        ),
+        actions: [],
       ),
       drawer: Drawer(
         child: ListView(
@@ -102,7 +69,6 @@ class _MyaccountState extends State<Myaccount> {
             DrawerHeader(
               decoration: BoxDecoration(
                 color: appColor.primaryColor,
-                
               ),
               child: Text(
                 'Settings',
@@ -189,158 +155,6 @@ class _MyaccountState extends State<Myaccount> {
           ],
         ),
       ),
-      // appBar: AppBar(
-      //   title: Text(
-      //     'Profile',
-      //     style: TextStyle(fontSize: 25, color: Colors.white),
-      //   ),
-      //   backgroundColor: appColor.primaryColor,
-      //   actions: [
-      //     PopupMenuButton<int>(
-      //       icon: Icon(Icons.settings, color: Colors.white),
-      //       onSelected: (int result) {
-      //         if (result == 0) {
-      //           // Handle first setting option
-      //         } else if (result == 1) {
-      //           // Handle second setting option
-      //         }
-      //       },
-      //       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-      //         PopupMenuItem<int>(
-      //           value: 0,
-      //           child: ListTile(
-      //             leading: Icon(Icons.person),
-      //             title: Text('Privacy and Policy'),
-      //           ),
-      //         ),
-      //         PopupMenuItem<int>(
-      //           value: 1,
-      //           child: ListTile(
-      //             leading: Icon(Icons.notifications),
-      //             title: Text('Reset Password'),
-      //           ),
-      //         ),
-      //         PopupMenuItem<int>(
-      //           value: 0,
-      //           child: ListTile(
-      //             leading: Icon(Icons.person),
-      //             title: Text('Liscence'),
-      //           ),
-      //         ),
-      //         PopupMenuItem<int>(
-      //           value: 0,
-      //           child: ListTile(
-      //             leading: Icon(Icons.person),
-      //             title: Text('Sign Out'),
-      //           ),
-      //         ),
-      //         PopupMenuItem<int>(
-      //           value: 0,
-      //           child: ListTile(
-      //             leading: Icon(Icons.person),
-      //             title: Text('Delete Account'),
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //     IconButton(
-      //       icon: Icon(Icons.logout, color: Colors.white),
-      //       onPressed: () {
-      //         showDialog(
-      //           context: context,
-      //           builder: (BuildContext context) {
-      //             return AlertDialog(
-      //               title: Text('Are you sure?'),
-      //               content: Text('Do you really want to logout?'),
-      //               actions: [
-      //                 TextButton(
-      //                   onPressed: () {
-      //                     Navigator.of(context).pop(); // Closes the dialog
-      //                   },
-      //                   child: Text('Cancel'),
-      //                 ),
-      //                 ElevatedButton(
-      //                   onPressed: () async {
-      //                     var sharedpref =
-      //                         await SharedPreferences.getInstance();
-      //                     sharedpref.setBool(
-      //                         WelcomeScreenState.KEYLOGIN, false);
-
-      //                     Navigator.pushAndRemoveUntil(
-      //                       context,
-      //                       MaterialPageRoute(
-      //                           builder: (context) => LoginScreen()),
-      //                       (Route<dynamic> route) => false,
-      //                     ); // Closes the dialog
-      //                   },
-      //                   child: Text('Yes'),
-      //                 ),
-      //               ],
-      //             );
-      //           },
-      //         );
-      //       },
-      //     ),
-      //   ],
-      // ),
-
-      // appBar: AppBar(
-      //   title: Text(
-      //     'Profile',
-      //     style: TextStyle(fontSize: 25, color: Colors.white),
-      //   ),
-      //   backgroundColor: appColor.primaryColor,
-      //   actions: [
-      //     IconButton(
-      //       icon: Icon(
-      //         Icons.logout,
-      //         color: Colors.white,
-      //       ),
-      //       onPressed: () {
-      //         // await _auth.signOut();
-      //         // Navigator.of(context).pushReplacementNamed('/login');
-
-      //         showDialog(
-      //           context: context,
-      //           builder: (BuildContext context) {
-      //             return AlertDialog(
-      //               title: Text('Are you sure?'),
-      //               content: Text('Do you really want to logout'),
-      //               actions: [
-      //                 TextButton(
-      //                   onPressed: () {
-      //                     Navigator.of(context).pop(); // Closes the dialog
-      //                   },
-      //                   child: Text('Cancel'),
-      //                 ),
-      //                 ElevatedButton(
-      //                   onPressed: () async {
-      //                     var sharedpref =
-      //                         await SharedPreferences.getInstance();
-
-      //                     sharedpref.setBool(
-      //                         WelcomeScreenState.KEYLOGIN, false);
-      //                     // ignore: use_build_context_synchronously
-      //                     // Perform action
-
-      //                     Navigator.pushAndRemoveUntil(
-      //                       context,
-      //                       MaterialPageRoute(
-      //                           builder: (context) => LoginScreen()),
-      //                       (Route<dynamic> route) => false,
-      //                     ); // Closes the dialog
-
-      //                   },
-      //                   child: Text('Yes'),
-      //                 ),
-      //               ],
-      //             );
-      //           },
-      //         );
-      //       },
-      //     )
-      //   ],
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -385,12 +199,12 @@ class _MyaccountState extends State<Myaccount> {
               leading: Container(
                 padding: EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  color: Colors.blueAccent.withOpacity(0.1),
+                  color: appColor.primaryColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Icon(
                   Icons.email,
-                  color: Colors.blueAccent,
+                  color: appColor.primaryColor,
                   size: 30.0,
                 ),
               ),
@@ -423,12 +237,12 @@ class _MyaccountState extends State<Myaccount> {
               leading: Container(
                 padding: EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  color: Colors.blueAccent.withOpacity(0.1),
+                  color: appColor.primaryColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Icon(
                   Icons.person_3_outlined,
-                  color: Colors.blueAccent,
+                  color: appColor.primaryColor,
                   size: 30.0,
                 ),
               ),
@@ -462,6 +276,49 @@ class _MyaccountState extends State<Myaccount> {
                     MaterialPageRoute(builder: (context) => chatbotAi()));
               },
             ),
+            Divider(),
+            ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              leading: Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: appColor.primaryColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Icon(
+                  Icons.email,
+                  color: appColor.primaryColor,
+                  size: 30.0,
+                ),
+              ),
+              title: Text(
+                'Certificates',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              subtitle: Text(
+                'View your achievements',
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+              tileColor: Colors.grey.withOpacity(0.05),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CertificatePageSelector()));
+              },
+            ),
+
+            Divider(),
             // Divider(),
             // ListTile(
             //   contentPadding:
@@ -469,12 +326,12 @@ class _MyaccountState extends State<Myaccount> {
             //   leading: Container(
             //     padding: EdgeInsets.all(8.0),
             //     decoration: BoxDecoration(
-            //       color: Colors.blueAccent.withOpacity(0.1),
+            //       color: appColor.primaryColor.withOpacity(0.1),
             //       borderRadius: BorderRadius.circular(8.0),
             //     ),
             //     child: Icon(
             //       Icons.person_3_outlined,
-            //       color: Colors.blueAccent,
+            //       color: appColor.primaryColor,
             //       size: 30.0,
             //     ),
             //   ),
