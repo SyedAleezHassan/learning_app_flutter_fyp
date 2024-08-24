@@ -11,10 +11,10 @@ class GoogleNavBar extends StatefulWidget {
   const GoogleNavBar({super.key});
 
   @override
-  State<GoogleNavBar> createState() => _GoogleNavBarState();
+  State<GoogleNavBar> createState() => GoogleNavBarState();
 }
 
-class _GoogleNavBarState extends State<GoogleNavBar> {
+class GoogleNavBarState extends State<GoogleNavBar> {
   int currentIndex = 0;
   List screens = [
     HomePage(),
@@ -22,28 +22,34 @@ class _GoogleNavBarState extends State<GoogleNavBar> {
     MyCourses(),
     Myaccount(),
   ];
+
+  // Function to navigate and receive the index
+  // void navigateToAnotherPage(BuildContext context) async {
+  //   final result = await Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => Courses()), // Navigate to another page
+  //   );
+
+  //   if (result != null && result ==1) {
+  //     setState(() {
+  //       currentIndex = result;  // Update the current index to reflect navigation
+  //     });
+  //   }
+  // }
+  void updateIndex(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     setState(() {
-      //       currentIndex = 2;
-      //     });
-      //   },
-      //   shape: const CircleBorder(),
-      //   backgroundColor: const Color.fromARGB(255, 255, 156, 7),
-      //   child: const Icon(
-      //     Icons.home,
-      //     size: 30,
-      //     color: Colors.white,
-      //   ),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: screens[currentIndex],
       bottomNavigationBar: BottomAppBar(
         elevation: 1,
         height: 60,
-        color: Colors.white,
+        color: appColor.primaryColor.withOpacity(0.5),
         // shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -60,7 +66,7 @@ class _GoogleNavBarState extends State<GoogleNavBar> {
               icon: Icon(
                 Icons.home,
                 size: 30,
-                color: currentIndex == 0 ? appColor.primaryColor : Colors.grey,
+                color: currentIndex == 0 ? appColor.primaryColor : Colors.black,
               ),
             ),
             IconButton(
@@ -72,7 +78,7 @@ class _GoogleNavBarState extends State<GoogleNavBar> {
               icon: Icon(
                 Icons.assessment,
                 size: 30,
-                color: currentIndex == 1 ? appColor.primaryColor : Colors.grey,
+                color: currentIndex == 1 ? appColor.primaryColor : Colors.black,
               ),
             ),
             // const SizedBox(
@@ -87,7 +93,7 @@ class _GoogleNavBarState extends State<GoogleNavBar> {
               icon: Icon(
                 Icons.favorite_border_outlined,
                 size: 30,
-                color: currentIndex == 2 ? appColor.primaryColor : Colors.grey,
+                color: currentIndex == 2 ? appColor.primaryColor : Colors.black,
               ),
             ),
             IconButton(
@@ -99,13 +105,12 @@ class _GoogleNavBarState extends State<GoogleNavBar> {
               icon: Icon(
                 Icons.person_2_outlined,
                 size: 30,
-                color: currentIndex == 3 ? appColor.primaryColor : Colors.grey,
+                color: currentIndex == 3 ? appColor.primaryColor : Colors.black,
               ),
             ),
           ],
         ),
       ),
-      body: screens[currentIndex],
     );
   }
 }
@@ -135,10 +140,10 @@ class _GoogleNavBarState extends State<GoogleNavBar> {
 //   const GoogleNavBar({super.key});
 
 //   @override
-//   State<GoogleNavBar> createState() => _GoogleNavBarState();
+//   State<GoogleNavBar> createState() => GoogleNavBarState();
 // }
 
-// class _GoogleNavBarState extends State<GoogleNavBar> {
+// class GoogleNavBarState extends State<GoogleNavBar> {
 //   @override
 //   Widget build(BuildContext context) {
 //     BottomNavBarController controller = Get.put(BottomNavBarController());

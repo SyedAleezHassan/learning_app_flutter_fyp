@@ -1,16 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_application_1/widgets/description_section.dart';
 import 'package:flutter_application_1/widgets/videos_section.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:video_player/video_player.dart';
 
 class CourseScreen extends StatefulWidget {
   String name;
   String buy;
   String image;
   String video;
+
   CourseScreen(this.name, this.buy, this.image, this.video);
 
   @override
@@ -18,6 +21,85 @@ class CourseScreen extends StatefulWidget {
 }
 
 class _CourseScreenState extends State<CourseScreen> {
+  VideoPlayerController? _controller;
+  Future<void>? _initializeVideoPlayerFuture;
+  bool _isPlaying = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserRecordsList();
+
+    // _initializeVideoPlayer();
+  }
+
+  Future<void> _initializeVideoPlayer() async {
+    try {
+      // Fetch the video URL from Firebase Storage
+      String videoUrlString = await FirebaseStorage.instance
+          // .ref('WIN_20240718_03_12_50_Pro.mp4')
+          .ref('What is a Programming Language in 60 seconds!.mp4')
+          .getDownloadURL();
+
+      Uri videoUrl = Uri.parse(videoUrlString);
+
+      // Initialize the video player controller
+      _controller = VideoPlayerController.network(videoUrl.toString());
+
+      // Initialize the video player future
+      _initializeVideoPlayerFuture = _controller!.initialize();
+
+      // Ensure the controller is properly initialized
+      await _initializeVideoPlayerFuture;
+
+      setState(() {});
+
+      // Play the video initially
+      _controller!.pause();
+      _isPlaying = false;
+
+      // Update the UI when the video plays
+      _controller!.addListener(() {
+        setState(() {});
+      });
+    } catch (e) {
+      print("Error initializing video player: $e");
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  // void _togglePlayPause() {
+  //   setState(() {
+  //     if (_controller!.value.isPlaying) {
+  //       _controller!.pause();
+  //       _isPlaying = false;
+  //     } else {
+  //       _controller!.play();
+  //       _isPlaying = true;
+  //     }
+  //   });
+  // }
+  void _togglePlayPause() {
+    if (_controller != null && _controller!.value.isInitialized) {
+      setState(() {
+        if (_controller!.value.isPlaying) {
+          _controller!.pause();
+          _isPlaying = false;
+        } else {
+          _controller!.play();
+          _isPlaying = true;
+        }
+      });
+    }
+  }
+
+////////////////////////
+
   bool isvideoSection = false;
   bool isbought = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -35,12 +117,6 @@ class _CourseScreenState extends State<CourseScreen> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _getUserRecordsList();
-  }
-
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<List<Map<String, dynamic>>> _getUserRecordsList() async {
@@ -81,17 +157,6 @@ class _CourseScreenState extends State<CourseScreen> {
     print("falee");
     return false; // Name not found in the list
   }
-//   addcourses(String name, String buy, String image, String video) {
-//     // Call the user's CollectionReference to add a new user
-// //  CollectionReference courses =
-//     FirebaseFirestore.instance
-//         .collection('boughtCourses')
-//         .add({"imgLink": image, "name": name, "video": video, "price": buy})
-//         .then((value) => print("User Added"))
-//         .catchError((error) => print("Failed to add user: $error"));
-//     print(currentUser);
-//     // return courses
-//   }
 
   @override
   Widget build(BuildContext context) {
@@ -121,28 +186,114 @@ class _CourseScreenState extends State<CourseScreen> {
         child: ListView(
           children: [
             Container(
-              padding: EdgeInsets.all(5),
+              // padding: EdgeInsets.all(5),
               width: MediaQuery.of(context).size.width,
               height: 200,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Color(0xFFF5F3FF),
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/${widget.name}.png"),
-                  )),
+                borderRadius: BorderRadius.circular(20),
+                color: Color(0xFFF5F3FF),
+                image: DecorationImage(
+                  image: AssetImage("assets/images/${widget.name}.png"),
+                  fit: BoxFit.contain,
+                ),
+              ),
               child: Center(
-                  child: Container(
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.play_arrow_rounded,
-                  color: appColor.primaryColor,
-                  size: 45,
-                ),
-              )),
+                child: _controller != null
+                    ? FutureBuilder(
+                        future: _initializeVideoPlayerFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return GestureDetector(
+                              onTap: () {
+                                _togglePlayPause();
+                              },
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  AspectRatio(
+                                    aspectRatio: _controller!.value.aspectRatio,
+                                    child: VideoPlayer(_controller!),
+                                  ),
+                                  Positioned.fill(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        _togglePlayPause(); // Toggle play/pause on tap
+                                      },
+                                      child: Center(
+                                        child: _isPlaying
+                                            ? SizedBox
+                                                .shrink() // Hide play button when video is playing
+                                            : Icon(
+                                                Icons.play_arrow_rounded,
+                                                color: appColor.primaryColor,
+                                                size: 65,
+                                              ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 10,
+                                    left: 10,
+                                    right: 10,
+                                    child: Column(
+                                      children: [
+                                        // Video progress slider
+                                        VideoProgressIndicator(
+                                          _controller!,
+                                          allowScrubbing: true,
+                                          colors: VideoProgressColors(
+                                            playedColor: Colors.blueAccent,
+                                            backgroundColor: Colors.white54,
+                                            bufferedColor: Colors.grey,
+                                          ),
+                                        ),
+                                        // Video time and total duration
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              _formatDuration(
+                                                  _controller!.value.position),
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              _formatDuration(
+                                                  _controller!.value.duration),
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else {
+                            return CircularProgressIndicator();
+                          }
+                        },
+                      )
+                    : Center(
+                        child: Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.play_arrow_rounded,
+                          color: Colors.blueAccent,
+                          size: 45,
+                        ),
+                      )),
+              ),
             ),
             SizedBox(height: 15),
             Text(
@@ -188,50 +339,6 @@ class _CourseScreenState extends State<CourseScreen> {
                         fontSize: 16.0,
                       );
                     } else {
-                      // showDialog<String>(
-                      //   context: context,
-                      //   builder: (BuildContext context) => AlertDialog(
-                      //     title: Text(widget.name),
-                      //     content: Container(
-                      //       height: 100,
-                      //       child: Column(
-                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                      //         mainAxisAlignment: MainAxisAlignment.center,
-                      //         children: [
-                      //           Text("Do you want to buy this course?"),
-                      //           Text("Price : ${widget.buy}")
-                      //         ],
-                      //       ),
-                      //     ),
-                      //     actions: <Widget>[
-                      //       TextButton(
-                      //         onPressed: () => Navigator.pop(context, 'Cancel'),
-                      //         child: const Text('Cancel'),
-                      //       ),
-                      //       TextButton(
-
-                      //         onPressed: () async {
-                      //           bool nameExists =
-                      //               await isNameInList(widget.name);
-                      //           if (nameExists) {
-                      //             print("already added");
-
-                      //             //yhnnn
-                      //           } else {
-                      //             await _saveData(widget.name, widget.buy,
-                      //                 widget.image, widget.video);
-                      //           }
-
-                      //           Navigator.pop(context);
-                      //           setState(() {
-                      //             isbought = true;
-                      //           });
-                      //         },
-                      //         child: const Text('OK'),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // );
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
@@ -351,6 +458,8 @@ class _CourseScreenState extends State<CourseScreen> {
                         bool nameExist = await isNameInList(widget.name);
 
                         if (nameExist) {
+                          _initializeVideoPlayer();
+
                           print('agya');
                           setState(() {
                             isbought = true;
@@ -404,37 +513,19 @@ class _CourseScreenState extends State<CourseScreen> {
               ),
             ),
             SizedBox(height: 10),
-            isvideoSection ? VideoSection(courseName:widget.name) : DescriptionSection(),
+            isvideoSection
+                ? VideoSection(courseName: widget.name)
+                : DescriptionSection(),
           ],
         ),
       ),
     );
   }
-}
 
-// void _showConfirmationDialog(
-//   BuildContext context,
-//   // String category, String price
-// ) {
-//   showDialog(
-//     context: context,
-//     builder: (BuildContext context) {
-//       return AlertDialog(
-//         title: Text('Confirmation'),
-//         content: Text('Do you want to view items in the  category?'),
-//         actions: <Widget>[
-//           TextButton(
-//             onPressed: () {
-//               Navigator.of(context).pop(); // Close the dialog
-//             },
-//             child: Text('Cancel'),
-//           ),
-//           TextButton(
-//             onPressed: () {},
-//             child: Text('OK'),
-//           ),
-//         ],
-//       );
-//     },
-//   );
-// }
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return '$minutes:$seconds';
+  }
+}

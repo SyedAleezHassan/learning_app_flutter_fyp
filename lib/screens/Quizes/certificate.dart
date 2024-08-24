@@ -1,5 +1,3 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
@@ -13,9 +11,9 @@ class CertificatePage extends StatelessWidget {
 
   CertificatePage({required this.courseName});
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-User? get currentUser => _auth.currentUser;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  User? get currentUser => _auth.currentUser;
 
   // void _generateCertificate() async {
   //   if (_userEmail != null && _studentName != null && currentUser != null) {
@@ -29,12 +27,13 @@ User? get currentUser => _auth.currentUser;
   //       'course': 'Flutter',
   //       'date': DateTime.now(),
   //     });
-  //   } 
- 
+  //   }
+
   Future<Map<String, dynamic>> _fetchCertificateData() async {
     final snapshot = await FirebaseFirestore.instance
-        .collection('certificates') .doc(currentUser!.uid)
-       .collection('records')
+        .collection('certificates')
+        .doc(currentUser!.uid)
+        .collection('records')
         .where('course', isEqualTo: courseName)
         .get();
     return snapshot.docs.isNotEmpty ? snapshot.docs.first.data() : {};
@@ -44,19 +43,26 @@ User? get currentUser => _auth.currentUser;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$courseName Certificate'),
+        title: Text(
+          '$courseName Certificate',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: appColor.primaryColor,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: _fetchCertificateData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+          } else if (snapshot.hasError ||
+              !snapshot.hasData ||
+              snapshot.data!.isEmpty) {
             return Center(child: Text('No certificate found for $courseName.'));
           } else {
             final certificate = snapshot.data!;
-            final completionDate = DateFormat.yMMMMd().format(certificate['date'].toDate());
+            final completionDate =
+                DateFormat.yMMMMd().format(certificate['date'].toDate());
 
             return Center(
               child: Padding(
@@ -137,7 +143,7 @@ User? get currentUser => _auth.currentUser;
                       ),
                       SizedBox(height: 40),
                       Text(
-                        'CGP Energy Solutions',
+                        'SMIU',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -155,8 +161,6 @@ User? get currentUser => _auth.currentUser;
     );
   }
 }
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:flutter_application_1/color/color.dart';
@@ -303,4 +307,3 @@ User? get currentUser => _auth.currentUser;
 //     );
 //   }
 // }
-

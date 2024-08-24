@@ -1,12 +1,14 @@
 //import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_application_1/home_page_icons/category.dart';
 import 'package:flutter_application_1/home_page_icons/leaderBoard.dart';
 import 'package:flutter_application_1/navBar/navBar.dart';
 import 'package:flutter_application_1/screens/course_screen.dart';
 import 'package:flutter_application_1/screens/courses.dart';
+import 'package:flutter_application_1/screens/my_courses.dart';
 
 import '../home_page_icons/books.dart';
 import '../home_page_icons/classes.dart';
@@ -73,6 +75,12 @@ class _HomePageState extends State<HomePage> {
     {
       "imgLink": "assets/images/Python.png",
       "name": "Python",
+      "video": "55 videos",
+      "price": "50\$"
+    },
+    {
+      "imgLink": "assets/images/React Native.png",
+      "name": "React Native",
       "video": "55 videos",
       "price": "50\$"
     },
@@ -248,10 +256,19 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => GoogleNavBar()));
+                        // Navigator.push(context,
+                        //     MaterialPageRoute(builder: (context) => ));
+
+                        // setState(() {
+                        //   navigateToAnotherPage();
+                        //   Navigator.pop(context, 1);
+                        // });
+
+                        final parentState = context
+                            .findAncestorStateOfType<GoogleNavBarState>();
+                        if (parentState != null) {
+                          parentState.updateIndex(1);
+                        }
                       },
                     ),
                   ],
@@ -285,8 +302,10 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                            EdgeInsets.symmetric(vertical: 19, horizontal: 10),
                         decoration: BoxDecoration(
+                          border: Border.all(
+                              color: appColor.primaryColor, width: 2),
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xFFF5F3FF),
                         ),

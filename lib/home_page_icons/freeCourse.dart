@@ -24,7 +24,7 @@ class freeCourse extends StatelessWidget {
             children: [
               Icon(
                 Icons.sentiment_dissatisfied,
-                color: Colors.deepPurple,
+                color: appColor.primaryColor,
                 size: 100.0,
               ),
               SizedBox(height: 20.0),

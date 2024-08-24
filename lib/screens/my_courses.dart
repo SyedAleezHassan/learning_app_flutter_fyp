@@ -64,7 +64,7 @@ class _MyCoursesState extends State<MyCourses> {
                   leading: CircleAvatar(
                     radius: 30,
                     backgroundImage: NetworkImage(record['imageUrl'] ??
-                        'https://via.placeholder.com/150'),
+                        'https://i.pinimg.com/474x/1b/d7/8d/1bd78daab0bd76b6352dcefceb72c6ca.jpg'),
                   ),
                   title: Text(
                     record['name'] ?? 'Unknown Name',

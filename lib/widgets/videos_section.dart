@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_application_1/screens/Quizes/c_quiz.dart';
+import 'package:flutter_application_1/screens/course_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,9 +14,10 @@ import '../screens/Quizes/react_quiz.dart';
 import 'videoPlayer/flutter_intro_vid.dart';
 
 class VideoSection extends StatefulWidget {
-  final String courseName; // Add courseName as a parameter
+  final String? courseName;
+ 
 
-  VideoSection({required this.courseName}); // Modify the constructor
+  VideoSection({ required this.courseName}); // Modify the constructor
 
   @override
   State<VideoSection> createState() => _VideoSectionState();
@@ -114,6 +116,9 @@ class _VideoSectionState extends State<VideoSection> {
             title: Text(videoList[index]),
             subtitle: Text("20 min 50 sec"),
             onTap: () {
+
+              // Navigator.push(context,
+              // MaterialPageRoute(builder: (context) => CourseScreen(widget.courseName!,widget.buy!,widget.image!,widget.video!)));
               // Navigate to the video player
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => flutterIntro()));
@@ -128,9 +133,9 @@ class _VideoSectionState extends State<VideoSection> {
             ),
             title: Text("Course Quiz"),
             onTap: () {
-              print("aaaaaaaaaaaaaaaaaa ${isNameInList(widget.courseName)}");
+              print("aaaaaaaaaaaaaaaaaa ${isNameInList(widget.courseName!)}");
 
-              if (isNameInList(widget.courseName) == false) {
+              if (isNameInList(widget.courseName!) == false) {
                 if (widget.courseName == 'Flutter') {
                   print(widget.courseName);
                   Navigator.push(

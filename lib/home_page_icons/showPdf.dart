@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/color/color.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:pdfx/pdfx.dart';
@@ -44,7 +45,14 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('PDF Viewer')),
+      appBar: AppBar(
+        title: Text(
+          'PDF Viewer',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: appColor.primaryColor,
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
       body: FutureBuilder<File>(
         future: _pdfFile,
         builder: (context, snapshot) {

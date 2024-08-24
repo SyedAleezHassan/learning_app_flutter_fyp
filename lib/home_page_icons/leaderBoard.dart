@@ -71,7 +71,7 @@ class leaderBoard extends StatelessWidget {
                         "No enough students to show more details",
                         style: TextStyle(
                           fontSize: 18.0,
-                          color: Colors.redAccent,
+                          color: appColor.primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

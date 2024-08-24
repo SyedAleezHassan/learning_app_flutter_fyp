@@ -88,21 +88,31 @@ class CoursesState extends State<Courses> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                labelText: 'Search',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+            Container(
+              margin: EdgeInsets.only(top: 5, bottom: 7, left: 9, right: 9),
+              width: MediaQuery.of(context).size.width,
+              height: 55,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
               ),
-              onChanged: (text) {
-                setState(() {
-                  _searchQuery = _formatSearchQuery(text.trim());
-                });
-              },
-              // _filterItems,
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  labelText: 'Search',
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                onChanged: (text) {
+                  setState(() {
+                    _searchQuery = _formatSearchQuery(text.trim());
+                  });
+                },
+                // _filterItems,
+              ),
             ),
 
 //naya kaam with  searchMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -150,6 +160,8 @@ class CoursesState extends State<Courses> {
                           padding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 10),
                           decoration: BoxDecoration(
+                            border: Border.all(
+                                color: appColor.primaryColor, width: 2),
                             borderRadius: BorderRadius.circular(20),
                             color: Color(0xFFF5F3FF),
                           ),

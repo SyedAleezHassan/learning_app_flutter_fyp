@@ -155,7 +155,7 @@ class _PdfListScreenState extends State<PdfListScreen> {
                         leading: Icon(Icons.picture_as_pdf,
                             color: Colors.redAccent, size: 30),
                         title: Text(
-                          matchingEntries[index]["name"] ?? '',
+                          "${matchingEntries[index]["name"]}.pdf" ?? '',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -164,6 +164,7 @@ class _PdfListScreenState extends State<PdfListScreen> {
                         ),
                         trailing:
                             Icon(Icons.arrow_forward_ios, color: Colors.grey),
+                            
                         onTap: () {
                           Navigator.push(
                             context,
@@ -173,6 +174,7 @@ class _PdfListScreenState extends State<PdfListScreen> {
                               ),
                             ),
                           );
+                          
                         },
                       );
                       // ListTile(
