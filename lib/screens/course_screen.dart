@@ -6,7 +6,10 @@ import 'package:flutter_application_1/widgets/description_section.dart';
 import 'package:flutter_application_1/widgets/videos_section.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
+import 'package:appinio_video_player/appinio_video_player.dart';
+
+enum Source { Asset, Network }
 
 class CourseScreen extends StatefulWidget {
   String name;
@@ -21,57 +24,171 @@ class CourseScreen extends StatefulWidget {
 }
 
 class _CourseScreenState extends State<CourseScreen> {
-  VideoPlayerController? _controller;
-  Future<void>? _initializeVideoPlayerFuture;
-  bool _isPlaying = false;
+  late CustomVideoPlayerController _customVideoPlayerController;
+  // // String Url = "";
+  // String? videoUrlString;
+  // getlink() async {
+  //   videoUrlString = await FirebaseStorage.instance
+  //       // .ref('WIN_20240718_03_12_50_Pro.mp4')
+  //       .ref('introduction.mp4')
+  //       // .ref('What is a Programming Language in 60 seconds!.mp4')
+  //       .getDownloadURL();
+  //   print("/////////// $videoUrlString");
+
+  //   return videoUrlString;
+  // }
+
+  // Uri videoUri = Uri.parse(
+  //     // "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+  //     // 'https://videocdn.cdnpk.net/videos/d686519d-fe25-455e-aba4-45519d955f6c/horizontal/previews/videvo_watermarked/large.mp4');
+  //     // "https://firebasestorage.googleapis.com/v0/b/learning-app-5375c.appspot.com/o/WIN_20240718_03_12_50_Pro.mp4?alt=media&token=0f715c87-5d9f-46fb-991e-e945aca99ade");
+  //     "https://firebasestorage.googleapis.com/v0/b/learning-app-5375c.appspot.com/o/introduction.mp4?alt=media&token=4f365b5c-5981-487c-b923-fee2ad22e81a");
+  String assetVideoPath = "assets/videos/whale.mp4";
+  late bool isLoading = true;
+
+  @override
+  void dispose() {
+    _customVideoPlayerController.dispose();
+    super.dispose();
+  }
+
+//   bool isLoading = true;
+// late VideoPlayerController _videoPlayerController;
+//   late CustomVideoPlayerController _customVideoPlayerController;
+
+//     void initializeVideoPlayer() async {
+//     String videoUrlString = await FirebaseStorage.instance
+//         // .ref('WIN_20240718_03_12_50_Pro.mp4')
+//         .ref('What is a Programming Language in 60 seconds!.mp4')
+//         .getDownloadURL();
+
+//     Uri videoUrl = Uri.parse(videoUrlString);
+//     setState(() {
+//       isLoading = true;
+//     });
+//     VideoPlayerController _videoPlayerController;
+//     // if (source == Source.Asset) {
+//     //   _videoPlayerController = VideoPlayerController.asset(assetVideoPath)
+//     //     ..initialize().then((value) {
+//     //       setState(() {
+//     //         isLoading = false;
+//     //       });
+//     //     });
+//     // } else
+
+//     _videoPlayerController = VideoPlayerController.networkUrl(videoUrl)
+//       ..initialize().then((value) {
+//         setState(() {
+//           isLoading = false;
+//         });
+//       });
+
+//     _customVideoPlayerController = CustomVideoPlayerController(
+//         context: context, videoPlayerController: _videoPlayerController);
+//   }
+//   // VideoPlayerController? _controller;
+//   // Future<void>? _initializeVideoPlayerFuture;
+//   // bool _isPlaying = false;
+
+////////////////////////////////////////////////
+  ///
+// bool isLoading = true;
+// late CustomVideoPlayerController _customVideoPlayerController;
+// late VideoPlayerController _videoPlayerController;
+// bool isPlaying = false;
+
+// void initializeVideoPlayer() async {
+//   String videoUrlString = await FirebaseStorage.instance
+//       .ref('What is a Programming Language in 60 seconds!.mp4')
+//       .getDownloadURL();
+
+//   Uri videoUrl = Uri.parse(videoUrlString);
+
+//   setState(() {
+//     isLoading = true;
+//   });
+
+//   _videoPlayerController = VideoPlayerController.networkUrl(videoUrl)
+//     ..initialize().then((value) {
+//       setState(() {
+//         isLoading = false;
+//       });
+//     });
+
+//   _customVideoPlayerController = CustomVideoPlayerController(
+//     context: context,
+//     videoPlayerController: _videoPlayerController,
+//   );
+// }
+
+// void togglePlayPause() {
+//   setState(() {
+//     if (_videoPlayerController.value.isPlaying) {
+//       _videoPlayerController.pause();
+//       isPlaying = false;
+//     } else {
+//       _videoPlayerController.play();
+//       isPlaying = true;
+//     }
+//   });
+// }
+
+// @override
+// void dispose() {
+//   _videoPlayerController.dispose(); // Dispose of the controller when not needed
+//   super.dispose();
+// }
 
   @override
   void initState() {
     super.initState();
+    // getlink();
     _getUserRecordsList();
+    print("hello");
 
     // _initializeVideoPlayer();
   }
 
-  Future<void> _initializeVideoPlayer() async {
-    try {
-      // Fetch the video URL from Firebase Storage
-      String videoUrlString = await FirebaseStorage.instance
-          // .ref('WIN_20240718_03_12_50_Pro.mp4')
-          .ref('What is a Programming Language in 60 seconds!.mp4')
-          .getDownloadURL();
+  //
+  // Future<void> _initializeVideoPlayer() async {
+  //   try {
+  //     // Fetch the video URL from Firebase Storage
+  //     String videoUrlString = await FirebaseStorage.instance
+  //         // .ref('WIN_20240718_03_12_50_Pro.mp4')
+  //         .ref('What is a Programming Language in 60 seconds!.mp4')
+  //         .getDownloadURL();
 
-      Uri videoUrl = Uri.parse(videoUrlString);
+  //     Uri videoUrl = Uri.parse(videoUrlString);
 
-      // Initialize the video player controller
-      _controller = VideoPlayerController.network(videoUrl.toString());
+  //     // Initialize the video player controller
+  //     _controller = VideoPlayerController.network(videoUrl.toString());
 
-      // Initialize the video player future
-      _initializeVideoPlayerFuture = _controller!.initialize();
+  //     // Initialize the video player future
+  //     _initializeVideoPlayerFuture = _controller!.initialize();
 
-      // Ensure the controller is properly initialized
-      await _initializeVideoPlayerFuture;
+  //     // Ensure the controller is properly initialized
+  //     await _initializeVideoPlayerFuture;
 
-      setState(() {});
+  //     setState(() {});
 
-      // Play the video initially
-      _controller!.pause();
-      _isPlaying = false;
+  //     // Play the video initially
+  //     _controller!.pause();
+  //     _isPlaying = false;
 
-      // Update the UI when the video plays
-      _controller!.addListener(() {
-        setState(() {});
-      });
-    } catch (e) {
-      print("Error initializing video player: $e");
-    }
-  }
+  //     // Update the UI when the video plays
+  //     _controller!.addListener(() {
+  //       setState(() {});
+  //     });
+  //   } catch (e) {
+  //     print("Error initializing video player: $e");
+  //   }
+  // }
 
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _customVideoPlayerController.dispose();
+  //   super.dispose();
+  // }
 
   // void _togglePlayPause() {
   //   setState(() {
@@ -84,19 +201,19 @@ class _CourseScreenState extends State<CourseScreen> {
   //     }
   //   });
   // }
-  void _togglePlayPause() {
-    if (_controller != null && _controller!.value.isInitialized) {
-      setState(() {
-        if (_controller!.value.isPlaying) {
-          _controller!.pause();
-          _isPlaying = false;
-        } else {
-          _controller!.play();
-          _isPlaying = true;
-        }
-      });
-    }
-  }
+  // void _togglePlayPause() {
+  //   if (_controller != null && _controller!.value.isInitialized) {
+  //     setState(() {
+  //       if (_controller!.value.isPlaying) {
+  //         _controller!.pause();
+  //         _isPlaying = false;
+  //       } else {
+  //         _controller!.play();
+  //         _isPlaying = true;
+  //       }
+  //     });
+  //   }
+  // }
 
 ////////////////////////
 
@@ -198,101 +315,112 @@ class _CourseScreenState extends State<CourseScreen> {
                 ),
               ),
               child: Center(
-                child: _controller != null
-                    ? FutureBuilder(
-                        future: _initializeVideoPlayerFuture,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return GestureDetector(
-                              onTap: () {
-                                _togglePlayPause();
-                              },
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  AspectRatio(
-                                    aspectRatio: _controller!.value.aspectRatio,
-                                    child: VideoPlayer(_controller!),
-                                  ),
-                                  Positioned.fill(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        _togglePlayPause(); // Toggle play/pause on tap
-                                      },
-                                      child: Center(
-                                        child: _isPlaying
-                                            ? SizedBox
-                                                .shrink() // Hide play button when video is playing
-                                            : Icon(
-                                                Icons.play_arrow_rounded,
-                                                color: appColor.primaryColor,
-                                                size: 65,
-                                              ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 10,
-                                    left: 10,
-                                    right: 10,
-                                    child: Column(
-                                      children: [
-                                        // Video progress slider
-                                        VideoProgressIndicator(
-                                          _controller!,
-                                          allowScrubbing: true,
-                                          colors: VideoProgressColors(
-                                            playedColor: Colors.blueAccent,
-                                            backgroundColor: Colors.white54,
-                                            bufferedColor: Colors.grey,
-                                          ),
-                                        ),
-                                        // Video time and total duration
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              _formatDuration(
-                                                  _controller!.value.position),
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            Text(
-                                              _formatDuration(
-                                                  _controller!.value.duration),
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else {
-                            return CircularProgressIndicator();
-                          }
-                        },
-                      )
-                    : Center(
-                        child: Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
+                child: isLoading
+                    ? const Center(
                         child: Icon(
-                          Icons.play_arrow_rounded,
-                          color: Colors.blueAccent,
-                          size: 45,
+                          Icons.play_arrow,
+                          size: 35,
+                          color: appColor.primaryColor,
                         ),
-                      )),
+                      )
+                    : CustomVideoPlayer(
+                        customVideoPlayerController:
+                            _customVideoPlayerController,
+                      ),
+
+                // Center(
+                //   child: isLoading
+                //       ? const Center(
+                //           child: CircularProgressIndicator(
+                //             color: Colors.red,
+                //           ),
+                //         )
+                //       : CustomVideoPlayer(
+                //   customVideoPlayerController: _customVideoPlayerController,
+                //         ),
+
+                // FutureBuilder(
+                //             future: _initializeVideoPlayerFuture,
+                //             builder: (context, snapshot) {
+                //               if (snapshot.connectionState ==
+                //                   ConnectionState.done) {
+                //                 return GestureDetector(
+                //                   onTap: () {
+                //                     _togglePlayPause();
+                //                   },
+                //                   child: Stack(
+                //                     alignment: Alignment.center,
+                //                     children: [
+                //                       AspectRatio(
+                //                         aspectRatio: _controller!.value.aspectRatio,
+                //                         child: VideoPlayer(_controller!),
+                //                       ),
+                //                       Positioned.fill(
+                //                         child: GestureDetector(
+                //                           onTap: () {
+                //                             _togglePlayPause(); // Toggle play/pause on tap
+                //                           },
+                //                           child: Center(
+                //                             child: _isPlaying
+                //                                 ? SizedBox
+                //                                     .shrink() // Hide play button when video is playing
+                //                                 : Icon(
+                //                                     Icons.play_arrow_rounded,
+                //                                     color: appColor.primaryColor,
+                //                                     size: 65,
+                //                                   ),
+                //                           ),
+                //                         ),
+                //                       ),
+                //                       Positioned(
+                //                         bottom: 10,
+                //                         left: 10,
+                //                         right: 10,
+                //                         child: Column(
+                //                           children: [
+                //                             // Video progress slider
+                //                             VideoProgressIndicator(
+                //                               _controller!,
+                //                               allowScrubbing: true,
+                //                               colors: VideoProgressColors(
+                //                                 playedColor: Colors.blueAccent,
+                //                                 backgroundColor: Colors.white54,
+                //                                 bufferedColor: Colors.grey,
+                //                               ),
+                //                             ),
+                //                             // Video time and total duration
+                //                             Row(
+                //                               mainAxisAlignment:
+                //                                   MainAxisAlignment.spaceBetween,
+                //                               children: [
+                //                                 Text(
+                //                                   _formatDuration(
+                //                                       _controller!.value.position),
+                //                                   style: TextStyle(
+                //                                     color: Colors.white,
+                //                                   ),
+                //                                 ),
+                //                                 Text(
+                //                                   _formatDuration(
+                //                                       _controller!.value.duration),
+                //                                   style: TextStyle(
+                //                                     color: Colors.white,
+                //                                   ),
+                //                                 ),
+                //                               ],
+                //                             ),
+                //                           ],
+                //                         ),
+                //                       ),
+                //                     ],
+                //                   ),
+                //                 );
+                //               } else {
+                //                 return CircularProgressIndicator();
+                //               }
+                //             },
+                //           )
+                //  ,
               ),
             ),
             SizedBox(height: 15),
@@ -458,7 +586,8 @@ class _CourseScreenState extends State<CourseScreen> {
                         bool nameExist = await isNameInList(widget.name);
 
                         if (nameExist) {
-                          _initializeVideoPlayer();
+                          // initializeVideoPlayer();
+                          initializeVideoPlayer(Source.Network);
 
                           print('agya');
                           setState(() {
@@ -522,10 +651,40 @@ class _CourseScreenState extends State<CourseScreen> {
     );
   }
 
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final minutes = twoDigits(duration.inMinutes.remainder(60));
-    final seconds = twoDigits(duration.inSeconds.remainder(60));
-    return '$minutes:$seconds';
+  Future<void> initializeVideoPlayer(Source source) async {
+    String videoUrlString =
+        await FirebaseStorage.instance.ref('introduction.mp4').getDownloadURL();
+
+    Uri videoUrl = Uri.parse(videoUrlString);
+    setState(() {
+      isLoading = true;
+    });
+    VideoPlayerController _videoPlayerController;
+    if (source == Source.Asset) {
+      _videoPlayerController = VideoPlayerController.asset(assetVideoPath)
+        ..initialize().then((value) {
+          setState(() {
+            isLoading = false;
+          });
+        });
+    } else if (source == Source.Network) {
+      _videoPlayerController = VideoPlayerController.networkUrl(videoUrl)
+        ..initialize().then((value) {
+          setState(() {
+            isLoading = false;
+          });
+        });
+    } else {
+      return;
+    }
+    _customVideoPlayerController = CustomVideoPlayerController(
+        context: context, videoPlayerController: _videoPlayerController);
   }
+
+  // String _formatDuration(Duration duration) {
+  //   String twoDigits(int n) => n.toString().padLeft(2, '0');
+  //   final minutes = twoDigits(duration.inMinutes.remainder(60));
+  //   final seconds = twoDigits(duration.inSeconds.remainder(60));
+  //   return '$minutes:$seconds';
+  // }
 }

@@ -85,151 +85,157 @@ class CoursesState extends State<Courses> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 5, bottom: 7, left: 9, right: 9),
-              width: MediaQuery.of(context).size.width,
-              height: 55,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  labelText: 'Search',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                onChanged: (text) {
-                  setState(() {
-                    _searchQuery = _formatSearchQuery(text.trim());
-                  });
-                },
-                // _filterItems,
-              ),
-            ),
-
-//naya kaam with  searchMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-            StreamBuilder(
-              stream: (_searchQuery.isEmpty)
-                  ? courses.snapshots()
-                  : courses
-                      .where('name', isGreaterThanOrEqualTo: _searchQuery)
-                      .where('name', isLessThanOrEqualTo: '$_searchQuery\uf8ff')
-                      .snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Center(child: Text('No items found'));
-                } else {
-                  return GridView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio:
-                          (MediaQuery.of(context).size.height - 50 - 25) /
-                              (4 * 240),
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
+        child: Padding(
+          padding: EdgeInsets.only(left: 13, right: 13, bottom: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 5, bottom: 9),
+                width: MediaQuery.of(context).size.width,
+                height: 55,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: appColor.primaryColor, width: 1)),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    labelText: 'Search',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot abc = snapshot.data!.docs[index];
+                  ),
+                  onChanged: (text) {
+                    setState(() {
+                      _searchQuery = _formatSearchQuery(text.trim());
+                    });
+                  },
+                  // _filterItems,
+                ),
+              ),
 
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CourseScreen(abc["name"],
-                                  abc["price"], abc["imgLink"], abc['video']),
+              //naya kaam with  searchMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+              StreamBuilder(
+                stream: (_searchQuery.isEmpty)
+                    ? courses.snapshots()
+                    : courses
+                        .where('name', isGreaterThanOrEqualTo: _searchQuery)
+                        .where('name',
+                            isLessThanOrEqualTo: '$_searchQuery\uf8ff')
+                        .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return Center(child: Text('No items found'));
+                  } else {
+                    return GridView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio:
+                            (MediaQuery.of(context).size.height - 50 - 25) /
+                                (4 * 240),
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                      ),
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot abc = snapshot.data!.docs[index];
+
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CourseScreen(abc["name"],
+                                    abc["price"], abc["imgLink"], abc['video']),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 7,
+                              horizontal: 10,
                             ),
-                          );
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 10),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: appColor.primaryColor, width: 2),
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color(0xFFF5F3FF),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: appColor.primaryColor, width: 2),
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0xffF9F0F9),
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Image.network(
+                                      abc["imgLink"],
+                                      width: 100,
+                                      height: 80,
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child; // Return the child widget when loading is complete
+                                        } else {
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              value: loadingProgress
+                                                          .expectedTotalBytes !=
+                                                      null
+                                                  ? loadingProgress
+                                                          .cumulativeBytesLoaded /
+                                                      loadingProgress
+                                                          .expectedTotalBytes!
+                                                  : null, // Show the progress based on bytes loaded
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    )),
+                                SizedBox(height: 10),
+                                Text(
+                                  abc["name"],
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black.withOpacity(0.6),
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  abc["video"],
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black.withOpacity(0.5),
+                                  ),
+                                ),
+                                Text(
+                                  "Buy ${abc["price"]}",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green[600],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Image.network(
-                                    abc["imgLink"],
-                                    width: 100,
-                                    height: 80,
-                                    loadingBuilder: (BuildContext context,
-                                        Widget child,
-                                        ImageChunkEvent? loadingProgress) {
-                                      if (loadingProgress == null) {
-                                        return child; // Return the child widget when loading is complete
-                                      } else {
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null, // Show the progress based on bytes loaded
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  )),
-                              SizedBox(height: 10),
-                              Text(
-                                abc["name"],
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black.withOpacity(0.6),
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                abc["video"],
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black.withOpacity(0.5),
-                                ),
-                              ),
-                              Text(
-                                "Buy ${abc["price"]}",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green[600],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                }
-              },
-            ),
-          ],
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

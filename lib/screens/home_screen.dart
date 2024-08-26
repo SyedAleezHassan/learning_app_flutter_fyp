@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
   //   'C#',
   // ];
 
-  List<Map> imagList = [
+  final List<Map> imagList = [
     {
       "imgLink": "assets/images/Flutter.png",
       "name": "Flutter",
@@ -202,7 +202,17 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => freeCourse()));
+                                      builder: (context) => freeCourse(
+                                            imagList: [
+                                              {
+                                                "imgLink":
+                                                    "assets/images/Flutter.png",
+                                                "name": "Flutter",
+                                                "video": "55 videos",
+                                                "price": "50\$"
+                                              }
+                                            ],
+                                          )));
                             }
                             if (index == 3) {
                               Navigator.push(
@@ -302,7 +312,7 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(vertical: 19, horizontal: 10),
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: appColor.primaryColor, width: 2),
