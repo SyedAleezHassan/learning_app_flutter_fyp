@@ -71,7 +71,9 @@ class _CertificatePageSelectorState extends State<CertificatePageSelector> {
                 SizedBox(height: 16),
                 Text(
                   'No certificates available',
-                  style: TextStyle(fontSize: 18, color: Colors.black54),
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Theme.of(context).textTheme.bodyText1!.color),
                 ),
               ],
             )
@@ -105,14 +107,14 @@ class _CertificatePageSelectorState extends State<CertificatePageSelector> {
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                        color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
                     ),
                     subtitle: Text(
                       'Tap to view certificate',
                       style: TextStyle(
                         fontSize: 14.0,
-                        color: Colors.black54,
+                        color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
                     ),
                     trailing: Icon(

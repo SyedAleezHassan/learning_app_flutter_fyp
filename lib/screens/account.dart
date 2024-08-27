@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
+import 'package:flutter_application_1/main.dart';
 import 'package:flutter_application_1/navBar/navBar.dart';
 import 'package:flutter_application_1/screens/Quizes/certificate.dart';
 import 'package:flutter_application_1/screens/Quizes/course_certification.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_application_1/screens/settings/del_account.dart';
 import 'package:flutter_application_1/screens/settings/privacy_policy.dart';
 import 'package:flutter_application_1/screens/signUp.dart';
 import 'package:flutter_application_1/screens/welcome_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Myaccount extends StatefulWidget {
@@ -60,7 +62,16 @@ class _MyaccountState extends State<Myaccount> {
         iconTheme: IconThemeData(
           color: Colors.white, // Set the color of the menu icon to white
         ),
-        actions: [],
+        actions: [
+          Switch(
+            value: Provider.of<ThemeProvider>(context).isDarkMode,
+            onChanged: (value) {
+              final provider =
+                  Provider.of<ThemeProvider>(context, listen: false);
+              provider.toggleTheme(value);
+            },
+          ),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -213,16 +224,21 @@ class _MyaccountState extends State<Myaccount> {
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Theme.of(context).textTheme.bodyText1!.color,
                 ),
               ),
               subtitle: Text(
                 _user?.email ?? 'No Email',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color:
-                      _user?.email != null ? Colors.black54 : Colors.redAccent,
-                ),
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 16.0,
+                      color: _user?.email != null
+                          ? Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .color!
+                              .withOpacity(0.7)
+                          : Colors.redAccent,
+                    ),
               ),
               tileColor: Colors.grey.withOpacity(0.05),
               shape: RoundedRectangleBorder(
@@ -251,16 +267,21 @@ class _MyaccountState extends State<Myaccount> {
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Theme.of(context).textTheme.bodyText1!.color,
                 ),
               ),
               subtitle: Text(
                 'Ask me to code for you',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color:
-                      _user?.email != null ? Colors.black54 : Colors.redAccent,
-                ),
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 16.0,
+                      color: _user?.email != null
+                          ? Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .color!
+                              .withOpacity!(0.7)
+                          : Colors.redAccent,
+                    ),
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
@@ -292,19 +313,29 @@ class _MyaccountState extends State<Myaccount> {
                   size: 30.0,
                 ),
               ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.grey,
+                size: 16.0,
+              ),
               title: Text(
                 'Certificates',
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Theme.of(context).textTheme.bodyText1!.color,
                 ),
               ),
               subtitle: Text(
                 'View your achievements',
-                style: TextStyle(
-                  fontSize: 16.0,
-                ),
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .color!
+                          .withOpacity(0.7),
+                      fontSize: 16.0,
+                    ),
               ),
               tileColor: Colors.grey.withOpacity(0.05),
               shape: RoundedRectangleBorder(
@@ -340,7 +371,7 @@ class _MyaccountState extends State<Myaccount> {
             //     style: TextStyle(
             //       fontSize: 18.0,
             //       fontWeight: FontWeight.bold,
-            //       color: Colors.black87,
+            //       color: Theme.of(context).textTheme.bodyText1!.color,
             //     ),
             //   ),
             //   subtitle: Text(

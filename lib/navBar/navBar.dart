@@ -66,7 +66,9 @@ class GoogleNavBarState extends State<GoogleNavBar> {
               icon: Icon(
                 Icons.home,
                 size: 30,
-                color: currentIndex == 0 ? appColor.primaryColor : Colors.black,
+                color: currentIndex == 0
+                    ? appColor.primaryColor
+                    : Theme.of(context).iconTheme.color,
               ),
             ),
             IconButton(
@@ -78,7 +80,9 @@ class GoogleNavBarState extends State<GoogleNavBar> {
               icon: Icon(
                 Icons.assessment,
                 size: 30,
-                color: currentIndex == 1 ? appColor.primaryColor : Colors.black,
+                color: currentIndex == 1
+                    ? appColor.primaryColor
+                    : Theme.of(context).iconTheme.color,
               ),
             ),
             // const SizedBox(
@@ -93,7 +97,9 @@ class GoogleNavBarState extends State<GoogleNavBar> {
               icon: Icon(
                 Icons.favorite_border_outlined,
                 size: 30,
-                color: currentIndex == 2 ? appColor.primaryColor : Colors.black,
+                color: currentIndex == 2
+                    ? appColor.primaryColor
+                    : Theme.of(context).iconTheme.color,
               ),
             ),
             IconButton(
@@ -105,7 +111,9 @@ class GoogleNavBarState extends State<GoogleNavBar> {
               icon: Icon(
                 Icons.person_2_outlined,
                 size: 30,
-                color: currentIndex == 3 ? appColor.primaryColor : Colors.black,
+                color: currentIndex == 3
+                    ? appColor.primaryColor
+                    : Theme.of(context).iconTheme.color,
               ),
             ),
           ],

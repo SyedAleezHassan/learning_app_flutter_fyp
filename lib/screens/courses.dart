@@ -108,9 +108,11 @@ class CoursesState extends State<Courses> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
+                  style: TextStyle(color: Colors.black),
                   onChanged: (text) {
                     setState(() {
                       _searchQuery = _formatSearchQuery(text.trim());
+                      
                     });
                   },
                   // _filterItems,

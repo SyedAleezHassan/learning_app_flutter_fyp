@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -20,19 +21,21 @@ class _chatbotAiState extends State<chatbotAi> {
 
   ChatUser currentUser = ChatUser(id: "0", firstName: "User");
   ChatUser geminiUser = ChatUser(
-    id: "1",
-    firstName: "Mr. AI",
-    profileImage: 'https://yt3.googleusercontent.com/swv9wQxWDXdKL4ZBEV8mvlDSySyxQeANhC4AjrtZ2PAidPhj7H5AI27GqFy5GOAPneEAMYIO=s900-c-k-c0x00ffffff-no-rj'
-        //"https://seeklogo.com/images/G/google-gemini-logo-A5787B2669-seeklogo.com.png",
-  );//https://yt3.googleusercontent.com/swv9wQxWDXdKL4ZBEV8mvlDSySyxQeANhC4AjrtZ2PAidPhj7H5AI27GqFy5GOAPneEAMYIO=s900-c-k-c0x00ffffff-no-rj
+      id: "1",
+      firstName: "Mr. AI",
+      profileImage:
+          'https://yt3.googleusercontent.com/swv9wQxWDXdKL4ZBEV8mvlDSySyxQeANhC4AjrtZ2PAidPhj7H5AI27GqFy5GOAPneEAMYIO=s900-c-k-c0x00ffffff-no-rj'
+      //"https://seeklogo.com/images/G/google-gemini-logo-A5787B2669-seeklogo.com.png",
+      ); //https://yt3.googleusercontent.com/swv9wQxWDXdKL4ZBEV8mvlDSySyxQeANhC4AjrtZ2PAidPhj7H5AI27GqFy5GOAPneEAMYIO=s900-c-k-c0x00ffffff-no-rj
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        // centerTitle: true,
         title: const Text(
           "Mr AI",
         ),
+        backgroundColor: appColor.primaryColor,
       ),
       body: _buildUI(),
     );
@@ -43,9 +46,9 @@ class _chatbotAiState extends State<chatbotAi> {
       inputOptions: InputOptions(trailing: [
         IconButton(
           onPressed: _sendMediaMessage,
-          icon: const Icon(
-            Icons.image,
-          ),
+          icon: Icon(Icons.image,
+              // color: Theme.of(context).iconTheme.color,
+              color: appColor.primaryColor),
         )
       ]),
       currentUser: currentUser,

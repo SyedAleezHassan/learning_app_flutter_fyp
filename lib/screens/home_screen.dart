@@ -206,8 +206,8 @@ class _HomePageState extends State<HomePage> {
                                             imagList: [
                                               {
                                                 "imgLink":
-                                                    "assets/images/Flutter.png",
-                                                "name": "Flutter",
+                                                    "assets/images/Assembly.png",
+                                                "name": "Assembly",
                                                 "video": "55 videos",
                                                 "price": "50\$"
                                               }
@@ -237,10 +237,17 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(height: 10),
                         Text(
                           catNames[index],
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black.withOpacity(0.7)),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .color!
+                                      .withOpacity(0.7)),
                         )
                       ],
                     );
@@ -317,7 +324,7 @@ class _HomePageState extends State<HomePage> {
                           border: Border.all(
                               color: appColor.primaryColor, width: 2),
                           borderRadius: BorderRadius.circular(20),
-                          color: Color(0xFFF5F3FF),
+                          color: Color(0xffF9F0F9),
                         ),
                         child: Column(
                           children: [

@@ -1,8 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
+import 'package:flutter_application_1/home_page_icons/free_course_tap.dart';
 
-import '../screens/course_screen.dart';
+// import '../screens/course_screen.dart';
 
 class freeCourse extends StatefulWidget {
   final List<Map> imagList;
@@ -44,20 +45,26 @@ class _freeCourseState extends State<freeCourse> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CourseScreen(
-                      widget.imagList[index]["name"],
-                      widget.imagList[index]["price"],
-                      widget.imagList[index]["imgLink"],
-                      widget.imagList[index]["video"],
-                    ),
-                  ));
+                      builder: (context) => freeOntap(
+                            widget.imagList[index]['name'],
+                            widget.imagList[index]["imgLink"],
+                            widget.imagList[index]["video"],
+                          )
+                      //CourseScreen(
+                      //   widget.imagList[index]["name"],
+                      //   widget.imagList[index]["price"],
+                      //   widget.imagList[index]["imgLink"],
+                      //   widget.imagList[index]["video"],
+                      // ),
+                      ));
             },
             child: Container(
+              margin: EdgeInsets.all(9),
               padding: EdgeInsets.symmetric(vertical: 19, horizontal: 10),
               decoration: BoxDecoration(
                 border: Border.all(color: appColor.primaryColor, width: 2),
                 borderRadius: BorderRadius.circular(20),
-                color: Color(0xFFF5F3FF),
+                color: Color((0xffF9F0F9)),
               ),
               child: Column(
                 children: [

@@ -159,12 +159,11 @@ class _PdfListScreenState extends State<PdfListScreen> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black87,
+                            color: Theme.of(context).textTheme.bodyText1!.color,
                           ),
                         ),
                         trailing:
                             Icon(Icons.arrow_forward_ios, color: Colors.grey),
-                            
                         onTap: () {
                           Navigator.push(
                             context,
@@ -174,7 +173,6 @@ class _PdfListScreenState extends State<PdfListScreen> {
                               ),
                             ),
                           );
-                          
                         },
                       );
                       // ListTile(

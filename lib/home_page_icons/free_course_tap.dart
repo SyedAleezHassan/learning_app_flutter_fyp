@@ -6,24 +6,23 @@ import 'package:flutter_application_1/widgets/description_section.dart';
 import 'package:flutter_application_1/widgets/videos_section.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:video_player/video_player.dart';
 import 'package:appinio_video_player/appinio_video_player.dart';
 
 enum Source { Asset, Network }
 
-class CourseScreen extends StatefulWidget {
+class freeOntap extends StatefulWidget {
   String name;
-  String buy;
+  // String buy;
   String image;
   String video;
 
-  CourseScreen(this.name, this.buy, this.image, this.video);
+  freeOntap(this.name, this.image, this.video);
 
   @override
-  State<CourseScreen> createState() => _CourseScreenState();
+  State<freeOntap> createState() => _freeOntapState();
 }
 
-class _CourseScreenState extends State<CourseScreen> {
+class _freeOntapState extends State<freeOntap> {
   late CustomVideoPlayerController _customVideoPlayerController;
 
   String assetVideoPath = "assets/videos/whale.mp4";
@@ -89,25 +88,23 @@ class _CourseScreenState extends State<CourseScreen> {
     }
   }
 
-  Future<bool> isNameInList(String nameToCheck) async {
-    final List<Map<String, dynamic>> recordsList = await _getUserRecordsList();
+  // Future<bool> isNameInList(String nameToCheck) async {
+  //   final List<Map<String, dynamic>> recordsList = await _getUserRecordsList();
 
-    for (final record in recordsList) {
-      final String name = record['name'];
-      if (name == nameToCheck) {
-        print("true");
-        print(name);
-        return true; // Name found in the list
-      }
-    }
-    print("falee");
-    return false; // Name not found in the list
-  }
+  //   for (final record in recordsList) {
+  //     final String name = record['name'];
+  //     if (name == nameToCheck) {
+  //       print("true");
+  //       print(name);
+  //       return true; // Name found in the list
+  //     }
+  //   }
+  //   print("falee");
+  //   return false; // Name not found in the list
+  // }
 
   @override
   Widget build(BuildContext context) {
-    var colorr = Theme.of(context).textTheme.bodyText1!.color;
-
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -164,18 +161,22 @@ class _CourseScreenState extends State<CourseScreen> {
             Text(
               "${widget.name} Complete Course",
               style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: Theme.of(context).textTheme.bodyText1!.color),
             ),
             SizedBox(height: 5),
             Text(
               "Created by Admin",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: colorr,
-              ),
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .color!
+                        .withOpacity(0.7),
+                  ),
             ),
             SizedBox(height: 5),
             Row(
@@ -183,119 +184,15 @@ class _CourseScreenState extends State<CourseScreen> {
               children: [
                 Text(
                   "55 Videos",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: colorr,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    bool nameExists = await isNameInList(widget.name);
-                    if (nameExists) {
-                      // print("already added");
-                      Fluttertoast.showToast(
-                        msg: "Course already added",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.white,
-                        textColor: Colors.black,
-                        fontSize: 16.0,
-                      );
-                    } else {
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          title: Text(
-                            widget.name,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: appColor.primaryColor,
-                            ),
-                          ),
-                          content: Container(
-                            height: 100,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Do you want to buy this course?",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: colorr,
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  "Price: ${widget.buy}",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'Cancel'),
-                              child: const Text(
-                                'Cancel',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              style: TextButton.styleFrom(
-                                backgroundColor: appColor.primaryColor,
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                bool nameExists =
-                                    await isNameInList(widget.name);
-                                if (nameExists) {
-                                  print("already added");
-                                } else {
-                                  await _saveData(
-                                    widget.name,
-                                    widget.buy,
-                                    widget.image,
-                                    widget.video,
-                                  );
-                                }
-
-                                Navigator.pop(context);
-                                setState(() {
-                                  isbought = true;
-                                });
-                              },
-                              child: const Text(
-                                'OK',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              style: TextButton.styleFrom(
-                                backgroundColor: appColor.primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                      //=============================================
-                    }
-                  },
-                  child: Text(
-                    "Buy ${widget.buy}",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green[600],
-                    ),
-                  ),
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .color!
+                            .withOpacity(0.5),
+                      ),
                 ),
               ],
             ),
@@ -318,22 +215,22 @@ class _CourseScreenState extends State<CourseScreen> {
                     borderRadius: BorderRadius.circular(10),
                     child: InkWell(
                       onTap: () async {
-                        await isNameInList(widget.name);
-                        print(isNameInList(widget.name));
-                        bool nameExist = await isNameInList(widget.name);
+                        // await isNameInList(widget.name);
+                        // print(isNameInList(widget.name));
+                        // bool nameExist = await isNameInList(widget.name);
 
-                        if (nameExist) {
-                          // initializeVideoPlayer();
-                          initializeVideoPlayer(Source.Network);
+                        // if (nameExist) {
+                        // initializeVideoPlayer();
+                        initializeVideoPlayer(Source.Network);
 
-                          print('agya');
-                          setState(() {
-                            isbought = true;
-                            isvideoSection = isbought;
-                          });
-                        } else {
+                        print('agya');
+                        setState(() {
+                          isbought = true;
                           isvideoSection = isbought;
-                        }
+                        });
+                        // } else {
+                        //   isvideoSection = isbought;
+                        // }
                       },
                       child: Container(
                         padding:
@@ -417,11 +314,4 @@ class _CourseScreenState extends State<CourseScreen> {
     _customVideoPlayerController = CustomVideoPlayerController(
         context: context, videoPlayerController: _videoPlayerController);
   }
-
-  // String _formatDuration(Duration duration) {
-  //   String twoDigits(int n) => n.toString().padLeft(2, '0');
-  //   final minutes = twoDigits(duration.inMinutes.remainder(60));
-  //   final seconds = twoDigits(duration.inSeconds.remainder(60));
-  //   return '$minutes:$seconds';
-  // }
 }

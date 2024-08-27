@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ChatGPT Mobile'),
+        title: Text('lalala Mobile'),
         backgroundColor: Colors.blueAccent,
         elevation: 0.0,
       ),
@@ -131,8 +131,7 @@ class ChatMessage extends StatelessWidget {
               ),
             ),
           ),
-          if (isUser)
-            SizedBox(width: 8.0),
+          if (isUser) SizedBox(width: 8.0),
           if (isUser)
             CircleAvatar(
               child: Icon(Icons.person, color: Colors.white),

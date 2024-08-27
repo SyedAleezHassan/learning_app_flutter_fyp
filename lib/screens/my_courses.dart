@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_application_1/screens/course_screen.dart';
+import 'package:provider/provider.dart';
 
 class MyCourses extends StatefulWidget {
   const MyCourses({super.key});
@@ -68,18 +69,22 @@ class _MyCoursesState extends State<MyCourses> {
                   ),
                   title: Text(
                     record['name'] ?? 'Unknown Name',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                      color: Colors.black87,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                          color: Theme.of(context).textTheme.bodyText1!.color,
+                        ),
                   ),
                   subtitle: Text(
                     record['video'] ?? 'No Video Available',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.grey[700],
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: 14.0,
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .color!
+                              .withOpacity(0.6),
+                        ),
                   ),
                   trailing: Icon(
                     Icons.arrow_forward_ios,
