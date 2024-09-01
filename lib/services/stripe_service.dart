@@ -95,10 +95,10 @@ class StripeServices {
     try {
       // Present the payment sheet to the user
       await Stripe.instance.presentPaymentSheet();
-      Future.delayed(Duration(seconds: 1), () {
+      // Future.delayed(Duration(seconds: 1), () {
         print('@@@@@@maal agy maal agya@@@@@@@@');
         onSuccess(); // Call success dialog after 2 seconds
-      });
+      // });
 
       // Confirm the payment, throws an error if something goes wrong
       await Stripe.instance.confirmPaymentSheetPayment();

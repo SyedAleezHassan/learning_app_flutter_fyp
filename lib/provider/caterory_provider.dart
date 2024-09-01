@@ -9,9 +9,12 @@ class CategoryProvider extends ChangeNotifier {
 
   List<Map<String, dynamic>> gdList = [];
   List<Map<String, dynamic>> plList = [];
+  List<Map<String, dynamic>> dbList = [];
   void filterCourses(List<Map<String, dynamic>> courseList) {
     // Lists to store filtered data
-
+    plList.clear();
+    gdList.clear();
+    dbList.clear();
     // Iterate over the data list
     for (var course in courseList) {
       // Check if id is 'GD' and add to gdList
@@ -22,6 +25,10 @@ class CategoryProvider extends ChangeNotifier {
       else if (course['id'] == 'PL') {
         plList.add(course);
       }
+       else if (course['id'] == 'DB') {
+        dbList.add(course);
+      }
+    
     }
     print("Graphics Design (GD) Courses: $gdList");
     print("Programming Languages (PL) Courses: $plList");

@@ -60,11 +60,22 @@ class _MyCoursesState extends State<MyCourses> {
               itemCount: userRecords.length,
               itemBuilder: (context, index) {
                 var record = userRecords[index].data() as Map<String, dynamic>;
+                String courseName =
+                    record["name"]?.substring(0, 1).toUpperCase() ?? '';
+
+                print(record);
                 return ListTile(
                   contentPadding: EdgeInsets.all(16.0),
                   leading: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(record['imageUrl'] ??
+                    radius: 35,
+                    child: Text(
+                      courseName,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    backgroundImage: NetworkImage(
+                        // record['imgLink'], scale: 2
+                        // ??
                         'https://i.pinimg.com/474x/1b/d7/8d/1bd78daab0bd76b6352dcefceb72c6ca.jpg'),
                   ),
                   title: Text(

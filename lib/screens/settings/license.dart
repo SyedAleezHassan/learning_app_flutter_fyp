@@ -7,10 +7,11 @@ class LicensePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Licenses'),
-          iconTheme: IconThemeData(
-          color: Colors.white, 
-      ),
-          backgroundColor: appColor.primaryColor,
+        foregroundColor: appColor.primaryColor,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        backgroundColor: appColor.primaryColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

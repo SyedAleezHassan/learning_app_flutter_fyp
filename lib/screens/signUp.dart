@@ -325,22 +325,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 15,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     InkWell(
+              //       onTap: () {
                       
-                    },
-                    child: Container(
-                      height: 40,
-                      child: Image.asset(
-                        "assets/images/gugal.png",
-                        height: 100,
-                        width: 60,
-                      ),
-                    ),
-                  ),
+              //       },
+              //       child: Container(
+              //         height: 40,
+              //         child: Image.asset(
+              //           "assets/images/gugal.png",
+              //           height: 100,
+              //           width: 60,
+              //         ),
+              //       ),
+              //     ),
                   // const SizedBox(
                   //   width: 30,
                   // ),
@@ -352,8 +352,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   //     width: 60,
                   //   ),
                   // ),
-                ],
-              )
+              //   ],
+              // )
             ],
           ),
         ),

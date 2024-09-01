@@ -5,17 +5,15 @@ import 'package:provider/provider.dart';
 
 import '../screens/course_screen.dart';
 
-class ProgrammingScreen extends StatefulWidget {
-  // final List plList;
-  const ProgrammingScreen({
-    super.key,
-  });
+class DataBaseScreen extends StatefulWidget {
+  // final List dbList;
+  const DataBaseScreen({super.key, });
 
   @override
-  State<ProgrammingScreen> createState() => _ProgrammingScreenState();
+  State<DataBaseScreen> createState() => _DataBaseScreenState();
 }
 
-class _ProgrammingScreenState extends State<ProgrammingScreen> {
+class _DataBaseScreenState extends State<DataBaseScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CategoryProvider>(context);
@@ -23,7 +21,7 @@ class _ProgrammingScreenState extends State<ProgrammingScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Programming Courses",
+          "Database Courses",
           style: TextStyle(fontSize: 25, color: Colors.white),
         ),
         iconTheme: IconThemeData(
@@ -37,7 +35,7 @@ class _ProgrammingScreenState extends State<ProgrammingScreen> {
           child: Column(
             children: [
               GridView.builder(
-                itemCount: provider.plList.length,
+                itemCount: provider.dbList.length,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -55,10 +53,10 @@ class _ProgrammingScreenState extends State<ProgrammingScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => CourseScreen(
-                              provider.plList[index]["name"],
-                              provider.plList[index]["price"],
-                              provider.plList[index]["imgLink"],
-                              provider.plList[index]["video"],
+                              provider.dbList[index]["name"],
+                              provider.dbList[index]["price"],
+                              provider.dbList[index]["imgLink"],
+                              provider.dbList[index]["video"],
                             ),
                           ));
                     },
@@ -77,34 +75,34 @@ class _ProgrammingScreenState extends State<ProgrammingScreen> {
                             padding: EdgeInsets.all(10),
                             child: Image.network(
                               // "assets/images/${imgList[index]}.png",
-                              provider.plList[index]["imgLink"],
+                              provider.dbList[index]["imgLink"],
                               width: 100,
                               height: 90,
-                              loadingBuilder: (BuildContext context,
-                                  Widget child,
-                                  ImageChunkEvent? loadingProgress) {
-                                if (loadingProgress == null) {
-                                  return child; // Return the child widget when loading is complete
-                                } else {
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value: loadingProgress
-                                                  .expectedTotalBytes !=
-                                              null
-                                          ? loadingProgress
-                                                  .cumulativeBytesLoaded /
-                                              loadingProgress
-                                                  .expectedTotalBytes!
-                                          : null, // Show the progress based on bytes loaded
-                                    ),
-                                  );
-                                }
-                              },
+                               loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child; // Return the child widget when loading is complete
+                                        } else {
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              value: loadingProgress
+                                                          .expectedTotalBytes !=
+                                                      null
+                                                  ? loadingProgress
+                                                          .cumulativeBytesLoaded /
+                                                      loadingProgress
+                                                          .expectedTotalBytes!
+                                                  : null, // Show the progress based on bytes loaded
+                                            ),
+                                          );
+                                        }
+                                      },
                             ),
                           ),
                           SizedBox(height: 10),
                           Text(
-                            provider.plList[index]["name"],
+                            provider.dbList[index]["name"],
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w600,

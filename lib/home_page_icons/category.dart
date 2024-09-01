@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
+import 'package:flutter_application_1/home_page_icons/database_screen.dart';
 import 'package:flutter_application_1/provider/caterory_provider.dart';
 import 'package:flutter_application_1/screens/courses.dart';
 import 'package:provider/provider.dart';
 
 import '../navBar/navBar.dart';
+import 'graphics_des_screen.dart';
 import 'programming_screen.dart';
 
 final GlobalKey<GoogleNavBarState> navBarKey = GlobalKey<GoogleNavBarState>();
@@ -138,10 +140,18 @@ class _categoryPageState extends State<categoryPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProgrammingScreen(
-                                
-                                )));
+                            builder: (context) => ProgrammingScreen()));
                     // }
+                  } else if (index == 1) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GraphicsScreen()));
+                  } else if (index == 2) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DataBaseScreen()));
                   }
                 },
                 child: Card(

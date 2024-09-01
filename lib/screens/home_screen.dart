@@ -32,17 +32,18 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-  Future.microtask(() {
+    Future.microtask(() {
       Provider.of<CategoryProvider>(context, listen: false).getCoursesData();
     });
   }
+
   //creating static data in lists
   List catNames = [
     'Category',
     'All Courses',
     'Free Courses',
     'BookStore',
-    'Live Course',
+    'Demo Class',
     'Achievements',
   ];
 
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
     },
     {
       "imgLink": "assets/images/java.png",
-      "name": "java",
+      "name": "Java",
       "video": "55 videos",
       "price": "50\$"
     },
