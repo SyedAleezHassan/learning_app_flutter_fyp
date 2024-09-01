@@ -1,0 +1,5 @@
+class Constants{
+static final stripePublishableKey = 'pk_test_51PtugBIUDdDjBbyqPnr9QCBKQ2CdvTTrhqnTaMY1ZQD0sMxkXd7Do88FICLqO7FENdiSvHSgrO3mYXFltbD0bUJB00KQykvaNo';
+static final stripeSecreteKey = 'sk_test_51PtugBIUDdDjBbyqmGQXtKwHO8luNRArFybniq7rgRbZ8w1XPYyHbYXYnUXO5YaQSfMz6WiNbYZ7thxjPhmMQJgW00pEWPKIuq';
+
+}

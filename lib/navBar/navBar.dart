@@ -1,18 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
+import 'package:flutter_application_1/home_page_icons/category.dart';
 import 'package:flutter_application_1/screens/course_screen.dart';
 import 'package:flutter_application_1/screens/courses.dart';
 import 'package:flutter_application_1/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/account.dart';
 import '../screens/my_courses.dart';
 
+
+  int _currentIndex = 0;
+
 class GoogleNavBar extends StatefulWidget {
-  const GoogleNavBar({super.key});
+  const GoogleNavBar({super.key,
+  
+  });
+
+ 
 
   @override
   State<GoogleNavBar> createState() => GoogleNavBarState();
 }
+// class NavBarProvider with ChangeNotifier {
+
+//   int get currentIndex => _currentIndex;
+
+//   void updateIndex(int newIndex) {
+//     _currentIndex = newIndex;
+//     notifyListeners();
+//   }
+// }
+
+
+
+
 
 class GoogleNavBarState extends State<GoogleNavBar> {
   int currentIndex = 0;
@@ -23,27 +45,26 @@ class GoogleNavBarState extends State<GoogleNavBar> {
     Myaccount(),
   ];
 
-  // Function to navigate and receive the index
-  // void navigateToAnotherPage(BuildContext context) async {
-  //   final result = await Navigator.push(
-  //     context,
-  //     MaterialPageRoute(builder: (context) => Courses()), // Navigate to another page
-  //   );
 
-  //   if (result != null && result ==1) {
-  //     setState(() {
-  //       currentIndex = result;  // Update the current index to reflect navigation
-  //     });
-  //   }
-  // }
+  
   void updateIndex(int index) {
     setState(() {
       currentIndex = index;
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
+    ////////newwwwwwwwwwwww
+    
+
+
+    
+
+/////newwwwwwwww
+
+
     return Scaffold(
       body: screens[currentIndex],
       bottomNavigationBar: BottomAppBar(

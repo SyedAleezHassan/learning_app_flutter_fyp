@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/color/color.dart';
+import 'package:flutter_application_1/services/stripe_service.dart';
 import 'package:flutter_application_1/widgets/description_section.dart';
 import 'package:flutter_application_1/widgets/videos_section.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -204,89 +205,263 @@ class _CourseScreenState extends State<CourseScreen> {
                         fontSize: 16.0,
                       );
                     } else {
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          title: Text(
-                            widget.name,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: appColor.primaryColor,
-                            ),
-                          ),
-                          content: Container(
-                            height: 100,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Do you want to buy this course?",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: colorr,
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  "Price: ${widget.buy}",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'Cancel'),
-                              child: const Text(
-                                'Cancel',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              style: TextButton.styleFrom(
-                                backgroundColor: appColor.primaryColor,
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                bool nameExists =
-                                    await isNameInList(widget.name);
-                                if (nameExists) {
-                                  print("already added");
-                                } else {
-                                  await _saveData(
-                                    widget.name,
-                                    widget.buy,
-                                    widget.image,
-                                    widget.video,
-                                  );
-                                }
+                      // StripeServices.instance.makePayment(context, "Course Name", "Price");
+                      //  if(true){
+                      //   showDialog<String>(
+                      //         context: context,
+                      //         builder: (BuildContext context) => AlertDialog(
+                      //           shape: RoundedRectangleBorder(
+                      //             borderRadius: BorderRadius.circular(15),
+                      //           ),
+                      //           title: Text(
+                      //             widget.name,
+                      //             style: TextStyle(
+                      //               fontSize: 20,
+                      //               fontWeight: FontWeight.bold,
+                      //               color: appColor.primaryColor,
+                      //             ),
+                      //           ),
+                      //           content: Container(
+                      //             height: 100,
+                      //             child: Column(
+                      //               crossAxisAlignment: CrossAxisAlignment.start,
+                      //               mainAxisAlignment: MainAxisAlignment.center,
+                      //               children: [
+                      //                 Text(
+                      //                   "Course bought successfully",
+                      //                   style: TextStyle(
+                      //                     fontSize: 16,
+                      //                     color: colorr,
+                      //                   ),
+                      //                 ),
+                      //                 SizedBox(height: 10),
+                      //                 Text(
+                      //                   "Price: ${widget.buy}",
+                      //                   style: TextStyle(
+                      //                     fontSize: 16,
+                      //                     fontWeight: FontWeight.bold,
+                      //                     color: Colors.green,
+                      //                   ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           ),
+                      //           actions: <Widget>[
+                      //             TextButton(
+                      //               onPressed: () =>
+                      //                   Navigator.pop(context, 'Cancel'),
+                      //               child: const Text(
+                      //                 'Cancel',
+                      //                 style: TextStyle(color: Colors.white),
+                      //               ),
+                      //               style: TextButton.styleFrom(
+                      //                 backgroundColor: appColor.primaryColor,
+                      //               ),
+                      //             ),
+                      //             TextButton(
+                      //               onPressed: () async {
+                      //                 bool nameExists =
+                      //                     await isNameInList(widget.name);
+                      //                 if (nameExists) {
+                      //                   print("Already added");
+                      //                 } else {
+                      //                   await _saveData(
+                      //                     widget.name,
+                      //                     widget.buy,
+                      //                     widget.image,
+                      //                     widget.video,
+                      //                   );
+                      //                 }
 
-                                Navigator.pop(context);
-                                setState(() {
-                                  isbought = true;
-                                });
-                              },
-                              child: const Text(
-                                'OK',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              style: TextButton.styleFrom(
-                                backgroundColor: appColor.primaryColor,
+                      //                 Navigator.pop(context);
+                      //                 setState(() {
+                      //                   isbought = true;
+                      //                 });
+                      //               },
+                      //               child: const Text(
+                      //                 'OK',
+                      //                 style: TextStyle(color: Colors.white),
+                      //               ),
+                      //               style: TextButton.styleFrom(
+                      //                 backgroundColor: appColor.primaryColor,
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       );
+
+                      //  }
+
+                      // StripeServices.instance.makePayment();
+                      // if(StripeServices.instance.makePayment()!=null){
+
+                      StripeServices.instance.makePayment(() {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            title: Text(
+                              widget.name,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: appColor.primaryColor,
                               ),
                             ),
-                          ],
-                        ),
-                      );
-                      //=============================================
+                            content: Container(
+                              height: 100,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Course bought successfully",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: colorr,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    "Price: ${widget.buy}",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              // TextButton(
+                              //   onPressed: () =>
+                              //       Navigator.pop(context, 'Cancel'),
+                              //   child: const Text(
+                              //     'Cancel',
+                              //     style: TextStyle(color: Colors.white),
+                              //   ),
+                              //   style: TextButton.styleFrom(
+                              //     backgroundColor: appColor.primaryColor,
+                              //   ),
+                              // ),
+                              TextButton(
+                                onPressed: () async {
+                                  bool nameExists =
+                                      await isNameInList(widget.name);
+                                  if (nameExists) {
+                                    print("Already added");
+                                  } else {
+                                    await _saveData(
+                                      widget.name,
+                                      widget.buy,
+                                      widget.image,
+                                      widget.video,
+                                    );
+                                  }
+
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    isbought = true;
+                                  });
+                                },
+                                child: const Text(
+                                  'OK',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                style: TextButton.styleFrom(
+                                  backgroundColor: appColor.primaryColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      });
                     }
+
+                    //  showDialog<String>(
+                    //   context: context,
+                    //   builder: (BuildContext context) => AlertDialog(
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(15),
+                    //     ),
+                    //     title: Text(
+                    //       widget.name,
+                    //       style: TextStyle(
+                    //         fontSize: 20,
+                    //         fontWeight: FontWeight.bold,
+                    //         color: appColor.primaryColor,
+                    //       ),
+                    //     ),
+                    //     content: Container(
+                    //       height: 100,
+                    //       child: Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Text(
+                    //             "course bought succesfully",
+                    //             style: TextStyle(
+                    //               fontSize: 16,
+                    //               color: colorr,
+                    //             ),
+                    //           ),
+                    //           SizedBox(height: 10),
+                    //           Text(
+                    //             "Price: ${widget.buy}",
+                    //             style: TextStyle(
+                    //               fontSize: 16,
+                    //               fontWeight: FontWeight.bold,
+                    //               color: Colors.green,
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     actions: <Widget>[
+                    //       TextButton(
+                    //         onPressed: () => Navigator.pop(context, 'Cancel'),
+                    //         child: const Text(
+                    //           'Cancel',
+                    //           style: TextStyle(color: Colors.white),
+                    //         ),
+                    //         style: TextButton.styleFrom(
+                    //           backgroundColor: appColor.primaryColor,
+                    //         ),
+                    //       ),
+                    //       TextButton(
+                    //         onPressed: () async {
+                    //           bool nameExists =
+                    //               await isNameInList(widget.name);
+                    //           if (nameExists) {
+                    //             print("already added");
+                    //           } else {
+                    //             await _saveData(
+                    //               widget.name,
+                    //               widget.buy,
+                    //               widget.image,
+                    //               widget.video,
+                    //             );
+                    //           }
+
+                    //           Navigator.pop(context);
+                    //           setState(() {
+                    //             isbought = true;
+                    //           });
+                    //         },
+                    //         child: const Text(
+                    //           'OK',
+                    //           style: TextStyle(color: Colors.white),
+                    //         ),
+                    //         style: TextButton.styleFrom(
+                    //           backgroundColor: appColor.primaryColor,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // );
                   },
                   child: Text(
                     "Buy ${widget.buy}",
@@ -416,6 +591,76 @@ class _CourseScreenState extends State<CourseScreen> {
     }
     _customVideoPlayerController = CustomVideoPlayerController(
         context: context, videoPlayerController: _videoPlayerController);
+  }
+
+  void _showSuccessDialog(
+      BuildContext context, String courseName, String coursePrice) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        title: Text(
+          courseName, // Pass courseName as argument
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: appColor.primaryColor,
+          ),
+        ),
+        content: Container(
+          height: 100,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Course bought successfully",
+                style: TextStyle(
+                  fontSize: 16,
+                  // color: colorr,
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                "Price: $coursePrice", // Pass coursePrice as argument
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green,
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Colors.white),
+            ),
+            style: TextButton.styleFrom(
+              backgroundColor: appColor.primaryColor,
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              // Logic for saving data
+              Navigator.pop(context);
+            },
+            child: const Text(
+              'OK',
+              style: TextStyle(color: Colors.white),
+            ),
+            style: TextButton.styleFrom(
+              backgroundColor: appColor.primaryColor,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   // String _formatDuration(Duration duration) {

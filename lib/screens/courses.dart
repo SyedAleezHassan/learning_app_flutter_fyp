@@ -112,7 +112,6 @@ class CoursesState extends State<Courses> {
                   onChanged: (text) {
                     setState(() {
                       _searchQuery = _formatSearchQuery(text.trim());
-                      
                     });
                   },
                   // _filterItems,

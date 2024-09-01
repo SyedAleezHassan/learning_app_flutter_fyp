@@ -166,6 +166,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             textInputAction: TextInputAction.done,
                           ),
                         ),
+                        const SizedBox(
+                          height: 15,
+                        ),
                         const Text(
                           "Your Password",
                           style: TextStyle(fontSize: 15),
@@ -320,30 +323,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ],
               ),
               const SizedBox(
-                height: 30,
+                height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () {},
-                    child: Image.asset(
-                      "assets/images/gugal.png",
-                      height: 100,
-                      width: 60,
+                    onTap: () {
+                      
+                    },
+                    child: Container(
+                      height: 40,
+                      child: Image.asset(
+                        "assets/images/gugal.png",
+                        height: 100,
+                        width: 60,
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Image.asset(
-                      "assets/images/facebook.png",
-                      height: 100,
-                      width: 60,
-                    ),
-                  ),
+                  // const SizedBox(
+                  //   width: 30,
+                  // ),
+                  // InkWell(
+                  //   onTap: () {},
+                  //   child: Image.asset(
+                  //     "assets/images/facebook.png",
+                  //     height: 100,
+                  //     width: 60,
+                  //   ),
+                  // ),
                 ],
               )
             ],

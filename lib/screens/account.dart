@@ -294,7 +294,7 @@ class _MyaccountState extends State<Myaccount> {
               ),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => chatbotAi()));
+                    MaterialPageRoute(builder: (context) => ChatbotAi()));
               },
             ),
             Divider(),

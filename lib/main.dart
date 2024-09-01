@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/constants.dart';
+import 'package:flutter_application_1/provider/caterory_provider.dart';
 import 'package:flutter_application_1/screens/account.dart';
 import 'package:flutter_application_1/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
+import 'navBar/navBar.dart';
 import 'screens/chatbot/chatbotApi.dart';
 
 // void main() => runApp(Myapp());
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey =Constants.stripePublishableKey;
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -50,7 +55,7 @@ class ThemeProvider extends ChangeNotifier {
       primarySwatch: Colors.blue,
       scaffoldBackgroundColor: Colors.black,
       textTheme: TextTheme(
-        bodyText1: TextStyle(color: Colors.white), // White text for dark theme
+        bodyText1: TextStyle(color: Colors.white),
         bodyText2: TextStyle(color: Colors.white),
       ),
     );
@@ -60,11 +65,18 @@ class ThemeProvider extends ChangeNotifier {
 class Myapp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
+    return 
+    // ChangeNotifierProvider(
+    //   create: (context) => ThemeProvider(),
+      MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => CategoryProvider()),
+        // Add more providers here if needed
+      ],
       builder: (context, _) {
         final themeProvider = Provider.of<ThemeProvider>(context);
-        return MaterialApp(
+         return MaterialApp(
           themeMode: themeProvider.themeMode,
           theme: themeProvider.lightTheme,
           darkTheme: themeProvider.darkTheme,

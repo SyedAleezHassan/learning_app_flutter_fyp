@@ -1,18 +1,22 @@
 //import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/color/color.dart';
 import 'package:flutter_application_1/home_page_icons/category.dart';
 import 'package:flutter_application_1/home_page_icons/leaderBoard.dart';
 import 'package:flutter_application_1/navBar/navBar.dart';
+import 'package:flutter_application_1/provider/caterory_provider.dart';
+import 'package:flutter_application_1/screens/Quizes/course_certification.dart';
 import 'package:flutter_application_1/screens/course_screen.dart';
 import 'package:flutter_application_1/screens/courses.dart';
 import 'package:flutter_application_1/screens/my_courses.dart';
+import 'package:provider/provider.dart';
 
 import '../home_page_icons/books.dart';
 import '../home_page_icons/classes.dart';
 import '../home_page_icons/freeCourse.dart';
+import '../home_page_icons/free_course_tap.dart';
 import '../home_page_icons/liveCourse.dart';
 // import 'package:flutter_application_1/screens/login.dart';
 // import 'package:flutter_application_1/screens/welcome_screen.dart';
@@ -24,14 +28,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  Future.microtask(() {
+      Provider.of<CategoryProvider>(context, listen: false).getCoursesData();
+    });
+  }
   //creating static data in lists
   List catNames = [
     'Category',
-    'Classes',
+    'All Courses',
     'Free Courses',
     'BookStore',
     'Live Course',
-    'LeaderBoard',
+    'Achievements',
   ];
 
   List<Color> catColors = [
@@ -58,6 +70,8 @@ class _HomePageState extends State<HomePage> {
   //   'Python',
   //   'C#',
   // ];
+  // final List<Map> imagList;
+  // freeCourse({required this.imagList});
 
   final List<Map> imagList = [
     {
@@ -193,10 +207,15 @@ class _HomePageState extends State<HomePage> {
                                       builder: (context) => categoryPage()));
                             }
                             if (index == 1) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (contex) => classes()));
+                              final parentState = context
+                                  .findAncestorStateOfType<GoogleNavBarState>();
+                              if (parentState != null) {
+                                parentState.updateIndex(1);
+                              }
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (contex) => classes()));
                             }
                             if (index == 2) {
                               Navigator.push(
@@ -230,7 +249,8 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => leaderBoard()));
+                                      builder: (context) =>
+                                          CertificatePageSelector()));
                             }
                           },
                         ),
