@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/color/color.dart';
 import 'package:video_player/video_player.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,7 +26,7 @@ class _flutterIntroState extends State<flutterIntro> {
       // Fetch the video URL from Firebase Storage
       String videoUrlString = await FirebaseStorage.instance
           // .ref('WIN_20240718_03_12_50_Pro.mp4')
-          .ref('What is a Programming Language in 60 seconds!.mp4')
+          .ref('introduction.mp4')
           .getDownloadURL();
 
       Uri videoUrl = Uri.parse(videoUrlString);
@@ -77,7 +78,12 @@ class _flutterIntroState extends State<flutterIntro> {
     if (_controller != null) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Video Player from Firebase Storage'),
+          title: Text(
+            'Video Player',
+            style: TextStyle(color: Colors.white),
+          ),
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: appColor.primaryColor,
         ),
         body: Center(
           child: _controller != null
