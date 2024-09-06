@@ -27,7 +27,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
     User? user = _auth.currentUser;
     if (user == null) return;
 
-    String userEmail = user.email ?? "unknown";
+    String userEmail = user.email ?? "unknown user";
     String userName = getUsername(userEmail); // Get part before '@'
     String users;
     await FirebaseFirestore.instance
