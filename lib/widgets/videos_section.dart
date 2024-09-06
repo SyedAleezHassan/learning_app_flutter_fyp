@@ -11,13 +11,13 @@ import '../screens/Quizes/Java_quiz.dart';
 import '../screens/Quizes/flutter_quiz.dart';
 import '../screens/Quizes/python_quiz.dart';
 import '../screens/Quizes/react_quiz.dart';
+import 'discussion_boxes/Course_Discussions.dart';
 import 'videoPlayer/flutter_intro_vid.dart';
 
 class VideoSection extends StatefulWidget {
   final String? courseName;
- 
 
-  VideoSection({ required this.courseName}); // Modify the constructor
+  VideoSection({required this.courseName}); // Modify the constructor
 
   @override
   State<VideoSection> createState() => _VideoSectionState();
@@ -93,7 +93,7 @@ class _VideoSectionState extends State<VideoSection> {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: videoList.length +
-          1, // Increase the item count by 1 for the quiz tile
+          2, // Increase the item count by 1 for the quiz tile
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
@@ -116,7 +116,6 @@ class _VideoSectionState extends State<VideoSection> {
             title: Text(videoList[index]),
             subtitle: Text("20 min 50 sec"),
             onTap: () {
-
               // Navigator.push(context,
               // MaterialPageRoute(builder: (context) => CourseScreen(widget.courseName!,widget.buy!,widget.image!,widget.video!)));
               // Navigate to the video player
@@ -124,7 +123,7 @@ class _VideoSectionState extends State<VideoSection> {
                   MaterialPageRoute(builder: (context) => flutterIntro()));
             },
           );
-        } else {
+        } else if (index < videoList.length + 1) {
           return ListTile(
             leading: Icon(
               Icons.quiz,
@@ -175,11 +174,60 @@ class _VideoSectionState extends State<VideoSection> {
             },
           );
         }
+        //new work of duscussion box
+        else {
+          return ListTile(
+            leading: Icon(
+              Icons.quiz,
+              color: appColor.primaryColor,
+              size: 30,
+            ),
+            title: Text("Discussion Box"),
+            onTap: () {
+              print("aaaaaaaaaaaaaaaaaa ${isNameInList(widget.courseName!)}");
+
+              // if (isNameInList(widget.courseName!) == false) {
+              if (widget.courseName == 'Flutter') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DiscussionPage(courseId: 'Flutter')));
+              } else if (widget.courseName == 'Java') {
+                print(widget.courseName);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DiscussionPage(courseId: 'Java')));
+              } else if (widget.courseName == 'Python') {
+                print(widget.courseName);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DiscussionPage(courseId: 'Python')));
+              } else if (widget.courseName == 'C++') {
+                print(widget.courseName);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DiscussionPage(courseId: 'C++')));
+              } else if (widget.courseName == 'React Native') {
+                print(widget.courseName);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DiscussionPage(courseId: 'React Native')));
+              }
+              // } else {
+              //   Fluttertoast.showToast(
+              //     msg: "Already attempted",
+              //     toastLength: Toast.LENGTH_SHORT,
+              //     gravity: ToastGravity.BOTTOM,
+              //     timeInSecForIosWeb: 1,
+              //     backgroundColor: Colors.black,
+              //     textColor: Colors.white,
+              //     fontSize: 16.0,
+              //   );
+              // }
+            },
+          );
+        }
       },
     );
   }
 }
-
 
 // class VideoSection extends StatefulWidget {
 //   final String courseName;
@@ -287,7 +335,3 @@ class _VideoSectionState extends State<VideoSection> {
 //     );
 //   }
 // }
-
-
-
-
