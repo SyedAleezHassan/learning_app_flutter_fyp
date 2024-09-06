@@ -294,19 +294,19 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onTap: () {
-                        // Navigator.push(context,
-                        //     MaterialPageRoute(builder: (context) => ));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Courses()));
 
                         // setState(() {
                         //   navigateToAnotherPage();
                         //   Navigator.pop(context, 1);
                         // });
 
-                        final parentState = context
-                            .findAncestorStateOfType<GoogleNavBarState>();
-                        if (parentState != null) {
-                          parentState.updateIndex(1);
-                        }
+                        // final parentState = context
+                        //     .findAncestorStateOfType<GoogleNavBarState>();
+                        // if (parentState != null) {
+                        //   parentState.updateIndex(1);
+                        // }
                       },
                     ),
                   ],

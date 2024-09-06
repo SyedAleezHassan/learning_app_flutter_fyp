@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class SQLQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _SQLQuizPageState createState() => _SQLQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _SQLQuizPageState extends State<SQLQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,74 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
+      'question': 'What does SQL stand for?',
       'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
+        'Structured Query Language',
+        'Sequential Query Language',
+        'Simple Query Language',
+        'Systematic Query Language'
       ],
-      'answer': 'A mobile development framework'
+      'answer': 'Structured Query Language'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'Which SQL command is used to retrieve data from a database?',
+      'options': ['INSERT', 'SELECT', 'UPDATE', 'DELETE'],
+      'answer': 'SELECT'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'Which clause is used to filter results in an SQL query?',
+      'options': ['ORDER BY', 'WHERE', 'GROUP BY', 'HAVING'],
+      'answer': 'WHERE'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
-    },
-    {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
-    },
-    {
-      'question': 'What is JSX in React Native?',
+      'question': 'What does the SQL command `JOIN` do?',
       'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
+        'Merge two tables into one',
+        'Delete records from a table',
+        'Link rows from two tables',
+        'Create a new table'
       ],
-      'answer': 'A JavaScript XML syntax'
+      'answer': 'Link rows from two tables'
     },
     {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
+      'question': 'Which SQL statement is used to update data in a database?',
+      'options': ['UPDATE', 'INSERT', 'SELECT', 'ALTER'],
+      'answer': 'UPDATE'
     },
     {
-      'question': 'Which command is used to create a new React Native project?',
+      'question': 'Which function is used to count the number of records in an SQL table?',
+      'options': ['SUM()', 'COUNT()', 'AVG()', 'MAX()'],
+      'answer': 'COUNT()'
+    },
+    {
+      'question': 'What is the purpose of the SQL `GROUP BY` clause?',
       'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
+        'To sort the result set',
+        'To filter records',
+        'To group rows that have the same values',
+        'To join two tables'
       ],
-      'answer': 'npx react-native init'
+      'answer': 'To group rows that have the same values'
     },
     {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
+      'question': 'Which SQL keyword is used to sort the result-set?',
+      'options': ['ORDER BY', 'GROUP BY', 'SORT BY', 'WHERE'],
+      'answer': 'ORDER BY'
     },
     {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'What does the SQL `INSERT` statement do?',
+      'options': [
+        'Insert new data into a database',
+        'Update existing data',
+        'Delete data from a database',
+        'Create a new table'
+      ],
+      'answer': 'Insert new data into a database'
+    },
+    {
+      'question': 'Which SQL statement is used to delete data from a table?',
+      'options': ['REMOVE', 'DELETE', 'TRUNCATE', 'DROP'],
+      'answer': 'DELETE'
     },
   ];
 
@@ -191,7 +196,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'SQL', // Updated for SQL
         'date': DateTime.now(),
       });
 
@@ -228,7 +233,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('SQL Quiz'), // Updated title for SQL
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

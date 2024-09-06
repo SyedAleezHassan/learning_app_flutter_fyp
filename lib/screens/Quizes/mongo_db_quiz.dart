@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class MongoDBQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _MongoDBQuizPageState createState() => _MongoDBQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _MongoDBQuizPageState extends State<MongoDBQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,54 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
-      'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
-      ],
-      'answer': 'A mobile development framework'
+      'question': 'What type of database is MongoDB?',
+      'options': ['Relational', 'Document', 'Graph', 'Time-Series'],
+      'answer': 'Document'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'Which query language does MongoDB use?',
+      'options': ['SQL', 'MongoDB Query Language (MQL)', 'GraphQL', 'Cypher'],
+      'answer': 'MongoDB Query Language (MQL)'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'What is a collection in MongoDB?',
+      'options': ['A document', 'A table', 'A schema', 'A database'],
+      'answer': 'A table'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
+      'question': 'Which of the following is a valid MongoDB document?',
+      'options': ['{ name: "John", age: 30 }', '[ { name: "John" }, { age: 30 } ]', '<name>John</name>', 'name=John&age=30'],
+      'answer': '{ name: "John", age: 30 }'
     },
     {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
+      'question': 'How does MongoDB store data?',
+      'options': ['In tables', 'In rows', 'In documents', 'In columns'],
+      'answer': 'In documents'
     },
     {
-      'question': 'What is JSX in React Native?',
-      'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
-      ],
-      'answer': 'A JavaScript XML syntax'
+      'question': 'What is the purpose of the MongoDB Aggregation Framework?',
+      'options': ['Data analysis', 'Data storage', 'Data indexing', 'Data replication'],
+      'answer': 'Data analysis'
     },
     {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
+      'question': 'Which of the following is a valid MongoDB operator?',
+      'options': ['\$gt', '\$lt', '\$in', '\$not', '\$and'],
+      'answer': '\$gt'
     },
     {
-      'question': 'Which command is used to create a new React Native project?',
-      'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
-      ],
-      'answer': 'npx react-native init'
+      'question': 'What does the \$match stage do in MongoDB aggregation?',
+      'options': ['Filters documents', 'Sorts documents', 'Groups documents', 'Projects fields'],
+      'answer': 'Filters documents'
     },
     {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
+      'question': 'Which of the following is used for indexing in MongoDB?',
+      'options': ['Indexes', 'Tables', 'Views', 'Schemas'],
+      'answer': 'Indexes'
     },
     {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'What is a shard in MongoDB?',
+      'options': ['A partition of data', 'A replica set', 'A collection', 'A document'],
+      'answer': 'A partition of data'
     },
   ];
 
@@ -191,7 +176,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'MongoDB', // Course name set to MongoDB
         'date': DateTime.now(),
       });
 
@@ -228,7 +213,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('MongoDB Quiz'), // Updated title for MongoDB
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

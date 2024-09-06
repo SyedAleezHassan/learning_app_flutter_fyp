@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class InfluxDBQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _InfluxDBQuizPageState createState() => _InfluxDBQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _InfluxDBQuizPageState extends State<InfluxDBQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,54 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
-      'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
-      ],
-      'answer': 'A mobile development framework'
+      'question': 'What type of database is InfluxDB?',
+      'options': ['Relational', 'Time-Series', 'Document', 'Graph'],
+      'answer': 'Time-Series'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'Which query language does InfluxDB use?',
+      'options': ['Flux', 'SQL', 'GraphQL', 'Cypher'],
+      'answer': 'Flux'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'What is a common use case for InfluxDB?',
+      'options': ['Storing time-series data', 'Document storage', 'Graph analysis', 'Relational data'],
+      'answer': 'Storing time-series data'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
+      'question': 'How does InfluxDB handle high write loads?',
+      'options': ['Using a write-ahead log', 'In-memory storage', 'Sharding', 'Partitioning'],
+      'answer': 'Sharding'
     },
     {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
+      'question': 'Which component of InfluxDB is used for querying?',
+      'options': ['Telegraf', 'Chronograf', 'Kapacitor', 'InfluxQL'],
+      'answer': 'InfluxQL'
     },
     {
-      'question': 'What is JSX in React Native?',
-      'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
-      ],
-      'answer': 'A JavaScript XML syntax'
+      'question': 'What is the purpose of Telegraf in the InfluxDB ecosystem?',
+      'options': ['Data collection', 'Data visualization', 'Data processing', 'Data storage'],
+      'answer': 'Data collection'
     },
     {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
+      'question': 'Which tool is used for visualizing data in InfluxDB?',
+      'options': ['Grafana', 'Kibana', 'Metabase', 'Tableau'],
+      'answer': 'Grafana'
     },
     {
-      'question': 'Which command is used to create a new React Native project?',
-      'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
-      ],
-      'answer': 'npx react-native init'
+      'question': 'How does InfluxDB handle data retention?',
+      'options': ['Using retention policies', 'Archiving data', 'Sharding', 'Partitioning'],
+      'answer': 'Using retention policies'
     },
     {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
+      'question': 'Which of the following is a key feature of InfluxDB?',
+      'options': ['ACID Transactions', 'Schema-less data storage', 'Graph relationships', 'Document versioning'],
+      'answer': 'Schema-less data storage'
     },
     {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'Which InfluxDB component is used for alerting and data processing?',
+      'options': ['Chronograf', 'Telegraf', 'Kapacitor', 'InfluxDB'],
+      'answer': 'Kapacitor'
     },
   ];
 
@@ -191,7 +176,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'InfluxDB', // Course name set to InfluxDB
         'date': DateTime.now(),
       });
 
@@ -228,7 +213,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('InfluxDB Quiz'), // Updated title for InfluxDB
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

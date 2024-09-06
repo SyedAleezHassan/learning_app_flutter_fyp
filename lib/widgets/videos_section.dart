@@ -8,9 +8,22 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/Quizes/Java_quiz.dart';
+import '../screens/Quizes/SQL_quiz.dart';
+import '../screens/Quizes/adobe_xd_quiz.dart';
+import '../screens/Quizes/after_effects.dart';
+import '../screens/Quizes/canva_quiz.dart';
+import '../screens/Quizes/figma_quiz.dart';
+import '../screens/Quizes/firebase_quiz.dart';
 import '../screens/Quizes/flutter_quiz.dart';
+import '../screens/Quizes/illustrator_quiz.dart';
+import '../screens/Quizes/influx_db_quiz.dart';
+import '../screens/Quizes/maria_db_quiz.dart';
+import '../screens/Quizes/mongo_db_quiz.dart';
+import '../screens/Quizes/orient_db_quiz.dart';
+import '../screens/Quizes/photoshop_quiz.dart';
 import '../screens/Quizes/python_quiz.dart';
 import '../screens/Quizes/react_quiz.dart';
+import '../screens/Quizes/rust_quiz.dart';
 import 'discussion_boxes/Course_Discussions.dart';
 import 'videoPlayer/flutter_intro_vid.dart';
 
@@ -157,8 +170,80 @@ class _VideoSectionState extends State<VideoSection> {
                       MaterialPageRoute(builder: (context) => CQuizPage()));
                 } else if (widget.courseName == 'React Native') {
                   print(widget.courseName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ReactNativeQuizPage()));
+                } else if (widget.courseName == 'Figma') {
+                  print(widget.courseName);
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ReactQuizPage()));
+                      MaterialPageRoute(builder: (context) => FigmaQuizPage()));
+                } else if (widget.courseName == 'Canva') {
+                  print(widget.courseName);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CanvaQuizPage()));
+                } else if (widget.courseName == 'Maria DB') {
+                  print(widget.courseName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MariaDBQuizPage()));
+                } else if (widget.courseName == 'SQL') {
+                  print(widget.courseName);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SQLQuizPage()));
+                } else if (widget.courseName == 'Photoshop') {
+                  print(widget.courseName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PhotoshopQuizPage()));
+                } else if (widget.courseName == 'Rust') {
+                  print(widget.courseName);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RustQuizPage()));
+                } else if (widget.courseName == 'Adobe XD') {
+                  print(widget.courseName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AdobeXDQuizPage()));
+                } else if (widget.courseName == 'Firebase') {
+                  print(widget.courseName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FirebaseQuizPage()));
+                } else if (widget.courseName == 'Orient DB') {
+                  print(widget.courseName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OrientDBQuizPage()));
+                } else if (widget.courseName == 'Influx DB') {
+                  print(widget.courseName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InfluxDBQuizPage()));
+                } else if (widget.courseName == 'Mongo DB') {
+                  print(widget.courseName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MongoDBQuizPage()));
+                } else if (widget.courseName == 'Illustratot') {
+                  print(widget.courseName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => IllustratorQuizPage()));
+                } else if (widget.courseName == 'After Effects') {
+                  print(widget.courseName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AfterEffectsQuizPage()));
                 }
               } else {
                 Fluttertoast.showToast(
@@ -178,7 +263,7 @@ class _VideoSectionState extends State<VideoSection> {
         else {
           return ListTile(
             leading: Icon(
-              Icons.quiz,
+              Icons.chat_bubble_sharp,
               color: appColor.primaryColor,
               size: 30,
             ),
@@ -192,23 +277,125 @@ class _VideoSectionState extends State<VideoSection> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DiscussionPage(courseId: 'Flutter')));
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Flutter')));
               } else if (widget.courseName == 'Java') {
                 print(widget.courseName);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DiscussionPage(courseId: 'Java')));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Java')));
               } else if (widget.courseName == 'Python') {
                 print(widget.courseName);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DiscussionPage(courseId: 'Python')));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Python')));
               } else if (widget.courseName == 'C++') {
                 print(widget.courseName);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DiscussionPage(courseId: 'C++')));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DiscussionPage(courseId: 'C++')));
               } else if (widget.courseName == 'React Native') {
                 print(widget.courseName);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DiscussionPage(courseId: 'React Native')));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'React Native')));
+              } else if (widget.courseName == 'Figma') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Figma')));
+              } else if (widget.courseName == 'Canva') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Canva')));
+              } else if (widget.courseName == 'Maria DB') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Maria DB')));
+              } else if (widget.courseName == 'SQL') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DiscussionPage(courseId: 'SQL')));
+              } else if (widget.courseName == 'Photoshop') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Photoshop')));
+              } else if (widget.courseName == 'Rust') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Rust')));
+              } else if (widget.courseName == 'Adobe XD') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Adobe XD')));
+              } else if (widget.courseName == 'Firebase') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Firebase')));
+              } else if (widget.courseName == 'Orient DB') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Orient DB')));
+              } else if (widget.courseName == 'Influx DB') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Influx DB')));
+              } else if (widget.courseName == 'Mongo DB') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Mongo DB')));
+              } else if (widget.courseName == 'Illustrator') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'Illustrator')));
+              } else if (widget.courseName == 'After Effects') {
+                print(widget.courseName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiscussionPage(courseId: 'After Effects')));
               }
               // } else {
               //   Fluttertoast.showToast(

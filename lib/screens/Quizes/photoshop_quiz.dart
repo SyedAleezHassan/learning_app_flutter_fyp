@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class PhotoshopQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _PhotoshopQuizPageState createState() => _PhotoshopQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _PhotoshopQuizPageState extends State<PhotoshopQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,59 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
+      'question': 'What is Photoshop primarily used for?',
+      'options': ['Video editing', 'Photo editing', 'Sound mixing', 'Animation'],
+      'answer': 'Photo editing'
+    },
+    {
+      'question': 'Which file format is Photoshop\'s native format?',
+      'options': ['JPG', 'PNG', 'PSD', 'TIFF'],
+      'answer': 'PSD'
+    },
+    {
+      'question': 'What tool is used to remove a background from an image?',
+      'options': ['Brush Tool', 'Lasso Tool', 'Pen Tool', 'Magic Wand Tool'],
+      'answer': 'Magic Wand Tool'
+    },
+    {
+      'question': 'Which panel in Photoshop is used for managing layers?',
+      'options': ['Layers Panel', 'Tools Panel', 'History Panel', 'Properties Panel'],
+      'answer': 'Layers Panel'
+    },
+    {
+      'question': 'What is the shortcut for copying a selection in Photoshop?',
+      'options': ['Ctrl + S', 'Ctrl + X', 'Ctrl + C', 'Ctrl + V'],
+      'answer': 'Ctrl + C'
+    },
+    {
+      'question': 'Which tool is used to clone or duplicate parts of an image?',
+      'options': ['Eraser Tool', 'Pen Tool', 'Clone Stamp Tool', 'Brush Tool'],
+      'answer': 'Clone Stamp Tool'
+    },
+    {
+      'question': 'Which feature allows you to apply non-destructive changes to an image?',
+      'options': ['Adjustment Layers', 'Filters', 'Blending Modes', 'Masking'],
+      'answer': 'Adjustment Layers'
+    },
+    {
+      'question': 'Which file format supports transparency in Photoshop?',
+      'options': ['JPG', 'GIF', 'TIFF', 'PNG'],
+      'answer': 'PNG'
+    },
+    {
+      'question': 'What is the purpose of the "History" panel in Photoshop?',
       'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
+        'Track changes and undo steps',
+        'Manage layers',
+        'Apply filters',
+        'Adjust colors'
       ],
-      'answer': 'A mobile development framework'
+      'answer': 'Track changes and undo steps'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
-    },
-    {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
-    },
-    {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
-    },
-    {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
-    },
-    {
-      'question': 'What is JSX in React Native?',
-      'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
-      ],
-      'answer': 'A JavaScript XML syntax'
-    },
-    {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
-    },
-    {
-      'question': 'Which command is used to create a new React Native project?',
-      'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
-      ],
-      'answer': 'npx react-native init'
-    },
-    {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
-    },
-    {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'Which blending mode lightens an image?',
+      'options': ['Overlay', 'Multiply', 'Screen', 'Darken'],
+      'answer': 'Screen'
     },
   ];
 
@@ -191,7 +181,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'Photoshop', // Updated for Photoshop
         'date': DateTime.now(),
       });
 
@@ -228,7 +218,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('Photoshop Quiz'), // Updated title for Photoshop
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

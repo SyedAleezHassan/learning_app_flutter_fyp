@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class AdobeXDQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _AdobeXDQuizPageState createState() => _AdobeXDQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _AdobeXDQuizPageState extends State<AdobeXDQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,64 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
+      'question': 'What is Adobe XD primarily used for?',
       'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
+        'Photo editing',
+        'UI/UX design and prototyping',
+        'Video editing',
+        '3D modeling'
       ],
-      'answer': 'A mobile development framework'
+      'answer': 'UI/UX design and prototyping'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'Which feature in Adobe XD allows interactive prototypes?',
+      'options': ['Layers', 'Artboards', 'Prototyping', 'Assets panel'],
+      'answer': 'Prototyping'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'Adobe XD is available for which platforms?',
+      'options': ['Windows and macOS', 'iOS only', 'Windows only', 'Linux'],
+      'answer': 'Windows and macOS'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
+      'question': 'Which file extension is used for Adobe XD projects?',
+      'options': ['.xd', '.psd', '.ai', '.xdx'],
+      'answer': '.xd'
     },
     {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
+      'question': 'Which tool is used to create vector shapes in Adobe XD?',
+      'options': ['Pen tool', 'Text tool', 'Move tool', 'Eyedropper tool'],
+      'answer': 'Pen tool'
     },
     {
-      'question': 'What is JSX in React Native?',
+      'question': 'Which Adobe product is best integrated with Adobe XD for design?',
+      'options': ['Photoshop', 'Premiere Pro', 'Lightroom', 'After Effects'],
+      'answer': 'Photoshop'
+    },
+    {
+      'question': 'What is a key feature of Adobe XD that helps in design collaboration?',
+      'options': ['Share for Review', 'Export as PNG', 'Color Picker', 'Shape tool'],
+      'answer': 'Share for Review'
+    },
+    {
+      'question': 'Which panel in Adobe XD stores reusable components?',
+      'options': ['Layers panel', 'Components panel', 'Assets panel', 'History panel'],
+      'answer': 'Assets panel'
+    },
+    {
+      'question': 'What does the Repeat Grid tool in Adobe XD do?',
       'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
+        'Create grids for layout',
+        'Duplicate objects in a grid pattern',
+        'Align layers',
+        'Group artboards together'
       ],
-      'answer': 'A JavaScript XML syntax'
+      'answer': 'Duplicate objects in a grid pattern'
     },
     {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
-    },
-    {
-      'question': 'Which command is used to create a new React Native project?',
-      'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
-      ],
-      'answer': 'npx react-native init'
-    },
-    {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
-    },
-    {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'Can you create animations in Adobe XD?',
+      'options': ['Yes', 'No', 'Only in the paid version', 'With plugins only'],
+      'answer': 'Yes'
     },
   ];
 
@@ -191,7 +186,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'Adobe XD', // Updated for Adobe XD
         'date': DateTime.now(),
       });
 
@@ -228,7 +223,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('Adobe XD Quiz'), // Updated title for Adobe XD
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

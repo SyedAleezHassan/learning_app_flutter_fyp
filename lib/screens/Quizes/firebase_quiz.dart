@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class FirebaseQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _FirebaseQuizPageState createState() => _FirebaseQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _FirebaseQuizPageState extends State<FirebaseQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,59 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
+      'question': 'What is Firebase primarily used for?',
+      'options': ['Mobile development', 'Cloud services', 'Analytics', 'All of the above'],
+      'answer': 'All of the above'
+    },
+    {
+      'question': 'Which Firebase service is used for user authentication?',
+      'options': ['Firestore', 'Firebase Auth', 'Firebase ML', 'Firebase Realtime Database'],
+      'answer': 'Firebase Auth'
+    },
+    {
+      'question': 'Which Firebase database supports real-time data synchronization?',
+      'options': ['Firestore', 'SQLite', 'Firebase Realtime Database', 'MongoDB'],
+      'answer': 'Firebase Realtime Database'
+    },
+    {
+      'question': 'What is Firestore?',
+      'options': ['A NoSQL database', 'A SQL database', 'A document database', 'An in-memory database'],
+      'answer': 'A NoSQL database'
+    },
+    {
+      'question': 'What is Firebase Cloud Messaging used for?',
       'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
+        'User authentication',
+        'Real-time data syncing',
+        'Push notifications',
+        'Hosting'
       ],
-      'answer': 'A mobile development framework'
+      'answer': 'Push notifications'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'Which tool is used to monitor app crashes in Firebase?',
+      'options': ['Firebase Crashlytics', 'Firebase Hosting', 'Firebase Auth', 'Firebase Realtime Database'],
+      'answer': 'Firebase Crashlytics'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'Firebase is a product of which company?',
+      'options': ['Microsoft', 'Apple', 'Google', 'Amazon'],
+      'answer': 'Google'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
+      'question': 'Which Firebase service provides cloud storage for app data?',
+      'options': ['Firebase Auth', 'Firebase Hosting', 'Firebase Storage', 'Firestore'],
+      'answer': 'Firebase Storage'
     },
     {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
+      'question': 'Which of the following is used to host web apps in Firebase?',
+      'options': ['Firebase Auth', 'Firebase Hosting', 'Firebase Firestore', 'Firebase ML'],
+      'answer': 'Firebase Hosting'
     },
     {
-      'question': 'What is JSX in React Native?',
-      'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
-      ],
-      'answer': 'A JavaScript XML syntax'
-    },
-    {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
-    },
-    {
-      'question': 'Which command is used to create a new React Native project?',
-      'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
-      ],
-      'answer': 'npx react-native init'
-    },
-    {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
-    },
-    {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'Which Firebase feature tracks app analytics?',
+      'options': ['Firebase Analytics', 'Firebase Auth', 'Firestore', 'Firebase Realtime Database'],
+      'answer': 'Firebase Analytics'
     },
   ];
 
@@ -191,7 +181,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'Firebase', // Course name set to Firebase
         'date': DateTime.now(),
       });
 
@@ -228,7 +218,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('Firebase Quiz'), // Updated title for Firebase
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

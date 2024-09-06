@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class AfterEffectsQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _AfterEffectsQuizPageState createState() => _AfterEffectsQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _AfterEffectsQuizPageState extends State<AfterEffectsQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,54 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
-      'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
-      ],
-      'answer': 'A mobile development framework'
+      'question': 'What is Adobe After Effects used for?',
+      'options': ['Photo editing', 'Motion graphics and visual effects', '3D modeling', 'Web design'],
+      'answer': 'Motion graphics and visual effects'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'Which panel is used to manage and organize layers?',
+      'options': ['Project Panel', 'Timeline Panel', 'Effects Panel', 'Composition Panel'],
+      'answer': 'Timeline Panel'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'What is the purpose of keyframes in After Effects?',
+      'options': ['To add text to a composition', 'To animate properties over time', 'To apply effects', 'To create masks'],
+      'answer': 'To animate properties over time'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
+      'question': 'Which tool is used to create and edit masks?',
+      'options': ['Pen Tool', 'Selection Tool', 'Shape Tool', 'Type Tool'],
+      'answer': 'Pen Tool'
     },
     {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
+      'question': 'What is a composition in After Effects?',
+      'options': ['A container for layers and effects', 'A type of animation preset', 'A rendered video file', 'A color adjustment'],
+      'answer': 'A container for layers and effects'
     },
     {
-      'question': 'What is JSX in React Native?',
-      'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
-      ],
-      'answer': 'A JavaScript XML syntax'
+      'question': 'How can you preview your animation in After Effects?',
+      'options': ['Using the RAM Preview', 'Using the Render Queue', 'Using the Timeline Panel', 'Using the Effects Panel'],
+      'answer': 'Using the RAM Preview'
     },
     {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
+      'question': 'What is the purpose of the Render Queue in After Effects?',
+      'options': ['To organize layers', 'To apply effects', 'To render final output', 'To create masks'],
+      'answer': 'To render final output'
     },
     {
-      'question': 'Which command is used to create a new React Native project?',
-      'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
-      ],
-      'answer': 'npx react-native init'
+      'question': 'Which panel allows you to apply effects to layers?',
+      'options': ['Effects & Presets Panel', 'Project Panel', 'Timeline Panel', 'Composition Panel'],
+      'answer': 'Effects & Presets Panel'
     },
     {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
+      'question': 'What does the term "rendering" refer to in After Effects?',
+      'options': ['Creating and saving project files', 'Applying filters to layers', 'Generating the final video output', 'Exporting assets'],
+      'answer': 'Generating the final video output'
     },
     {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'What is a "precomposition" in After Effects?',
+      'options': ['A project file', 'A composition within a composition', 'A type of animation', 'A rendered output'],
+      'answer': 'A composition within a composition'
     },
   ];
 
@@ -191,7 +176,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'Adobe After Effects', // Course name set to Adobe After Effects
         'date': DateTime.now(),
       });
 
@@ -228,7 +213,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('Adobe After Effects Quiz'), // Updated title for Adobe After Effects
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

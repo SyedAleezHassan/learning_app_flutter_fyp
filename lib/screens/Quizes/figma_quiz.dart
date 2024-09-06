@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class FigmaQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _FigmaQuizPageState createState() => _FigmaQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _FigmaQuizPageState extends State<FigmaQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,79 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
+      'question': 'What is Figma?',
       'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
+        'A database tool',
+        'A design tool',
+        'A programming language',
         'An operating system'
       ],
-      'answer': 'A mobile development framework'
+      'answer': 'A design tool'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'Which company developed Figma?',
+      'options': ['Adobe', 'Google', 'Figma Inc.', 'Microsoft'],
+      'answer': 'Figma Inc.'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'Which file format is commonly used to export Figma designs?',
+      'options': ['JPG', 'SVG', 'HTML', 'DOCX'],
+      'answer': 'SVG'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
-    },
-    {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
-    },
-    {
-      'question': 'What is JSX in React Native?',
+      'question': 'What is the main use of Figma?',
       'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
+        'Web development',
+        'UI/UX design',
+        'Video editing',
+        'Database management'
       ],
-      'answer': 'A JavaScript XML syntax'
+      'answer': 'UI/UX design'
     },
     {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
+      'question': 'Which feature in Figma is used for real-time collaboration?',
+      'options': ['Live Editing', 'Team Workspaces', 'Multiplayer', 'Co-design'],
+      'answer': 'Multiplayer'
     },
     {
-      'question': 'Which command is used to create a new React Native project?',
+      'question': 'What is the Frame tool used for in Figma?',
       'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
+        'To create animations',
+        'To create responsive layouts',
+        'To manage code',
+        'To style text'
       ],
-      'answer': 'npx react-native init'
+      'answer': 'To create responsive layouts'
     },
     {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
+      'question': 'Which design principle is crucial for UI/UX design?',
+      'options': [
+        'Consistency',
+        'Complexity',
+        'Minimalism',
+        'Decoration'
+      ],
+      'answer': 'Consistency'
     },
     {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'Which Figma feature allows for component reusability?',
+      'options': ['Prototypes', 'Pages', 'Components', 'Styles'],
+      'answer': 'Components'
+    },
+    {
+      'question': 'How can you share a Figma project?',
+      'options': [
+        'By exporting as PDF',
+        'By sharing a live link',
+        'By email attachment',
+        'By saving to Dropbox'
+      ],
+      'answer': 'By sharing a live link'
+    },
+    {
+      'question': 'What are Figma’s primary design tools?',
+      'options': ['Vector networks', 'Layer styles', 'Frames', 'All of the above'],
+      'answer': 'All of the above'
     },
   ];
 
@@ -191,7 +201,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'Figma', // Updated for Figma
         'date': DateTime.now(),
       });
 
@@ -228,7 +238,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('Figma Quiz'), // Updated title for Figma
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class RustQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _RustQuizPageState createState() => _RustQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _RustQuizPageState extends State<RustQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,54 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
-      'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
-      ],
-      'answer': 'A mobile development framework'
+      'question': 'What is Rust primarily used for?',
+      'options': ['Web development', 'Systems programming', 'Mobile apps', 'Data science'],
+      'answer': 'Systems programming'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'Which of the following is a key feature of Rust?',
+      'options': ['Automatic memory management', 'Garbage collection', 'Memory safety without GC', 'None of the above'],
+      'answer': 'Memory safety without GC'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'Which company originally developed Rust?',
+      'options': ['Google', 'Mozilla', 'Microsoft', 'Apple'],
+      'answer': 'Mozilla'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
+      'question': 'How do you declare a variable in Rust?',
+      'options': ['let', 'var', 'define', 'int'],
+      'answer': 'let'
     },
     {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
+      'question': 'What is the default mutability of variables in Rust?',
+      'options': ['Mutable', 'Immutable', 'Read-only', 'None'],
+      'answer': 'Immutable'
     },
     {
-      'question': 'What is JSX in React Native?',
-      'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
-      ],
-      'answer': 'A JavaScript XML syntax'
+      'question': 'Which keyword is used to define a function in Rust?',
+      'options': ['fn', 'def', 'function', 'func'],
+      'answer': 'fn'
     },
     {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
+      'question': 'What is the package manager for Rust?',
+      'options': ['npm', 'cargo', 'bundler', 'pip'],
+      'answer': 'cargo'
     },
     {
-      'question': 'Which command is used to create a new React Native project?',
-      'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
-      ],
-      'answer': 'npx react-native init'
+      'question': 'Which Rust feature ensures memory safety?',
+      'options': ['Lifetimes', 'Garbage collection', 'Reference counting', 'Manual deallocation'],
+      'answer': 'Lifetimes'
     },
     {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
+      'question': 'How do you define a constant in Rust?',
+      'options': ['const', 'let', 'var', 'static'],
+      'answer': 'const'
     },
     {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'What is the extension of Rust source files?',
+      'options': ['.rs', '.rust', '.r', '.ru'],
+      'answer': '.rs'
     },
   ];
 
@@ -191,7 +176,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'Rust', // Updated for Rust
         'date': DateTime.now(),
       });
 
@@ -228,7 +213,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('Rust Quiz'), // Updated title for Rust
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

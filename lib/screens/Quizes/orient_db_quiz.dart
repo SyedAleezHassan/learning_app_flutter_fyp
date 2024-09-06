@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class OrientDBQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _OrientDBQuizPageState createState() => _OrientDBQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _OrientDBQuizPageState extends State<OrientDBQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,54 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
-      'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
-      ],
-      'answer': 'A mobile development framework'
+      'question': 'What type of database is OrientDB?',
+      'options': ['Relational', 'Document', 'Graph', 'Object-Oriented'],
+      'answer': 'Document'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'Which query language does OrientDB use?',
+      'options': ['SQL', 'GraphQL', 'SPARQL', 'Cypher'],
+      'answer': 'SQL'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'What feature of OrientDB supports hierarchical data?',
+      'options': ['Document Model', 'Graph Model', 'Relational Model', 'Object Model'],
+      'answer': 'Document Model'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
+      'question': 'How does OrientDB handle relationships between data?',
+      'options': ['Foreign Keys', 'Joins', 'Edges', 'Tables'],
+      'answer': 'Edges'
     },
     {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
+      'question': 'Which of the following is a key feature of OrientDB?',
+      'options': ['ACID Transactions', 'NoSQL Database', 'Graph Database', 'All of the above'],
+      'answer': 'All of the above'
     },
     {
-      'question': 'What is JSX in React Native?',
-      'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
-      ],
-      'answer': 'A JavaScript XML syntax'
+      'question': 'Can OrientDB be used for both OLTP and OLAP operations?',
+      'options': ['Yes', 'No', 'Only OLTP', 'Only OLAP'],
+      'answer': 'Yes'
     },
     {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
+      'question': 'Which API does OrientDB provide for interaction?',
+      'options': ['REST API', 'GraphQL API', 'SOAP API', 'All of the above'],
+      'answer': 'REST API'
     },
     {
-      'question': 'Which command is used to create a new React Native project?',
-      'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
-      ],
-      'answer': 'npx react-native init'
+      'question': 'Which language is OrientDB written in?',
+      'options': ['Java', 'Python', 'C++', 'JavaScript'],
+      'answer': 'Java'
     },
     {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
+      'question': 'What is the main advantage of using OrientDB over traditional relational databases?',
+      'options': ['Flexible Schema', 'ACID Compliance', 'Strong Typing', 'Limited Scalability'],
+      'answer': 'Flexible Schema'
     },
     {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'Which tool is used to manage OrientDB instances?',
+      'options': ['OrientDB Studio', 'Firebase Console', 'MongoDB Compass', 'SQL Server Management Studio'],
+      'answer': 'OrientDB Studio'
     },
   ];
 
@@ -191,7 +176,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'OrientDB', // Course name set to OrientDB
         'date': DateTime.now(),
       });
 
@@ -228,7 +213,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('OrientDB Quiz'), // Updated title for OrientDB
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

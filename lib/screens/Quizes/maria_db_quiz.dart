@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class MariaDBQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _MariaDBQuizPageState createState() => _MariaDBQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _MariaDBQuizPageState extends State<MariaDBQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,69 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
+      'question': 'What is MariaDB?',
       'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
+        'A NoSQL database',
+        'A relational database',
+        'A cloud storage service',
+        'A programming language'
       ],
-      'answer': 'A mobile development framework'
+      'answer': 'A relational database'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'MariaDB is a fork of which database?',
+      'options': ['PostgreSQL', 'MongoDB', 'MySQL', 'SQLite'],
+      'answer': 'MySQL'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'Which query is used to retrieve data from a MariaDB database?',
+      'options': ['INSERT', 'UPDATE', 'SELECT', 'DELETE'],
+      'answer': 'SELECT'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
-    },
-    {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
-    },
-    {
-      'question': 'What is JSX in React Native?',
+      'question': 'What is the command to create a database in MariaDB?',
       'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
+        'CREATE TABLE',
+        'CREATE DATABASE',
+        'CREATE DB',
+        'NEW DATABASE'
       ],
-      'answer': 'A JavaScript XML syntax'
+      'answer': 'CREATE DATABASE'
     },
     {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
+      'question': 'What type of SQL language is MariaDB?',
+      'options': ['DDL', 'DML', 'DQL', 'All of the above'],
+      'answer': 'All of the above'
     },
     {
-      'question': 'Which command is used to create a new React Native project?',
+      'question': 'Which MariaDB feature helps improve performance?',
+      'options': ['Indexes', 'Triggers', 'Views', 'Cursors'],
+      'answer': 'Indexes'
+    },
+    {
+      'question': 'Which command is used to delete a database in MariaDB?',
+      'options': ['DELETE DATABASE', 'DROP DATABASE', 'REMOVE DB', 'TRUNCATE'],
+      'answer': 'DROP DATABASE'
+    },
+    {
+      'question': 'MariaDB supports which type of replication?',
       'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
+        'Synchronous replication',
+        'Asynchronous replication',
+        'Both synchronous and asynchronous',
+        'Neither'
       ],
-      'answer': 'npx react-native init'
+      'answer': 'Both synchronous and asynchronous'
     },
     {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
+      'question': 'Which tool is commonly used to manage MariaDB?',
+      'options': ['phpMyAdmin', 'Oracle SQL Developer', 'pgAdmin', 'SQLite Studio'],
+      'answer': 'phpMyAdmin'
     },
     {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'Which keyword is used to sort the result set in MariaDB?',
+      'options': ['SORT BY', 'GROUP BY', 'ORDER BY', 'FILTER BY'],
+      'answer': 'ORDER BY'
     },
   ];
 
@@ -191,7 +191,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'MariaDB', // Updated for MariaDB
         'date': DateTime.now(),
       });
 
@@ -228,7 +228,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('MariaDB Quiz'), // Updated title for MariaDB
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

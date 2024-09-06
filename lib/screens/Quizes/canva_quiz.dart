@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class CanvaQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _CanvaQuizPageState createState() => _CanvaQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _CanvaQuizPageState extends State<CanvaQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,54 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
-      'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
-      ],
-      'answer': 'A mobile development framework'
+      'question': 'What is Canva primarily used for?',
+      'options': ['Video editing', 'Graphic design', 'Programming', 'Database management'],
+      'answer': 'Graphic design'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'Which platform owns Canva?',
+      'options': ['Adobe', 'Canva Inc.', 'Microsoft', 'Google'],
+      'answer': 'Canva Inc.'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'What can you create using Canva?',
+      'options': ['Presentations', 'Social media posts', 'Marketing materials', 'All of the above'],
+      'answer': 'All of the above'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
+      'question': 'Canva allows you to collaborate with others in real-time. True or False?',
+      'options': ['True', 'False'],
+      'answer': 'True'
     },
     {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
+      'question': 'Which of the following is a popular feature in Canva?',
+      'options': ['Presentation mode', 'Code editor', 'Audio production', '3D modeling'],
+      'answer': 'Presentation mode'
     },
     {
-      'question': 'What is JSX in React Native?',
-      'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
-      ],
-      'answer': 'A JavaScript XML syntax'
+      'question': 'What type of tool is Canva?',
+      'options': ['Web-based', 'Desktop only', 'Mobile only', 'None of the above'],
+      'answer': 'Web-based'
     },
     {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
+      'question': 'Can you use Canva for free?',
+      'options': ['Yes, fully free', 'Only with a subscription', 'Free with limited features', 'No'],
+      'answer': 'Free with limited features'
     },
     {
-      'question': 'Which command is used to create a new React Native project?',
-      'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
-      ],
-      'answer': 'npx react-native init'
+      'question': 'Which of these file types can you export from Canva?',
+      'options': ['JPG', 'PNG', 'PDF', 'All of the above'],
+      'answer': 'All of the above'
     },
     {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
+      'question': 'Which Canva feature is used to create designs from scratch?',
+      'options': ['Templates', 'Blank Canvas', 'Pre-made Designs', 'Auto Design'],
+      'answer': 'Blank Canvas'
     },
     {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'What is a brand kit in Canva?',
+      'options': ['A collection of fonts and colors', 'A video editing tool', 'A programming language', 'A type of database'],
+      'answer': 'A collection of fonts and colors'
     },
   ];
 
@@ -191,7 +176,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'Canva', // Updated for Canva
         'date': DateTime.now(),
       });
 
@@ -228,7 +213,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('Canva Quiz'), // Updated title for Canva
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

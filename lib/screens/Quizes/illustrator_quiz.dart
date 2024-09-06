@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ReactNativeQuizPage extends StatefulWidget {
+class IllustratorQuizPage extends StatefulWidget {
   @override
-  _ReactNativeQuizPageState createState() => _ReactNativeQuizPageState();
+  _IllustratorQuizPageState createState() => _IllustratorQuizPageState();
 }
 
-class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
+class _IllustratorQuizPageState extends State<IllustratorQuizPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   int _currentQuestionIndex = 0;
@@ -19,69 +19,54 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
 
   final List<Map<String, dynamic>> _questions = [
     {
-      'question': 'What is React Native?',
-      'options': [
-        'A web framework',
-        'A mobile development framework',
-        'A desktop app framework',
-        'An operating system'
-      ],
-      'answer': 'A mobile development framework'
+      'question': 'What is Adobe Illustrator primarily used for?',
+      'options': ['Photo editing', 'Vector graphics', 'Video editing', '3D modeling'],
+      'answer': 'Vector graphics'
     },
     {
-      'question': 'Which company developed React Native?',
-      'options': ['Google', 'Facebook', 'Microsoft', 'Apple'],
-      'answer': 'Facebook'
+      'question': 'Which tool in Illustrator is used for creating shapes?',
+      'options': ['Pen Tool', 'Brush Tool', 'Shape Tool', 'Eraser Tool'],
+      'answer': 'Shape Tool'
     },
     {
-      'question': 'What language is used to write React Native apps?',
-      'options': ['Swift', 'Kotlin', 'JavaScript', 'Dart'],
-      'answer': 'JavaScript'
+      'question': 'What is the function of the Pathfinder tool?',
+      'options': ['Align objects', 'Create complex shapes', 'Edit paths', 'Change colors'],
+      'answer': 'Create complex shapes'
     },
     {
-      'question': 'What is the primary UI library used with React Native?',
-      'options': ['Flutter', 'Vue.js', 'React', 'Angular'],
-      'answer': 'React'
+      'question': 'What does the Direct Selection Tool do?',
+      'options': ['Selects entire objects', 'Selects anchor points and paths', 'Deletes objects', 'Transforms objects'],
+      'answer': 'Selects anchor points and paths'
     },
     {
-      'question': 'Which component is used to create a button in React Native?',
-      'options': ['TextButton', 'Button', 'TouchableOpacity', 'RaisedButton'],
-      'answer': 'Button'
+      'question': 'How can you change the color of a stroke in Illustrator?',
+      'options': ['Using the Color Picker', 'Using the Gradient Tool', 'Using the Shape Tool', 'Using the Eraser Tool'],
+      'answer': 'Using the Color Picker'
     },
     {
-      'question': 'What is JSX in React Native?',
-      'options': [
-        'A UI framework',
-        'A JavaScript XML syntax',
-        'A database engine',
-        'A CSS preprocessor'
-      ],
-      'answer': 'A JavaScript XML syntax'
+      'question': 'Which panel in Illustrator is used to manage layers?',
+      'options': ['Layers Panel', 'Tools Panel', 'Swatches Panel', 'Properties Panel'],
+      'answer': 'Layers Panel'
     },
     {
-      'question': 'Which method is used to create a stateful component in React Native?',
-      'options': ['render()', 'componentDidMount()', 'useState()', 'useEffect()'],
-      'answer': 'useState()'
+      'question': 'What is a clipping mask used for?',
+      'options': ['To hide parts of an object', 'To apply effects', 'To resize objects', 'To create gradients'],
+      'answer': 'To hide parts of an object'
     },
     {
-      'question': 'Which command is used to create a new React Native project?',
-      'options': [
-        'react-native new',
-        'npx react-native init',
-        'flutter create',
-        'npm init react-native'
-      ],
-      'answer': 'npx react-native init'
+      'question': 'Which tool is used for drawing freeform paths in Illustrator?',
+      'options': ['Pen Tool', 'Pencil Tool', 'Blob Brush Tool', 'Type Tool'],
+      'answer': 'Pencil Tool'
     },
     {
-      'question': 'Which tool is used to manage React Native dependencies?',
-      'options': ['npm', 'yarn', 'gradle', 'pub'],
-      'answer': 'npm'
+      'question': 'What is the purpose of artboards in Illustrator?',
+      'options': ['To organize different pages or sections', 'To apply filters', 'To group objects', 'To edit text'],
+      'answer': 'To organize different pages or sections'
     },
     {
-      'question': 'How do you display text in React Native?',
-      'options': ['Text', 'Label', 'Caption', 'Span'],
-      'answer': 'Text'
+      'question': 'How do you create a new document in Adobe Illustrator?',
+      'options': ['File > New', 'Edit > New', 'Window > New', 'Object > New'],
+      'answer': 'File > New'
     },
   ];
 
@@ -191,7 +176,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
           .add({
         'name': _studentName,
         'email': _userEmail,
-        'course': 'React Native', // Updated for React Native
+        'course': 'Adobe Illustrator', // Course name set to Adobe Illustrator
         'date': DateTime.now(),
       });
 
@@ -228,7 +213,7 @@ class _ReactNativeQuizPageState extends State<ReactNativeQuizPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('React Native Quiz'), // Updated title for React Native
+          title: Text('Adobe Illustrator Quiz'), // Updated title for Adobe Illustrator
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
