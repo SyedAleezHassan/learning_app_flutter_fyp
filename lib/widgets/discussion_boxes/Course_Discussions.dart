@@ -29,7 +29,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
 
     String userEmail = user.email ?? "unknown";
     String userName = getUsername(userEmail); // Get part before '@'
-
+    String users;
     await FirebaseFirestore.instance
         .collection('chats')
         .doc(widget.courseId)
